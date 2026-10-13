@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Baixar arquivos do repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Preparar Java 17
         uses: actions/setup-java@v4
@@ -27,11 +29,17 @@ jobs:
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Descompactar o projeto
+      - name: Descompactar o projeto mais recente
         run: |
           rm -rf build-project
           mkdir -p build-project
-          unzip -q APP2_Guitar_Trainer_ANDROID_NATIVE_v9.zip -d build-project
+          ZIP_FILE=$(git log -1 --format= --name-only --diff-filter=AM -- 'APP2_Guitar_Trainer_ANDROID_NATIVE_v9*.zip' | head -n 1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "Nenhum ZIP V9 encontrado."
+            exit 1
+          fi
+          echo "Compilando ZIP: $ZIP_FILE"
+          unzip -q "$ZIP_FILE" -d build-project
 
       - name: Definir versão automática
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
