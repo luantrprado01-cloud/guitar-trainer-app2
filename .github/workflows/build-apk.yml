@@ -27,7 +27,7 @@ jobs:
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-           - name: Descompactar o projeto
+      - name: Descompactar o projeto
         run: |
           rm -rf build-project
           mkdir -p build-project
