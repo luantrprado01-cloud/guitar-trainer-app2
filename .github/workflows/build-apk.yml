@@ -2,6 +2,11 @@ name: Gerar APK Release Assinado
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/build-apk.yml'
 
 jobs:
   build:
@@ -40,6 +45,22 @@ jobs:
           fi
           echo "Compilando ZIP: $ZIP_FILE"
           unzip -q "$ZIP_FILE" -d build-project
+
+      - name: Atualizar conteúdo web para a versão atual
+        working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
+        run: |
+          cp "$GITHUB_WORKSPACE/index.html" app/src/main/assets/index.html
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("app/src/main/assets/index.html")
+          s = p.read_text(encoding="utf-8")
+          s = s.replace(
+              "jam-audio/",
+              "https://luantrprado01-cloud.github.io/guitar-trainer-app2/jam-audio/"
+          )
+          p.write_text(s, encoding="utf-8")
+          print("index.html atualizado para a versão atual do repositório.")
+          PY
 
       - name: Definir versão automática
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
