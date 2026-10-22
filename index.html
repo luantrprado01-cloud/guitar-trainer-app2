@@ -234,7 +234,7 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 @media(max-width:700px){.jam-role-row{grid-template-columns:1fr}.jam-mixer{grid-template-columns:1fr}}
 
 
-/* V14.46 • MIXER ONLINE HONESTO + WYGA EM REVISÃO */
+/* V14.47 • LISTA MANUAL COMPLETA + AUTO SEGURO */
 .jam-research-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.jam-research-row span{background:#17100b;border:1px dashed #80612e;border-radius:9px;padding:8px;color:#d6c18f;font-size:.61rem;line-height:1.35}.jam-research-row b{color:#f1cf79}@media(max-width:760px){.jam-research-row{grid-template-columns:1fr}}
 .jam-pack-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}.jam-pack-meta span{background:#21150e;border:1px solid #7b5925;color:#f1cf79;border-radius:999px;padding:6px 9px;font-size:.62rem;font-weight:1000;letter-spacing:.04em}.jam-pack-title{background:#fff6df;border:1px solid #bd9450;border-radius:11px;padding:10px;color:#2c1d10;line-height:1.35}.jam-pack-title span{font-size:.7rem;color:#755a2d}.jam-pack-copy{font-size:.68rem;line-height:1.5;color:#644a25}.jam-pack-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.jam-link-btn{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;border:1px solid #8c682f;border-radius:10px;background:#21150e;color:#f2d994!important;font-weight:1000;font-size:.66rem;text-decoration:none;padding:8px;cursor:pointer}.jam-link-btn.red{background:#84191b;color:#fff!important;border-color:#c99a4b}.jam-stem-status{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.jam-stem-status span{background:#17100b;border:1px solid #5f4929;border-radius:8px;padding:7px 5px;color:#baa77e;font-size:.58rem;font-weight:900;text-align:center}.jam-stem-status span.ready{border-color:#548b4b;color:#bfe9b6}.jam-role-v15{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jam-role-v15 button{min-height:48px}.jam-role-v15 button.active{background:#8c1719;border-color:#e6c56a;color:#fff}.jam-mixer-v15 .jam-strip{min-height:110px}.jam-progress-v15{height:9px;background:#1b120c;border:1px solid #6f5228;border-radius:999px;overflow:hidden;margin-top:12px}.jam-progress-v15>div{height:100%;width:0;background:#b98b35;transition:width .12s linear}.jam-time-v15{display:flex;justify-content:space-between;color:#6d522b;font-size:.62rem;font-weight:900;margin-top:4px}@media(max-width:760px){.jam-pack-actions{grid-template-columns:1fr}.jam-stem-status{grid-template-columns:1fr 1fr}.jam-role-v15{grid-template-columns:1fr}}
 
@@ -997,7 +997,6 @@ html,body{min-height:100%;}
   </div>
   <div id="scaleGrid" class="scale-grid"></div>
 </section>
-
 <section id="scale-detail" class="screen">
   <div class="rowgap">
     <button class="ghost" type="button" id="backScales">← ESCALAS</button>
@@ -1573,8 +1572,8 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.46 • MIXER ONLINE + SINCRONIZAÇÃO</strong><br>
-    Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. A biblioteca contém <b>19 Jam Packs disponíveis</b> e <b>1 pack temporariamente em revisão de sincronização</b>. Mantemos a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
+  <div class="jam-intro"><strong class="gold">V14.47 • TODAS AS BACKTRACKS VISÍVEIS</strong><br>
+    Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. O seletor manual mostra <b>as 20 backtracks</b>; a seleção <b>AUTO</b> usa apenas as <b>19 validadas</b> e evita temporariamente <b>1 pack em revisão de sincronização</b>. Mantemos a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
   </div>
 
   <div class="jam-grid">
@@ -1998,7 +1997,7 @@ function gtRenderProfiles(){
 function gtOpenProfiles(force=false){gtHideProfileCreate();gtHideDeleteConfirm();gtRenderProfiles();const o=document.getElementById('profileOverlay');if(o){o.classList.add('active');o.setAttribute('aria-hidden','false')}const c=document.getElementById('profileClose');if(c)c.style.display=force?'none':''}
 function gtCloseProfiles(){const o=document.getElementById('profileOverlay');if(o){o.classList.remove('active');o.setAttribute('aria-hidden','true')}}
 function gtActivateProfile(id){
-  if(!gtProfiles.some(p=>p.id===id))return false;
+if(!gtProfiles.some(p=>p.id===id))return false;
   if(id===gtActiveProfileId){gtHideProfileCreate();gtHideDeleteConfirm();gtCloseProfiles();gtRenderProfiles();return true}
   try{
     if(typeof trainingRunning!=='undefined'&&trainingRunning){trainingRunning=false;clearInterval(trainingTimerId);trainingTimerId=null;clearTimeout(trainingAdvanceTimer);trainingAdvanceTimer=null}
@@ -3998,7 +3997,7 @@ function gtRefreshHomeDashboard(){
   const p=recommendedTrainingProfile();
   const title=document.getElementById('homeResumeTitle');
   const copy=document.getElementById('homeResumeCopy');
-  const mins=document.getElementById('homeResumeMinutes');
+const mins=document.getElementById('homeResumeMinutes');
   const level=document.getElementById('homeResumeLevel');
   const focus=document.getElementById('homeResumeFocus');
   if(mins)mins.textContent=p.minutes+' min';
@@ -4411,10 +4410,10 @@ function jamPopulateBacktracks(reset=false,styleOverride=null){
   const sel=document.getElementById('jamBacktrackSelect');if(!sel)return;
   const current=sel.value;
   const style=styleOverride===null?(document.getElementById('jamStyleSelect')?.value||'all'):styleOverride;
-  const packs=jamStylePacks(style).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p));
+  const packs=jamStylePacks(style).filter(p=>jamPackRedistributable(p));
   sel.innerHTML='';
   const auto=document.createElement('option');auto.value='auto';auto.textContent='AUTO • ESCOLHER PARA MIM';sel.appendChild(auto);
-  packs.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.label;sel.appendChild(o)});
+  packs.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.label+(jamPackAutoEligible(p)?'':' • EM REVISÃO');sel.appendChild(o)});
   const keep=!reset&&[...sel.options].some(o=>o.value===current);
   sel.value=keep?current:'auto';
 }
@@ -4483,7 +4482,8 @@ function jamPopulateLibrary(){
     const back=document.getElementById('jamBacktrackSelect');if(back)back.value=saved;
     const p=JAM_PACKS[saved];if(p&&style)style.value=jamPrimaryStyleForPack(p);
   }else{
-    jamPopulateBacktracks(false);
+    if(style)style.value='all';
+    jamPopulateBacktracks(false,'all');
   }
 }
 function jamAssetUrl(p,file){return p.assetDir+String(file).split('/').map(encodeURIComponent).join('/')}
