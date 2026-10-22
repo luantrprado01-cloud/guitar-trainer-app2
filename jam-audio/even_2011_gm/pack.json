@@ -1,0 +1,71 @@
+{
+  "id": "even_2011_gm",
+  "title": "2011 Even",
+  "key": "Gm",
+  "bpm": 80,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/unreal_dm/29561",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "1 - Bass.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 206.158,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "9 - Drums.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 207.073,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "7 - Piano.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 204.121,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "3 - GuitarChords.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 198.191,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "8 - GuitarLead.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 207.073,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 198.191,
+  "duration_max_seconds": 207.073,
+  "duration_spread_seconds": 8.882,
+  "issues": [
+    "duration_spread_8.9s"
+  ],
+  "web_audio": {
+    "solo": "jam-audio/even_2011_gm/solo.mp3",
+    "base": "jam-audio/even_2011_gm/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16,
+    "trimmed_leading_silence_seconds": 1.306
+  }
+}
