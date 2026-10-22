@@ -1,0 +1,68 @@
+{
+  "id": "waiting_ii_dm",
+  "title": "Waiting II Stems",
+  "key": "Dm",
+  "bpm": 120,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/subliminal/34209",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 65,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "Waiting II-bass.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 416.026,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "Waiting II-drums.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 416.026,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "Waiting II-organ.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 416.026,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "Waiting II-12 string.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 416.026,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "Waiting II-bowed guitar.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 416.026,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 416.026,
+  "duration_max_seconds": 416.026,
+  "duration_spread_seconds": 0.0,
+  "issues": [],
+  "web_audio": {
+    "solo": "jam-audio/waiting_ii_dm/solo.mp3",
+    "base": "jam-audio/waiting_ii_dm/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

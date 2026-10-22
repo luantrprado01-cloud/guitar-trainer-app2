@@ -1,0 +1,72 @@
+{
+  "id": "amblin_d",
+  "title": "Amblin",
+  "key": "D",
+  "bpm": 165,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/25417",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "role_mapping_validated",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(7).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 251.574,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 1
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(6).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 244.349,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "organ(4).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 253.426,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "Stratocaster.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 253.426,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 1
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "Telecaster.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 250.478,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 1
+    }
+  },
+  "duration_min_seconds": 244.349,
+  "duration_max_seconds": 253.426,
+  "duration_spread_seconds": 9.077,
+  "issues": [
+    "duration_spread_9.1s"
+  ],
+  "role_notes": "Validado pelo usuário: Stratocaster = BASE; Telecaster = SOLO/lead.",
+  "web_audio": {
+    "solo": "jam-audio/amblin_d/solo.mp3",
+    "base": "jam-audio/amblin_d/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16,
+    "trimmed_leading_silence_seconds": 8.41
+  }
+}

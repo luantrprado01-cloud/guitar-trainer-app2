@@ -1,0 +1,68 @@
+{
+  "id": "chalk_one_up_fsmin",
+  "title": "Chalk One Up",
+  "key": "F#m",
+  "bpm": 83,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/60298",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 215.327,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 216.947,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "rhodes.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 215.327,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "rhythm guitar.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 216.947,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "lead guitar.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 215.327,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 215.327,
+  "duration_max_seconds": 216.947,
+  "duration_spread_seconds": 1.62,
+  "issues": [],
+  "web_audio": {
+    "solo": "jam-audio/chalk_one_up_fsmin/solo.mp3",
+    "base": "jam-audio/chalk_one_up_fsmin/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

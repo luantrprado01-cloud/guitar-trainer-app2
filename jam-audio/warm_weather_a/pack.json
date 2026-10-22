@@ -1,0 +1,67 @@
+{
+  "id": "warm_weather_a",
+  "title": "Warm Weather Forecast",
+  "key": "A",
+  "bpm": 120,
+  "license": "CC BY 4.0",
+  "source": "https://ccmixter.org/files/admiralbob77/68756",
+  "play_modes": "SOLO",
+  "audit_status": "role_mapping_validated_solo_only",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(20261021-154009).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 73.169,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(20261021-154009).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 73.169,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "organ(5).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 73.169,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "crackle guitar.mp3 + snap guitar.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 74.24,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2,
+      "components": [
+        "crackle guitar.mp3 (principal)",
+        "snap guitar.mp3 (camada de base)"
+      ]
+    }
+  },
+  "duration_min_seconds": 73.169,
+  "duration_max_seconds": 74.24,
+  "duration_spread_seconds": 1.071,
+  "issues": [],
+  "optional_assets": {
+    "snap_base_layer.mp3": "Cópia da Snap Guitar preservada como camada de base; não é tratada como lead."
+  },
+  "role_notes": "Validado pelo usuário: Crackle = base principal; Snap também é base/camada. Não existe lead verdadeiro, portanto o pack fica apenas em EU TOCO SOLO.",
+  "web_audio": {
+    "solo": "jam-audio/warm_weather_a/solo.mp3",
+    "base": null,
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

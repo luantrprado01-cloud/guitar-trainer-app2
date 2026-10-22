@@ -1,0 +1,71 @@
+{
+  "id": "cm_105",
+  "title": "Cm 105 bpm",
+  "key": "Cm",
+  "bpm": 105,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/42297",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(3).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 78.817,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 1
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drum.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 66.827,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "piano(1).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 77.772,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "rguitar(1).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 75.891,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "lguitar.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 79.0,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 66.827,
+  "duration_max_seconds": 79.0,
+  "duration_spread_seconds": 12.173,
+  "issues": [
+    "duration_spread_12.2s"
+  ],
+  "web_audio": {
+    "solo": "jam-audio/cm_105/solo.mp3",
+    "base": "jam-audio/cm_105/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16,
+    "trimmed_leading_silence_seconds": 4.37
+  }
+}
