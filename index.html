@@ -233,7 +233,7 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 @media(max-width:700px){.jam-role-row{grid-template-columns:1fr}.jam-mixer{grid-template-columns:1fr}}
 
 
-/* V14.44 • SOLO/BASE INSTANTÂNEO */
+/* V14.45 • TOM PENDENTE CORRIGIDO */
 .jam-research-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.jam-research-row span{background:#17100b;border:1px dashed #80612e;border-radius:9px;padding:8px;color:#d6c18f;font-size:.61rem;line-height:1.35}.jam-research-row b{color:#f1cf79}@media(max-width:760px){.jam-research-row{grid-template-columns:1fr}}
 .jam-pack-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}.jam-pack-meta span{background:#21150e;border:1px solid #7b5925;color:#f1cf79;border-radius:999px;padding:6px 9px;font-size:.62rem;font-weight:1000;letter-spacing:.04em}.jam-pack-title{background:#fff6df;border:1px solid #bd9450;border-radius:11px;padding:10px;color:#2c1d10;line-height:1.35}.jam-pack-title span{font-size:.7rem;color:#755a2d}.jam-pack-copy{font-size:.68rem;line-height:1.5;color:#644a25}.jam-pack-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.jam-link-btn{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;border:1px solid #8c682f;border-radius:10px;background:#21150e;color:#f2d994!important;font-weight:1000;font-size:.66rem;text-decoration:none;padding:8px;cursor:pointer}.jam-link-btn.red{background:#84191b;color:#fff!important;border-color:#c99a4b}.jam-stem-status{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.jam-stem-status span{background:#17100b;border:1px solid #5f4929;border-radius:8px;padding:7px 5px;color:#baa77e;font-size:.58rem;font-weight:900;text-align:center}.jam-stem-status span.ready{border-color:#548b4b;color:#bfe9b6}.jam-role-v15{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jam-role-v15 button{min-height:48px}.jam-role-v15 button.active{background:#8c1719;border-color:#e6c56a;color:#fff}.jam-mixer-v15 .jam-strip{min-height:110px}.jam-progress-v15{height:9px;background:#1b120c;border:1px solid #6f5228;border-radius:999px;overflow:hidden;margin-top:12px}.jam-progress-v15>div{height:100%;width:0;background:#b98b35;transition:width .12s linear}.jam-time-v15{display:flex;justify-content:space-between;color:#6d522b;font-size:.62rem;font-weight:900;margin-top:4px}@media(max-width:760px){.jam-pack-actions{grid-template-columns:1fr}.jam-stem-status{grid-template-columns:1fr 1fr}.jam-role-v15{grid-template-columns:1fr}}
 
@@ -1572,7 +1572,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.44 • SOLO/BASE INSTANTÂNEO</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.45 • TOM PENDENTE CORRIGIDO</strong><br>
     Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. A biblioteca contém <b>20 Jam Packs utilizáveis</b> e mantém a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
   </div>
 
@@ -4433,8 +4433,9 @@ function jamSetOriginalControls(p){
   if(p.knownKey!==false){
     if(autoKey)autoKey.value=String(p.rootPc);
     if(targetKey){targetKey.value=String(p.rootPc);targetKey.disabled=false}
-  }else if(targetKey){
-    targetKey.disabled=true;
+  }else{
+    if(autoKey){autoKey.value='0';autoKey.disabled=true}
+    if(targetKey)targetKey.disabled=true;
   }
   const autoBpm=document.getElementById('jamAutoBpm'),targetBpm=document.getElementById('jamTargetBpm');
   if(Number(p.bpm)>0){
@@ -4452,7 +4453,7 @@ function jamStageManualBacktrack(){
   const style=document.getElementById('jamStyleSelect');if(style)style.value=jamPrimaryStyleForPack(p);
   // O estilo é preenchido automaticamente, mas a lista completa de músicas continua aberta; ela só é filtrada quando o usuário muda ESTILO.
   const back=document.getElementById('jamBacktrackSelect');if(back)back.value=p.id;
-  const mode=document.getElementById('jamAutoMode');if(mode&&['major','minor','blues'].includes(p.mode))mode.value=p.mode;
+  const mode=document.getElementById('jamAutoMode');if(mode)mode.value=['major','minor','blues'].includes(p.mode)?p.mode:'any';
   jamSyncRoleForPack(p);
   jamSetOriginalControls(p);
   jamUpdateKeyAvailability();
@@ -4561,7 +4562,15 @@ function jamSuggestedBaseKeys(missing){
 }
 function jamUpdateKeyAvailability(){
   const sel=document.getElementById('jamAutoKey');if(!sel)return false;
-  const i=jamAutoInputs(),manual=jamSelectedBacktrack(),packs=(manual?[manual]:jamStylePacks(i.style)).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p)&&jamPackFitsRole(p,i.role)&&jamPackFitsMode(p,i.mode));
+  const i=jamAutoInputs(),manual=jamSelectedBacktrack();
+  if(manual&&manual.knownKey===false){
+    sel.disabled=true;
+    [...sel.options].forEach((o,k)=>{o.textContent=k===0?'TOM A CONFIRMAR':JAM_NOTE_NAMES[k];o.disabled=k!==0;o.classList.toggle('jam-empty-key',k!==0)});
+    sel.value='0';
+    return false;
+  }
+  sel.disabled=false;
+  const packs=(manual?[manual]:jamStylePacks(i.style)).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p)&&jamPackFitsRole(p,i.role)&&jamPackFitsMode(p,i.mode));
   let firstEnabled=null,changed=false;
   [...sel.options].forEach((o,k)=>{
     const exact=packs.some(p=>p.multiKey||(p.knownKey!==false&&jamSignedDistance(p.rootPc,k)===0));
@@ -4587,7 +4596,16 @@ function jamRestoreAutoPrefs(){try{const raw=localStorage.getItem(gtProfileKey('
 function jamRestoreBacktrackPref(){try{const raw=localStorage.getItem(gtProfileKey('guitarTrainerJamAutoV1442'));if(!raw)return null;const v=JSON.parse(raw);const id=v.backtrack;const all=jamStylePacks('all').filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p));if(id&&id!=='auto'&&all.some(p=>p.id===id))return id;return null}catch(e){return null}}
 function jamRefreshAutoPreview(){
   jamUpdateKeyAvailability();
-  const i=jamAutoInputs(),el=document.getElementById('jamAutoResult');if(!el)return;const manual=jamSelectedBacktrack(),mc=manual?jamCandidateFor(manual,i):null,r=manual?{list:[mc],safe:mc.safe?mc:null,keyRoleSafe:(mc.licenseSafe&&mc.roleSafe&&mc.modeSafe&&mc.keySafe&&mc.bpmKnown)?mc:null,best:mc}:jamBestPackFor(i.style,i.targetPc,i.bpm,i.role,i.mode);const read=document.getElementById('jamAutoBpmReadout');if(read)read.textContent=i.bpm;jamPersistAutoPrefs();jamUpdateCoverage();
+  const i=jamAutoInputs(),el=document.getElementById('jamAutoResult');if(!el)return;
+  const manual=jamSelectedBacktrack();
+  const read=document.getElementById('jamAutoBpmReadout');if(read)read.textContent=i.bpm;
+  jamPersistAutoPrefs();jamUpdateCoverage();
+  if(manual&&manual.knownKey===false){
+    el.className='jam-quality good';
+    el.innerHTML=`<b>TOM A CONFIRMAR.</b> ${manual.title} toca no áudio original, sem transposição tonal, até identificarmos o tom com segurança. • ${manual.bpm} BPM • ${i.role==='solo'?'você toca SOLO':'você toca BASE'}.`;
+    return;
+  }
+  const mc=manual?jamCandidateFor(manual,i):null,r=manual?{list:[mc],safe:mc.safe?mc:null,keyRoleSafe:(mc.licenseSafe&&mc.roleSafe&&mc.modeSafe&&mc.keySafe&&mc.bpmKnown)?mc:null,best:mc}:jamBestPackFor(i.style,i.targetPc,i.bpm,i.role,i.mode);
   if(!r.list.length){el.className='jam-quality risk';el.innerHTML='<b>SEM PACK NESTE ESTILO.</b> Precisamos adicionar uma gravação real.';return}
   if(r.safe){const x=r.safe,dist=Math.abs(x.shift),sign=x.shift>0?'+':'',mode=x.p.modeLabel||'';el.className='jam-quality good';el.innerHTML=`<b>${dist===0||x.p.multiKey?'COMBINAÇÃO IDEAL ENCONTRADA.':'PACK SEGURO ENCONTRADO.'}</b> ${x.p.title} • ${x.p.multiKey?'gravação disponível no tom pedido':'original '+JAM_NOTE_NAMES[x.p.rootPc]+' '+mode} → ${JAM_NOTE_NAMES[i.targetPc]} • ${x.p.multiKey?'sem pitch-shift':'transposição '+sign+x.shift+' semitom'+(dist===1?'':'s')} • ${x.p.bpm} → ${i.bpm} BPM • ${i.role==='solo'?'você toca SOLO':'você toca BASE'}.`;return}
   const keyOk=r.keyRoleSafe;
