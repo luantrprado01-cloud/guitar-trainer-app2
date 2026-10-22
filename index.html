@@ -217,6 +217,7 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 .jam-transport{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.jam-transport button{min-height:44px}.jam-mixer{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.jam-strip{background:#21150e;border:1px solid #715327;border-radius:11px;padding:9px;color:#f1ddb0}.jam-strip label{color:#f1ddb0;display:block}.jam-strip input[type=range]{width:100%;margin-top:7px}.jam-strip .jam-toggle{display:flex;gap:6px;align-items:center;color:#f1c968;font-weight:900}
 .jam-options{display:flex;gap:12px;flex-wrap:wrap;margin-top:9px;font-size:.68rem;font-weight:900;color:#59401f}.jam-status{margin-top:9px;background:#17100b;border:1px solid #715327;border-radius:10px;padding:9px;color:#f0d69b;font-size:.7rem;line-height:1.4}.jam-status strong{color:#fff}.jam-create-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.jam-create-actions button{min-height:42px}
 @media(max-width:700px){.jam-grid{grid-template-columns:1fr}.jam-card.full{grid-column:1}.jam-mixer{grid-template-columns:1fr}.jam-progression{grid-template-columns:repeat(4,1fr)!important}.jam-bar{min-height:44px;padding:6px 3px}.jam-bar b{font-size:.76rem}}
+@media(max-width:700px){#jam.active{height:calc(100dvh - 12px);display:block!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;padding-bottom:calc(32px + env(safe-area-inset-bottom));overscroll-behavior:contain}}
 
 /* V14.4 • Real Band Engine • samples + arranjo musical */
 .jam-mixer{grid-template-columns:repeat(5,minmax(0,1fr))}
@@ -289,8 +290,9 @@ html,body{min-height:100%;}
   #notes #noteStatus{grid-column:2;grid-row:4;margin:0!important;min-height:14px;font-size:10px}
 }
 @media (max-width:700px){
-  body{overflow:hidden}
-  .app{min-height:100dvh;max-height:100dvh;overflow:hidden;padding:6px}
+  html,body{min-height:100%;height:auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  body{overscroll-behavior-y:auto}
+  .app{min-height:100dvh;max-height:none;overflow:visible;padding:6px;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
   #home.active{height:calc(100dvh - 12px);display:flex;align-items:center}
   #home .shell{width:100%;padding:10px}
   #home .shell>div:first-child{margin-bottom:10px!important}
@@ -625,7 +627,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.50 • JAM</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.51 • MOBILE SCROLL</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -1572,7 +1574,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.50 • JAM • 19 BACKTRACKS</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.51 • JAM • 19 BACKTRACKS</strong><br>
     Escolha uma <b>backtrack</b> ou deixe em <b>AUTO</b>. A app organiza estilo, tom e BPM e prepara a faixa certa conforme você escolher <b>EU TOCO SOLO</b> ou <b>EU TOCO BASE</b>. Para preservar a qualidade das guitarras, a transposição tonal fica limitada a <b>±1 semitom</b>.
   </div>
 
