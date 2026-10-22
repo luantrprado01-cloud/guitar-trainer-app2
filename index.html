@@ -233,7 +233,7 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 @media(max-width:700px){.jam-role-row{grid-template-columns:1fr}.jam-mixer{grid-template-columns:1fr}}
 
 
-/* V14.42 • BACKTRACK PRIMEIRO */
+/* V14.43 • SOLO/BASE INSTANTÂNEO */
 .jam-research-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.jam-research-row span{background:#17100b;border:1px dashed #80612e;border-radius:9px;padding:8px;color:#d6c18f;font-size:.61rem;line-height:1.35}.jam-research-row b{color:#f1cf79}@media(max-width:760px){.jam-research-row{grid-template-columns:1fr}}
 .jam-pack-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}.jam-pack-meta span{background:#21150e;border:1px solid #7b5925;color:#f1cf79;border-radius:999px;padding:6px 9px;font-size:.62rem;font-weight:1000;letter-spacing:.04em}.jam-pack-title{background:#fff6df;border:1px solid #bd9450;border-radius:11px;padding:10px;color:#2c1d10;line-height:1.35}.jam-pack-title span{font-size:.7rem;color:#755a2d}.jam-pack-copy{font-size:.68rem;line-height:1.5;color:#644a25}.jam-pack-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.jam-link-btn{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;border:1px solid #8c682f;border-radius:10px;background:#21150e;color:#f2d994!important;font-weight:1000;font-size:.66rem;text-decoration:none;padding:8px;cursor:pointer}.jam-link-btn.red{background:#84191b;color:#fff!important;border-color:#c99a4b}.jam-stem-status{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.jam-stem-status span{background:#17100b;border:1px solid #5f4929;border-radius:8px;padding:7px 5px;color:#baa77e;font-size:.58rem;font-weight:900;text-align:center}.jam-stem-status span.ready{border-color:#548b4b;color:#bfe9b6}.jam-role-v15{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jam-role-v15 button{min-height:48px}.jam-role-v15 button.active{background:#8c1719;border-color:#e6c56a;color:#fff}.jam-mixer-v15 .jam-strip{min-height:110px}.jam-progress-v15{height:9px;background:#1b120c;border:1px solid #6f5228;border-radius:999px;overflow:hidden;margin-top:12px}.jam-progress-v15>div{height:100%;width:0;background:#b98b35;transition:width .12s linear}.jam-time-v15{display:flex;justify-content:space-between;color:#6d522b;font-size:.62rem;font-weight:900;margin-top:4px}@media(max-width:760px){.jam-pack-actions{grid-template-columns:1fr}.jam-stem-status{grid-template-columns:1fr 1fr}.jam-role-v15{grid-template-columns:1fr}}
 
@@ -1572,7 +1572,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.42 • BACKTRACK PRIMEIRO</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.43 • SOLO/BASE INSTANTÂNEO</strong><br>
     Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. A biblioteca contém <b>20 Jam Packs utilizáveis</b> e mantém a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
   </div>
 
@@ -1637,7 +1637,7 @@ html,body{min-height:100%;}
             <option value="solo">EU TOCO SOLO</option>
             <option value="base">EU TOCO BASE</option>
           </select>
-          <div class="jam-auto-role-note">A faixa que você vai tocar é retirada automaticamente.</div>
+          <div id="jamAutoRoleNote" class="jam-auto-role-note">A faixa que você vai tocar é retirada automaticamente.</div>
         </label>
       </div>
       <div style="margin-top:9px">
@@ -1702,15 +1702,6 @@ html,body{min-height:100%;}
       </div>
       <div id="jamTransformQuality" class="jam-quality good"><b>QUALIDADE IDEAL.</b> Tom e BPM estão próximos da gravação original.</div><div class="jam-library-note"><b>QUALIDADE DE GUITARRA:</b> transposições longas de stems de guitarra criam artefatos. Nesta versão, cada Jam Pack tem limites próprios e o seletor automático escolhe outra gravação quando necessário.</div>
       <div class="jam-library-note">Cada pack usa uma <b>faixa segura cadastrada individualmente</b>. Conforme você testar os packs, podemos ampliar ou reduzir esses limites sem afetar os demais.</div>
-    </div>
-
-    <div class="jam-card" id="jamRoleRow">
-      <h3>O QUE VOCÊ VAI TOCAR?</h3>
-      <div class="jam-role-v15">
-        <button id="jamRoleSolo" type="button" class="active">🎸 EU TOCO SOLO</button>
-        <button id="jamRoleBase" type="button">🎸 EU TOCO BASE</button>
-      </div>
-      <div id="jamRoleExplain" class="jam-scale-guide"><b>EU TOCO SOLO:</b> guitarra solo gravada fica muda; a guitarra base permanece na banda.</div>
     </div>
 
     <div class="jam-card" id="jamScaleCard">
@@ -2165,7 +2156,7 @@ const GUIDED_TUTORIAL={
     {sel:'#jamLibraryCard',title:'BIBLIOTECA DE JAM PACKS',copy:'Cada estilo passa a ser uma gravação real diferente. Nesta versão já há Slow Blues e Funk Blues disponíveis; novos packs só serão ativados com stems reais e licença adequada.'},
     {sel:'#jamPackCard',title:'IMPORTAR STEMS REAIS',copy:'Abra a fonte licenciada, baixe e extraia os stems. Depois importe os cinco arquivos. A app reconhece bateria, baixo, Rhodes, guitarra base e guitarra solo pelo nome.'},
     {sel:'#jamTransformCard',title:'TOM + BPM',copy:'Escolha o tom e o andamento. O motor aplica a mesma transformação aos cinco stems. O indicador avisa quando a transposição está perto da gravação original ou quando já é grande demais para qualidade ideal.'},
-    {sel:'#jamRoleRow',title:'VOCÊ TOCA SOLO OU BASE',copy:'EU TOCO SOLO silencia a guitarra solo gravada. EU TOCO BASE silencia a guitarra base e mantém o solo real da banda.'},
+    {sel:'#jamAutoRole',title:'VOCÊ TOCA SOLO OU BASE',copy:'Escolha aqui uma única vez. Depois que a Jam estiver preparada, trocar EU TOCO SOLO ↔ EU TOCO BASE carrega imediatamente a faixa correspondente, sem precisar preparar a Jam de novo.'},
     {sel:'#jamScaleCard',title:'ESCALAS TRANPOSTAS',copy:'O guia acompanha o novo tom automaticamente e mostra a pentatônica menor e a escala blues correspondentes.'},
     {sel:'#jamMixerCard',title:'MIXER DE STEMS',copy:'Cada instrumento continua independente no mixer, mas todos compartilham exatamente o mesmo tom e BPM para permanecer sincronizados.'},
     {sel:'#jamStart',title:'INICIAR JAM',copy:'Depois que os cinco stems forem reconhecidos, INICIAR JAM fica disponível. LOOP repete o Jam Pack completo.'}
@@ -4697,8 +4688,60 @@ function jamStop(){jamStopPlayers();jamRunning=false;jamPositionSource=jamConten
 function jamStartTimer(){jamStopTimer();jamUiTimer=setInterval(()=>{jamUpdateTransport();if(!document.getElementById('jamLoop').checked&&jamSourceDuration>0&&jamCurrentSourcePos()>=jamSourceDuration-.04)jamStop()},100)}
 function jamStopTimer(){if(jamUiTimer){clearInterval(jamUiTimer);jamUiTimer=null}}
 function jamUpdateTransport(){const src=jamCurrentSourcePos(),rate=jamPlaybackRate||jamRate()||1,dur=jamSourceDuration||0,usable=Math.max(0,dur-jamContentStart),rel=Math.max(0,src-jamContentStart),curReal=rel/rate,durReal=usable/rate;document.getElementById('jamCurrentTime').textContent=jamFmtTime(curReal);document.getElementById('jamDuration').textContent=jamFmtTime(durReal);document.getElementById('jamStemProgress').style.width=usable?Math.min(100,(rel/usable)*100)+'%':'0%'}
-function jamRoleUI(){const p=jamPack(),roles=p.roles||['solo','base'];const soloBtn=document.getElementById('jamRoleSolo'),baseBtn=document.getElementById('jamRoleBase');soloBtn.disabled=!roles.includes('solo');baseBtn.disabled=!roles.includes('base');if(!roles.includes(jamRole))jamRole=roles.includes('solo')?'solo':'base';const autoRole=document.getElementById('jamAutoRole');if(autoRole)autoRole.value=jamRole;const solo=jamRole==='solo';soloBtn.classList.toggle('active',solo);baseBtn.classList.toggle('active',!solo);document.getElementById('jamRhythmOn').checked=solo&&!!jamNodes.rhythm;document.getElementById('jamLeadOn').checked=!solo&&!!jamNodes.lead;document.getElementById('jamRoleExplain').innerHTML=solo?'<b>EU TOCO SOLO:</b> a faixa SOLO/LEAD gravada fica muda; a BASE permanece.':('<b>EU TOCO BASE:</b> a BASE gravada fica muda; a faixa SOLO/LEAD permanece.');if(!roles.includes('base'))document.getElementById('jamRoleExplain').innerHTML+='<br><b>Este pack não possui guitarra solo separada;</b> portanto serve apenas para você tocar o solo.';jamApplyMix();if(jamAllReady())document.getElementById('jamStatus').innerHTML='<strong>'+ (solo?'VOCÊ TOCA O SOLO.':'VOCÊ TOCA A BASE.') +'</strong> '+(solo?'A base gravada permanece.':'A faixa lead gravada entra no arranjo.');jamUpdateCoverage()}
-function jamChooseRole(role){jamRole=role;jamRoleUI();jamPersistAutoPrefs();jamRefreshAutoPreview();if(jamPack().webAudio&&jamWebLoadedRole!==jamRole)jamLoadBundledPack(true)}
+function jamRoleUI(){
+  const manual=jamSelectedBacktrack(),p=manual||jamPack(),roles=manual?jamPackRoles(p):['solo','base'];
+  const autoRole=document.getElementById('jamAutoRole');
+  if(autoRole){
+    [...autoRole.options].forEach(o=>o.disabled=!roles.includes(o.value));
+    if(!roles.includes(jamRole))jamRole=roles.includes('solo')?'solo':roles[0];
+    autoRole.value=jamRole;
+  }
+  const solo=jamRole==='solo';
+  const note=document.getElementById('jamAutoRoleNote');
+  if(note){
+    note.innerHTML=solo?'A guitarra SOLO gravada é retirada; a BASE permanece.':'A guitarra BASE gravada é retirada; a SOLO permanece.';
+    if(manual&&!jamPackRoles(manual).includes('base'))note.innerHTML+='<br><b>Esta backtrack só permite EU TOCO SOLO.</b>';
+  }
+  const rhythm=document.getElementById('jamRhythmOn'),lead=document.getElementById('jamLeadOn');
+  if(rhythm)rhythm.checked=solo&&!!jamNodes.rhythm;
+  if(lead)lead.checked=!solo&&!!jamNodes.lead;
+  jamApplyMix();
+  if(jamAllReady()){
+    const st=document.getElementById('jamStatus');
+    if(st)st.innerHTML='<strong>'+ (solo?'VOCÊ TOCA O SOLO.':'VOCÊ TOCA A BASE.') +'</strong> '+(solo?'A base gravada permanece.':'A faixa lead gravada entra no arranjo.');
+  }
+  jamUpdateCoverage();
+}
+async function jamChooseRole(role){
+  const manual=jamSelectedBacktrack();
+  if(manual&&!jamPackRoles(manual).includes(role)){
+    jamSyncRoleForPack(manual);jamRoleUI();jamRefreshAutoPreview();return;
+  }
+  jamRole=role;jamRoleUI();jamPersistAutoPrefs();jamRefreshAutoPreview();
+
+  const prepared=!!jamWebNode||jamSourceDuration>0||jamAllReady();
+  if(!prepared)return;
+
+  // Backtrack escolhida manualmente: troca imediatamente entre solo/base da MESMA música.
+  if(manual){
+    if(manual.id!==jamPackId)return;
+    if(manual.webAudio&&manual.webAudio[jamRole]&&jamWebLoadedRole!==jamRole){
+      const st=document.getElementById('jamStatus');if(st)st.innerHTML='<strong>TROCANDO FAIXA.</strong> Preparando o modo '+(jamRole==='solo'?'EU TOCO SOLO':'EU TOCO BASE')+'…';
+      await jamLoadBundledPack(true);
+    }
+    return;
+  }
+
+  // AUTO: se a faixa atual suporta o outro papel, mantém a música e troca o mix.
+  const current=jamPack();
+  if(jamPackFitsRole(current,jamRole)&&current.webAudio&&current.webAudio[jamRole]){
+    if(jamWebLoadedRole!==jamRole)await jamLoadBundledPack(true);
+    return;
+  }
+
+  // Se a faixa AUTO atual não suporta o papel escolhido, a app procura outra automaticamente.
+  await jamAutoChoose();
+}
 function jamInferPackFromFiles(files){
   const names=[...files].map(f=>(f.name||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,''));
   const joined=names.join('|');
@@ -4737,7 +4780,7 @@ document.getElementById('jamBacktrackSelect').addEventListener('change',()=>{con
 document.getElementById('jamStyleSelect').addEventListener('change',()=>{jamStop();jamClearRoleRestrictions();jamPopulateBacktracks(true);jamRefreshAutoPreview()});
 document.getElementById('jamAutoKey').addEventListener('change',()=>{const p=jamSelectedBacktrack(),t=document.getElementById('jamTargetKey');if(p&&t&&p.knownKey!==false){t.value=document.getElementById('jamAutoKey').value;jamUpdateQuality()}jamRefreshAutoPreview()});
 document.getElementById('jamAutoBpm').addEventListener('input',()=>{const p=jamSelectedBacktrack(),t=document.getElementById('jamTargetBpm');if(p&&t&&Number(p.bpm)>0){const v=Number(document.getElementById('jamAutoBpm').value);t.value=String(Math.max(Number(t.min),Math.min(Number(t.max),v)));jamUpdateQuality()}jamRefreshAutoPreview()});
-document.getElementById('jamAutoRole').addEventListener('change',()=>{jamRole=document.getElementById('jamAutoRole').value;jamRefreshAutoPreview()});
+document.getElementById('jamAutoRole').addEventListener('change',()=>jamChooseRole(document.getElementById('jamAutoRole').value));
 document.getElementById('jamAutoMode').addEventListener('change',jamRefreshAutoPreview);
 document.getElementById('jamDevToggle').addEventListener('click',jamToggleDevTools);
 ['jamCreditSource','jamCreditLicense'].forEach(id=>{
@@ -4752,8 +4795,6 @@ document.getElementById('jamPackFiles').addEventListener('change',e=>{jamHandleF
 document.getElementById('jamTargetKey').addEventListener('change',()=>{const a=document.getElementById('jamAutoKey');if(a)a.value=document.getElementById('jamTargetKey').value;jamApplyTransform(true);jamRefreshAutoPreview()});
 document.getElementById('jamTargetBpm').addEventListener('input',()=>{jamUpdateQuality();const a=document.getElementById('jamAutoBpm');if(a&&!document.getElementById('jamTargetBpm').disabled){a.value=document.getElementById('jamTargetBpm').value;jamRefreshAutoPreview()}});
 document.getElementById('jamTargetBpm').addEventListener('change',()=>jamApplyTransform(true));
-document.getElementById('jamRoleSolo').addEventListener('click',()=>jamChooseRole('solo'));
-document.getElementById('jamRoleBase').addEventListener('click',()=>jamChooseRole('base'));
 document.getElementById('jamStart').addEventListener('click',()=>{if(!jamAllReady())return;if(jamRunning)jamPause();else jamPlayAll()});
 document.getElementById('jamStop').addEventListener('click',jamStop);
 Object.values(jamStemControl).forEach(c=>{document.getElementById(c.on).addEventListener('change',jamApplyMix);document.getElementById(c.vol).addEventListener('input',jamApplyMix)});
