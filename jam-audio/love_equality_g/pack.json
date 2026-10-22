@@ -1,0 +1,71 @@
+{
+  "id": "love_equality_g",
+  "title": "Love and Equality",
+  "key": "G",
+  "bpm": 100,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/Whitewolf225/61958",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "role_mix_review",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "Bass(9).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 302.424,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "Drums(8).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 302.424,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "Wurly.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 302.424,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "Acoustic Rhythm.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 302.424,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "Electric Effected.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 302.424,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 302.424,
+  "duration_max_seconds": 302.424,
+  "duration_spread_seconds": 0.0,
+  "issues": [
+    "lead_texture_mix_listening_review"
+  ],
+  "role_notes": "Keys combine Wurly+Pads. Lead layer combines Electric Effected+Electric Ambient. Vocals excluded. Acoustic Rhythm remains rhythm.",
+  "web_audio": {
+    "solo": "jam-audio/love_equality_g/solo.mp3",
+    "base": "jam-audio/love_equality_g/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

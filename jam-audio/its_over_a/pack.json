@@ -1,0 +1,68 @@
+{
+  "id": "its_over_a",
+  "title": "It's OVER!!!",
+  "key": "A",
+  "bpm": 125,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/62542",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(8).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 145.607,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(7).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 147.096,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "rhodes(3).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 144.875,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "comp guitar.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 144.875,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "lead guitar(2).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 144.875,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 144.875,
+  "duration_max_seconds": 147.096,
+  "duration_spread_seconds": 2.22,
+  "issues": [],
+  "web_audio": {
+    "solo": "jam-audio/its_over_a/solo.mp3",
+    "base": "jam-audio/its_over_a/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}
