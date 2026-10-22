@@ -233,7 +233,7 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 @media(max-width:700px){.jam-role-row{grid-template-columns:1fr}.jam-mixer{grid-template-columns:1fr}}
 
 
-/* V14.43 • SOLO/BASE INSTANTÂNEO */
+/* V14.44 • SOLO/BASE INSTANTÂNEO */
 .jam-research-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.jam-research-row span{background:#17100b;border:1px dashed #80612e;border-radius:9px;padding:8px;color:#d6c18f;font-size:.61rem;line-height:1.35}.jam-research-row b{color:#f1cf79}@media(max-width:760px){.jam-research-row{grid-template-columns:1fr}}
 .jam-pack-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}.jam-pack-meta span{background:#21150e;border:1px solid #7b5925;color:#f1cf79;border-radius:999px;padding:6px 9px;font-size:.62rem;font-weight:1000;letter-spacing:.04em}.jam-pack-title{background:#fff6df;border:1px solid #bd9450;border-radius:11px;padding:10px;color:#2c1d10;line-height:1.35}.jam-pack-title span{font-size:.7rem;color:#755a2d}.jam-pack-copy{font-size:.68rem;line-height:1.5;color:#644a25}.jam-pack-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.jam-link-btn{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;border:1px solid #8c682f;border-radius:10px;background:#21150e;color:#f2d994!important;font-weight:1000;font-size:.66rem;text-decoration:none;padding:8px;cursor:pointer}.jam-link-btn.red{background:#84191b;color:#fff!important;border-color:#c99a4b}.jam-stem-status{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.jam-stem-status span{background:#17100b;border:1px solid #5f4929;border-radius:8px;padding:7px 5px;color:#baa77e;font-size:.58rem;font-weight:900;text-align:center}.jam-stem-status span.ready{border-color:#548b4b;color:#bfe9b6}.jam-role-v15{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jam-role-v15 button{min-height:48px}.jam-role-v15 button.active{background:#8c1719;border-color:#e6c56a;color:#fff}.jam-mixer-v15 .jam-strip{min-height:110px}.jam-progress-v15{height:9px;background:#1b120c;border:1px solid #6f5228;border-radius:999px;overflow:hidden;margin-top:12px}.jam-progress-v15>div{height:100%;width:0;background:#b98b35;transition:width .12s linear}.jam-time-v15{display:flex;justify-content:space-between;color:#6d522b;font-size:.62rem;font-weight:900;margin-top:4px}@media(max-width:760px){.jam-pack-actions{grid-template-columns:1fr}.jam-stem-status{grid-template-columns:1fr 1fr}.jam-role-v15{grid-template-columns:1fr}}
 
@@ -1572,7 +1572,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.43 • SOLO/BASE INSTANTÂNEO</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.44 • SOLO/BASE INSTANTÂNEO</strong><br>
     Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. A biblioteca contém <b>20 Jam Packs utilizáveis</b> e mantém a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
   </div>
 
@@ -4402,10 +4402,11 @@ function jamPrimaryStyleForPack(p){
   const g=JAM_STYLE_GROUPS.find(x=>(x.packs||[]).includes(p.id));
   return g?g.id:'all';
 }
-function jamPopulateBacktracks(reset=false){
+function jamPopulateBacktracks(reset=false,styleOverride=null){
   const sel=document.getElementById('jamBacktrackSelect');if(!sel)return;
   const current=sel.value;
-  const packs=jamBacktrackPacks();
+  const style=styleOverride===null?(document.getElementById('jamStyleSelect')?.value||'all'):styleOverride;
+  const packs=jamStylePacks(style).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p));
   sel.innerHTML='';
   const auto=document.createElement('option');auto.value='auto';auto.textContent='AUTO • ESCOLHER PARA MIM';sel.appendChild(auto);
   packs.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.label;sel.appendChild(o)});
@@ -4469,8 +4470,15 @@ function jamPopulateLibrary(){
   if(style){style.innerHTML='';const all=document.createElement('option');all.value='all';all.textContent='TODOS OS ESTILOS';style.appendChild(all);JAM_STYLE_GROUPS.forEach(g=>{const o=document.createElement('option');o.value=g.id;o.textContent=g.label;style.appendChild(o)});style.value='all'}
   const badge=document.querySelector('.jam-pack-count');if(badge)badge.textContent=Object.values(JAM_PACKS).filter(p=>!p.hidden).length+' PACKS ORGANIZADOS';
   jamRestoreAutoPrefs();
-  jamPopulateBacktracks(false);
-  const saved=jamRestoreBacktrackPref();if(saved&&document.getElementById('jamBacktrackSelect'))document.getElementById('jamBacktrackSelect').value=saved;
+  const saved=jamRestoreBacktrackPref();
+  if(saved){
+    // Uma backtrack salva pode exibir o estilo dela sem transformar esse estilo em filtro da biblioteca.
+    jamPopulateBacktracks(false,'all');
+    const back=document.getElementById('jamBacktrackSelect');if(back)back.value=saved;
+    const p=JAM_PACKS[saved];if(p&&style)style.value=jamPrimaryStyleForPack(p);
+  }else{
+    jamPopulateBacktracks(false);
+  }
 }
 function jamAssetUrl(p,file){return p.assetDir+String(file).split('/').map(encodeURIComponent).join('/')}
 async function jamLoadBundledPack(showFailure=true){
@@ -4576,7 +4584,7 @@ function jamUpdateCoverage(){
 }
 function jamPersistAutoPrefs(){try{const i=jamAutoInputs();localStorage.setItem(gtProfileKey('guitarTrainerJamAutoV1442'),JSON.stringify(i))}catch(e){}}
 function jamRestoreAutoPrefs(){try{const raw=localStorage.getItem(gtProfileKey('guitarTrainerJamAutoV1442'));if(!raw)return;const v=JSON.parse(raw);if(v.style&&(v.style==='all'||JAM_STYLE_BY_ID[v.style]))document.getElementById('jamStyleSelect').value=v.style;if(Number.isFinite(Number(v.targetPc)))document.getElementById('jamAutoKey').value=String(v.targetPc);if(Number.isFinite(Number(v.bpm)))document.getElementById('jamAutoBpm').value=String(Math.max(45,Math.min(180,Number(v.bpm))));if(v.role)document.getElementById('jamAutoRole').value=v.role;if(v.mode)document.getElementById('jamAutoMode').value=v.mode}catch(e){}}
-function jamRestoreBacktrackPref(){try{const raw=localStorage.getItem(gtProfileKey('guitarTrainerJamAutoV1442'));if(!raw)return null;const v=JSON.parse(raw);const id=v.backtrack;if(id&&id!=='auto'&&jamBacktrackPacks().some(p=>p.id===id))return id;return null}catch(e){return null}}
+function jamRestoreBacktrackPref(){try{const raw=localStorage.getItem(gtProfileKey('guitarTrainerJamAutoV1442'));if(!raw)return null;const v=JSON.parse(raw);const id=v.backtrack;const all=jamStylePacks('all').filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p));if(id&&id!=='auto'&&all.some(p=>p.id===id))return id;return null}catch(e){return null}}
 function jamRefreshAutoPreview(){
   jamUpdateKeyAvailability();
   const i=jamAutoInputs(),el=document.getElementById('jamAutoResult');if(!el)return;const manual=jamSelectedBacktrack(),mc=manual?jamCandidateFor(manual,i):null,r=manual?{list:[mc],safe:mc.safe?mc:null,keyRoleSafe:(mc.licenseSafe&&mc.roleSafe&&mc.modeSafe&&mc.keySafe&&mc.bpmKnown)?mc:null,best:mc}:jamBestPackFor(i.style,i.targetPc,i.bpm,i.role,i.mode);const read=document.getElementById('jamAutoBpmReadout');if(read)read.textContent=i.bpm;jamPersistAutoPrefs();jamUpdateCoverage();
@@ -4777,7 +4785,7 @@ document.getElementById('jamSourceOpen').addEventListener('click',()=>{
 document.getElementById('jamPackSelect').addEventListener('change',()=>{jamSelectPack();jamRefreshAutoPreview()});
 document.getElementById('jamAutoPick').addEventListener('click',jamAutoChoose);
 document.getElementById('jamBacktrackSelect').addEventListener('change',()=>{const p=jamSelectedBacktrack();if(p)jamStageManualBacktrack();else{jamClearRoleRestrictions();jamRefreshAutoPreview()}});
-document.getElementById('jamStyleSelect').addEventListener('change',()=>{jamStop();jamClearRoleRestrictions();jamPopulateBacktracks(true);jamRefreshAutoPreview()});
+document.getElementById('jamStyleSelect').addEventListener('change',()=>{jamStop();jamClearRoleRestrictions();const back=document.getElementById('jamBacktrackSelect');if(back)back.value='auto';jamPopulateBacktracks(true,document.getElementById('jamStyleSelect').value);jamRefreshAutoPreview()});
 document.getElementById('jamAutoKey').addEventListener('change',()=>{const p=jamSelectedBacktrack(),t=document.getElementById('jamTargetKey');if(p&&t&&p.knownKey!==false){t.value=document.getElementById('jamAutoKey').value;jamUpdateQuality()}jamRefreshAutoPreview()});
 document.getElementById('jamAutoBpm').addEventListener('input',()=>{const p=jamSelectedBacktrack(),t=document.getElementById('jamTargetBpm');if(p&&t&&Number(p.bpm)>0){const v=Number(document.getElementById('jamAutoBpm').value);t.value=String(Math.max(Number(t.min),Math.min(Number(t.max),v)));jamUpdateQuality()}jamRefreshAutoPreview()});
 document.getElementById('jamAutoRole').addEventListener('change',()=>jamChooseRole(document.getElementById('jamAutoRole').value));
@@ -4799,7 +4807,7 @@ document.getElementById('jamStart').addEventListener('click',()=>{if(!jamAllRead
 document.getElementById('jamStop').addEventListener('click',jamStop);
 Object.values(jamStemControl).forEach(c=>{document.getElementById(c.on).addEventListener('change',jamApplyMix);document.getElementById(c.vol).addEventListener('input',jamApplyMix)});
 document.getElementById('jamLoop').addEventListener('change',()=>{const on=document.getElementById('jamLoop').checked;Object.values(jamNodes).forEach(n=>{if(n){n.player.loop=on;n.player.loopStart=jamContentStart;n.player.loopEnd=jamSourceDuration||0}});if(jamWebNode){jamWebNode.player.loop=on;jamWebNode.player.loopStart=0;jamWebNode.player.loopEnd=jamSourceDuration||0}});
-jamPopulateLibrary();jamRole=document.getElementById('jamAutoRole')?.value||'solo';const initialStyle=document.getElementById('jamStyleSelect')?.value||'all',initialBacktrack=document.getElementById('jamBacktrackSelect')?.value||'auto';jamSelectPack();if(document.getElementById('jamStyleSelect'))document.getElementById('jamStyleSelect').value=initialStyle;jamPopulateBacktracks(false);if(document.getElementById('jamBacktrackSelect')&&[...document.getElementById('jamBacktrackSelect').options].some(o=>o.value===initialBacktrack))document.getElementById('jamBacktrackSelect').value=initialBacktrack;jamRoleUI();jamUpdateStemBadges();jamUpdateTransport();jamUpdateQuality();jamUpdateHarmonyGuide();jamRefreshAutoPreview();
+jamPopulateLibrary();jamRole=document.getElementById('jamAutoRole')?.value||'solo';const initialStyle=document.getElementById('jamStyleSelect')?.value||'all',initialBacktrack=document.getElementById('jamBacktrackSelect')?.value||'auto';jamSelectPack();if(document.getElementById('jamStyleSelect'))document.getElementById('jamStyleSelect').value=initialStyle;jamPopulateBacktracks(false,initialBacktrack!=='auto'?'all':initialStyle);if(document.getElementById('jamBacktrackSelect')&&[...document.getElementById('jamBacktrackSelect').options].some(o=>o.value===initialBacktrack))document.getElementById('jamBacktrackSelect').value=initialBacktrack;jamRoleUI();jamUpdateStemBadges();jamUpdateTransport();jamUpdateQuality();jamUpdateHarmonyGuide();jamRefreshAutoPreview();
 
 drawNote();
 drawChord();
