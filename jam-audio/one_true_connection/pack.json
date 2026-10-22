@@ -1,0 +1,72 @@
+{
+  "id": "one_true_connection",
+  "title": "One True Connection (Instrumental)",
+  "key": "?",
+  "bpm": 78,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/Whitewolf225/59988",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "key_pending",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "Bass - One True Connection (ProgRock RMX).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 403.92,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "Drums - One True Connection (ProgRock RMX).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 403.92,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "Piano - One True Connection (ProgRock RMX).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 403.92,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "Rhythm Guitar - One True Connection (ProgRock RMX).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 403.92,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "Guitar Melody - One True Connection (ProgRock RMX).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 403.92,
+      "codec": "mp3",
+      "sample_rate": 48000,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 403.92,
+  "duration_max_seconds": 403.92,
+  "duration_spread_seconds": 0.0,
+  "issues": [
+    "key_pending"
+  ],
+  "estimated_key": "Am (audio estimate; not source-confirmed)",
+  "role_notes": "Keys combine piano+pads. Rhythm combines rhythm+clean+funky+reverse guitars. Guitar Melody remains lead.",
+  "web_audio": {
+    "solo": "jam-audio/one_true_connection/solo.mp3",
+    "base": "jam-audio/one_true_connection/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}
