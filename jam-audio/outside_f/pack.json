@@ -1,0 +1,68 @@
+{
+  "id": "outside_f",
+  "title": "Outside",
+  "key": "F",
+  "bpm": 117,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/61421",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(20261021-153948).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 224.444,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(10).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 223.66,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "piano(3).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 223.66,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "extra acoustic.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 223.66,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "lead-acoustic.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 223.66,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 223.66,
+  "duration_max_seconds": 224.444,
+  "duration_spread_seconds": 0.784,
+  "issues": [],
+  "web_audio": {
+    "solo": "jam-audio/outside_f/solo.mp3",
+    "base": "jam-audio/outside_f/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

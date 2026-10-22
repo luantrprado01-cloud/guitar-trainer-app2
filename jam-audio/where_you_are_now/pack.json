@@ -1,0 +1,72 @@
+{
+  "id": "where_you_are_now",
+  "title": "Where You Are Now",
+  "key": "?",
+  "bpm": 100,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/hansatom/42021",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "key_pending",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(20261021-154131).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 273.659,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 1
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(20261021-154131).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 273.659,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "synth.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 273.659,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "git clean  left.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 273.633,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "guitar additional and solo left.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 273.633,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 273.633,
+  "duration_max_seconds": 273.659,
+  "duration_spread_seconds": 0.026,
+  "issues": [
+    "key_pending"
+  ],
+  "estimated_key": "Cm (audio estimate; not source-confirmed)",
+  "role_notes": "Rhythm combines clean L/R + hard L/R. Lead combines additional/solo L/R. Choir excluded from instrumental jam. BPM 100 confirmed by source.",
+  "web_audio": {
+    "solo": "jam-audio/where_you_are_now/solo.mp3",
+    "base": "jam-audio/where_you_are_now/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

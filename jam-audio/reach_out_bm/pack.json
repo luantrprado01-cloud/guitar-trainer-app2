@@ -1,0 +1,61 @@
+{
+  "id": "reach_out_bm",
+  "title": "Reach Out (Stems)",
+  "key": "Bm",
+  "bpm": 113,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/jlbrock44/32919",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "reachout_bass_320.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 182.596,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "reachout_drums_320.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 205.166,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "reachout_electric_320.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 181.238,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "reachout_guitar_solo_extras_320.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 199.628,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 181.238,
+  "duration_max_seconds": 205.166,
+  "duration_spread_seconds": 23.928,
+  "issues": [
+    "duration_spread_23.9s"
+  ],
+  "web_audio": {
+    "solo": "jam-audio/reach_out_bm/solo.mp3",
+    "base": "jam-audio/reach_out_bm/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}
