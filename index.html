@@ -234,7 +234,7 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 @media(max-width:700px){.jam-role-row{grid-template-columns:1fr}.jam-mixer{grid-template-columns:1fr}}
 
 
-/* V14.47 • LISTA MANUAL COMPLETA + AUTO SEGURO */
+/* V14.48 • WHEN YOU GO AWAY REMOVIDA */
 .jam-research-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.jam-research-row span{background:#17100b;border:1px dashed #80612e;border-radius:9px;padding:8px;color:#d6c18f;font-size:.61rem;line-height:1.35}.jam-research-row b{color:#f1cf79}@media(max-width:760px){.jam-research-row{grid-template-columns:1fr}}
 .jam-pack-meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}.jam-pack-meta span{background:#21150e;border:1px solid #7b5925;color:#f1cf79;border-radius:999px;padding:6px 9px;font-size:.62rem;font-weight:1000;letter-spacing:.04em}.jam-pack-title{background:#fff6df;border:1px solid #bd9450;border-radius:11px;padding:10px;color:#2c1d10;line-height:1.35}.jam-pack-title span{font-size:.7rem;color:#755a2d}.jam-pack-copy{font-size:.68rem;line-height:1.5;color:#644a25}.jam-pack-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.jam-link-btn{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;border:1px solid #8c682f;border-radius:10px;background:#21150e;color:#f2d994!important;font-weight:1000;font-size:.66rem;text-decoration:none;padding:8px;cursor:pointer}.jam-link-btn.red{background:#84191b;color:#fff!important;border-color:#c99a4b}.jam-stem-status{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.jam-stem-status span{background:#17100b;border:1px solid #5f4929;border-radius:8px;padding:7px 5px;color:#baa77e;font-size:.58rem;font-weight:900;text-align:center}.jam-stem-status span.ready{border-color:#548b4b;color:#bfe9b6}.jam-role-v15{display:grid;grid-template-columns:1fr 1fr;gap:8px}.jam-role-v15 button{min-height:48px}.jam-role-v15 button.active{background:#8c1719;border-color:#e6c56a;color:#fff}.jam-mixer-v15 .jam-strip{min-height:110px}.jam-progress-v15{height:9px;background:#1b120c;border:1px solid #6f5228;border-radius:999px;overflow:hidden;margin-top:12px}.jam-progress-v15>div{height:100%;width:0;background:#b98b35;transition:width .12s linear}.jam-time-v15{display:flex;justify-content:space-between;color:#6d522b;font-size:.62rem;font-weight:900;margin-top:4px}@media(max-width:760px){.jam-pack-actions{grid-template-columns:1fr}.jam-stem-status{grid-template-columns:1fr 1fr}.jam-role-v15{grid-template-columns:1fr}}
 
@@ -1572,8 +1572,8 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.47 • TODAS AS BACKTRACKS VISÍVEIS</strong><br>
-    Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. O seletor manual mostra <b>as 20 backtracks</b>; a seleção <b>AUTO</b> usa apenas as <b>19 validadas</b> e evita temporariamente <b>1 pack em revisão de sincronização</b>. Mantemos a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
+  <div class="jam-intro"><strong class="gold">V14.48 • 19 BACKTRACKS VALIDADAS</strong><br>
+    Agora você pode começar pela <b>backtrack que quer tocar</b>. Ao escolher uma música, a app preenche automaticamente o <b>estilo principal, tom original e BPM original</b>. Se preferir procurar por gênero, use o segundo campo <b>ESTILO</b>: ele filtra a biblioteca. A opção <b>AUTO • ESCOLHER PARA MIM</b> mantém o modo inteligente, em que a app procura a melhor gravação compatível. A biblioteca fica com <b>19 backtracks validadas</b>. A faixa <b>When You Go Away</b> foi retirada por apresentar problema de afinação/sincronização e não entra mais na seleção manual nem automática. Mantemos a regra de qualidade de até <b>±1 semitom</b>. <b>Internet é necessária nesta Preview para carregar o motor Tone.js;</b> os Jam Packs publicados são carregados automaticamente pela internet; a importação de stems fica apenas como fallback de desenvolvimento.
   </div>
 
   <div class="jam-grid">
@@ -1600,7 +1600,7 @@ html,body{min-height:100%;}
             <option value="where_you_are_now">Where You Are Now • Pop Rock • tom a confirmar</option>
           </select>
         </label>
-        <div style="display:flex;align-items:end;gap:6px;flex-wrap:wrap"><span class="jam-pack-count">19 PACKS DISPONÍVEIS • 1 EM REVISÃO</span><span class="jam-engine-badge">TONE.JS • PITCH + TEMPO</span></div>
+        <div style="display:flex;align-items:end;gap:6px;flex-wrap:wrap"><span class="jam-pack-count">19 PACKS DISPONÍVEIS</span><span class="jam-engine-badge">TONE.JS • PITCH + TEMPO</span></div>
       </div>
       <div class="jam-library-note"><b>V14.42 • TONS BLOQUEADOS + ±1 SEMITOM:</b> nenhum Jam Pack será transposto mais de <b>1 semitom para baixo ou para cima</b>. Tons sem gravação segura ficam <b>BLOQUEADOS</b> no seletor e não podem ser escolhidos. O objetivo é preencher os 12 tons com gravações-base reais, preservando guitarras e ambiência. Os <b>20 Jam Packs web</b> estão organizados para a fase de teste. Os mapeamentos de guitarra de Amblin, Warm Weather e Mistakes já foram validados pelo ouvido; pendências restantes continuam sinalizadas. Packs CC BY-NC encontrados na pesquisa ficam excluídos automaticamente da biblioteca distribuível. A V14.42 usa faixas web otimizadas em <b>jam-audio/&lt;id&gt;/solo.mp3</b> e <b>base.mp3</b>. A importação manual de stems permanece apenas como fallback de desenvolvimento.</div>
       <div class="jam-research-row">
@@ -4290,7 +4290,7 @@ Object.assign(JAM_PACKS,{
     stemCopy:'Pack em <b>D menor / 104 BPM</b>, com bateria, baixo, guitarra e teclas. Ideal para <b>EU TOCO SOLO</b>; não possui lead separado.',harmonyNote:'A fonte confirma D menor; a progressão fica a confirmar.'
   },
   when_you_go_away_e:{
-    id:'when_you_go_away_e',label:'When You Go Away • Rock Ballad • E',heading:'JAM PACK 19 • ROCK BALLAD',title:'When You Go Away (Stems)',artist:'spinningmerkaba',source:'ccMixter',sourceUrl:'https://ccmixter.org/files/jlbrock44/32877',license:'CC BY 3.0',licenseUrl:'https://creativecommons.org/licenses/by/3.0/',style:'ROCK BALLAD',family:'rock_ballad',familyLabel:'ROCK BALLAD',status:'EM REVISÃO • SINCRONIZAÇÃO',autoEligible:false,rootPc:4,mode:'major',modeLabel:'MAIOR',bpm:68,minBpm:60,maxBpm:77,knownKey:true,transpose:true,shiftMin:-1,shiftMax:1,required:['drums','bass','keys','rhythm','lead'],
+    id:'when_you_go_away_e',hidden:true,label:'When You Go Away • Rock Ballad • E',heading:'JAM PACK 19 • ROCK BALLAD',title:'When You Go Away (Stems)',artist:'spinningmerkaba',source:'ccMixter',sourceUrl:'https://ccmixter.org/files/jlbrock44/32877',license:'CC BY 3.0',licenseUrl:'https://creativecommons.org/licenses/by/3.0/',style:'ROCK BALLAD',family:'rock_ballad',familyLabel:'ROCK BALLAD',status:'REMOVIDA • FORA DE AFINAÇÃO/SINCRONIZAÇÃO',autoEligible:false,rootPc:4,mode:'major',modeLabel:'MAIOR',bpm:68,minBpm:60,maxBpm:77,knownKey:true,transpose:true,shiftMin:-1,shiftMax:1,required:['drums','bass','keys','rhythm','lead'],
     files:{bass:'bass.mp3',drums:'drums.mp3',lead:'lead.mp3',rhythm:'rhythm.mp3',keys:'keys.mp3'},
     matchers:{drums:['whenyougoawaydrums'],bass:['whenyougoawaybass'],keys:['whenyougoawayorgan'],rhythm:['whenyougoawayacoustic01'],lead:['whenyougoawayelectricgtr']},
     stemCopy:'Pack em <b>E / 68 BPM</b>. Os clips originais tinham entradas em tempos diferentes; na preparação dos assets foram alinhados pela faixa instrumental de referência. BASE = Acoustic01 + Acoustic02; DRUMS = drums + hi-hat + djembe + kick; LEAD = electric_gtr.',harmonyNote:'A fonte confirma o tom de E.'
@@ -4325,15 +4325,15 @@ Object.values(JAM_PACKS).forEach(p=>{
 // Estilos apresentados ao usuário. Um mesmo pack pode servir a mais de uma família musical;
 // a validação auditiva final permanece para a fase de testes do app.
 const JAM_STYLE_GROUPS=[
-  {id:'classic_rock',label:'CLASSIC ROCK',packs:['reach_out_bm','cm_105','chalk_one_up_fsmin','vocalist_sting_a','even_2011_gm','when_you_go_away_e','waiting_ii_dm']},
+  {id:'classic_rock',label:'CLASSIC ROCK',packs:['reach_out_bm','cm_105','chalk_one_up_fsmin','vocalist_sting_a','even_2011_gm','waiting_ii_dm']},
   {id:'slow_blues',label:'SLOW BLUES',packs:['slow_blues_cm','morning_blues_am']},
   {id:'blues_rock',label:'BLUES / BLUES ROCK',packs:['funk_blues_c','its_over_a']},
   {id:'hard_rock',label:'HARD ROCK',packs:['reach_out_bm','one_true_connection','even_2011_gm','waiting_ii_dm']},
   {id:'southern_rock',label:'SOUTHERN ROCK',packs:['vocalist_sting_a','amblin_d','warm_weather_a']},
-  {id:'pop',label:'POP / POP ROCK',packs:['baby_bird_c','where_you_are_now','love_equality_g','pop_80s_116','when_you_go_away_e']},
+  {id:'pop',label:'POP / POP ROCK',packs:['baby_bird_c','where_you_are_now','love_equality_g','pop_80s_116']},
   {id:'country',label:'COUNTRY / ROOTS',packs:['outside_f','warm_weather_a','amblin_d','love_equality_g','youre_the_change_c_candidate']},
   {id:'jazz_blues',label:'JAZZ / BLUES',packs:['monuments_dm','slow_blues_cm','funk_blues_c','its_over_a']},
-  {id:'atmospheric',label:'ATMOSPHERIC / CHILL',packs:['waiting_ii_dm','mistakes_90','one_true_connection','cm_105','when_you_go_away_e']}
+  {id:'atmospheric',label:'ATMOSPHERIC / CHILL',packs:['waiting_ii_dm','mistakes_90','one_true_connection','cm_105']}
 ];
 const JAM_STYLE_BY_ID=Object.fromEntries(JAM_STYLE_GROUPS.map(x=>[x.id,x]));
 function jamPackRoles(p){return p.roles||['solo','base']}
@@ -4480,7 +4480,7 @@ function jamPopulateLibrary(){
     // Uma backtrack salva pode exibir o estilo dela sem transformar esse estilo em filtro da biblioteca.
     jamPopulateBacktracks(false,'all');
     const back=document.getElementById('jamBacktrackSelect');if(back)back.value=saved;
-    const p=JAM_PACKS[saved];if(p&&style)style.value=jamPrimaryStyleForPack(p);
+    const p=JAM_PACKS[saved];if(p&&!p.hidden&&style)style.value=jamPrimaryStyleForPack(p);else{jamPopulateBacktracks(false,'all');if(back)back.value='auto';}
   }else{
     if(style)style.value='all';
     jamPopulateBacktracks(false,'all');
