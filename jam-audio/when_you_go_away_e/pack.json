@@ -1,0 +1,84 @@
+{
+  "id": "when_you_go_away_e",
+  "title": "When You Go Away (Stems)",
+  "key": "E",
+  "bpm": 68,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/jlbrock44/32877",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "timeline_reconstructed_review",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "whenyougoaway_bass.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 198.087,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "whenyougoaway_drums.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 198.087,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "whenyougoaway_organ.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 198.087,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "whenyougoaway_acoustic01.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 198.087,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "whenyougoaway_electric_gtr.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 198.087,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 198.087,
+  "duration_max_seconds": 198.087,
+  "duration_spread_seconds": 0.0,
+  "issues": [
+    "timeline_reconstructed_from_instrumental_reference",
+    "listening_review"
+  ],
+  "timeline_reference": "whenyougoaway_instrumental.mp3",
+  "alignment_seconds": {
+    "bass": 6.911,
+    "organ": 30.545,
+    "acoustic01": 1.378,
+    "acoustic02": 31.728,
+    "electric_gtr": 32.084,
+    "drums": 48.476,
+    "hihat": 30.181,
+    "djembe": 31.97,
+    "kick": 87.188
+  },
+  "role_notes": "Acoustic01+Acoustic02 mixed as rhythm; drum/hihat/djembe/kick aligned and mixed as drums; electric_gtr is lead. All canonical files padded to one common timeline.",
+  "web_audio": {
+    "solo": "jam-audio/when_you_go_away_e/solo.mp3",
+    "base": "jam-audio/when_you_go_away_e/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

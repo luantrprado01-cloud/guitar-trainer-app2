@@ -1,0 +1,51 @@
+{
+  "id": "morning_blues_am",
+  "title": "Morning Blues",
+  "key": "Am",
+  "bpm": 55,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/59680",
+  "play_modes": "SOLO",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 224.47,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 1
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "Drums.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 224.47,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "guitar.flac",
+      "converted_from_flac": true,
+      "duration_seconds": 225.776,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 224.47,
+  "duration_max_seconds": 225.776,
+  "duration_spread_seconds": 1.306,
+  "issues": [],
+  "web_audio": {
+    "solo": "jam-audio/morning_blues_am/solo.mp3",
+    "base": null,
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16,
+    "trimmed_leading_silence_seconds": 6.463
+  }
+}

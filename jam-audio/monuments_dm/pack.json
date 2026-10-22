@@ -1,0 +1,59 @@
+{
+  "id": "monuments_dm",
+  "title": "Monuments",
+  "key": "Dm",
+  "bpm": 104,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/admiralbob77/59313",
+  "play_modes": "SOLO",
+  "audit_status": "direct",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(10).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 205.453,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(9).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 206.629,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "keyboards (organ and rhodes).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 206.629,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "guitar.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 205.453,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    }
+  },
+  "duration_min_seconds": 205.453,
+  "duration_max_seconds": 206.629,
+  "duration_spread_seconds": 1.175,
+  "issues": [],
+  "web_audio": {
+    "solo": "jam-audio/monuments_dm/solo.mp3",
+    "base": null,
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}

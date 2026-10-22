@@ -1,0 +1,84 @@
+{
+  "id": "mistakes_90",
+  "title": "Mistakes were made (stems)",
+  "key": "?",
+  "bpm": 90,
+  "license": "CC BY 3.0",
+  "source": "https://ccmixter.org/files/_ghost/43091",
+  "play_modes": "SOLO+BASE",
+  "audit_status": "roles_validated_key_pending",
+  "start_offset_seconds": 0,
+  "canonical_roles": {
+    "bass": {
+      "file": "bass.mp3",
+      "source_upload": "bass(5).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 85.42,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "drums": {
+      "file": "drums.mp3",
+      "source_upload": "drums(4).mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 202.762,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "keys": {
+      "file": "keys.mp3",
+      "source_upload": "chord.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 40.072,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2
+    },
+    "rhythm": {
+      "file": "rhythm.mp3",
+      "source_upload": "guitar1.mp3 + guitar4.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 202.789,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2,
+      "components": [
+        "guitar1.mp3 (base + dedilhado)",
+        "guitar4.mp3 (base)"
+      ]
+    },
+    "lead": {
+      "file": "lead.mp3",
+      "source_upload": "guitar2.mp3 + guitar3.mp3 + guitar6.mp3",
+      "converted_from_flac": false,
+      "duration_seconds": 202.789,
+      "codec": "mp3",
+      "sample_rate": 44100,
+      "channels": 2,
+      "components": [
+        "guitar2.mp3 (camada de base + solo, delay/vibrato)",
+        "guitar3.mp3 (solo)",
+        "guitar6.mp3 (camada de solo)"
+      ]
+    }
+  },
+  "duration_min_seconds": 40.072,
+  "duration_max_seconds": 202.789,
+  "duration_spread_seconds": 162.717,
+  "issues": [
+    "key_pending"
+  ],
+  "estimated_key": "A major (audio estimate; not source-confirmed)",
+  "optional_assets": {
+    "guitar5_optional_texture.mp3": "guitar5.mp3 — efeito/camada leve de guitarra, preservado fora do mix automático."
+  },
+  "role_notes": "Validado pelo usuário: Chord = piano; G1 base+dedilhado; G4 base; G2 base+solo com delay/vibrato; G3 solo; G5 camada/efeito; G6 camada de solo. Mix automático: BASE=G1+G4; LEAD=G2+G3+G6; G5 preservado como textura opcional.",
+  "web_audio": {
+    "solo": "jam-audio/mistakes_90/solo.mp3",
+    "base": "jam-audio/mistakes_90/base.mp3",
+    "bitrate_kbps": 160,
+    "loudness_target_lufs": -16
+  }
+}
