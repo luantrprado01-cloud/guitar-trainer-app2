@@ -554,6 +554,32 @@ html,body{min-height:100%;}
 .tuning-example-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.tuning-example-actions button{font-size:.66rem;line-height:1.25}
 @media(max-width:700px){.transpose-preset-grid,.tuning-example-actions{grid-template-columns:1fr}.transpose-semitone-row{align-items:flex-start;flex-direction:column}.transpose-semitone-row .stepper{width:100%}.transpose-semitone-row .stepper input{flex:1}}
 </style>
+
+<style id="v14-52-notation">
+/* V14.52 • LEITURA & NOTAÇÃO */
+.notation-intro{background:linear-gradient(145deg,#21160f,#120d09);border:1px solid #806029;border-radius:16px;padding:12px;color:#f5e6bb;font-size:.76rem;line-height:1.5;margin-bottom:10px}
+.notation-intro b{color:#e0b960}
+.notation-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:9px 0 12px}
+.notation-tabs button{min-height:44px;font-size:.68rem;padding:6px 5px}.notation-tabs button.active{background:#8c1719;border-color:#e0b85e;color:#fff}
+.notation-view{display:none}.notation-view.active{display:block}
+.notation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.notation-card{background:linear-gradient(#f5ead0,#e5d0a3);color:#24170f;border:2px solid #b88d3a;border-radius:16px;padding:12px}
+.notation-card h3{margin:0 0 7px;font:900 1.05rem Georgia,serif;color:#7f1719}.notation-card p{margin:6px 0;font-size:.72rem;line-height:1.48}
+.notation-kicker{font-size:.65rem;font-weight:1000;letter-spacing:.08em;color:#795823;margin-bottom:6px}
+.notation-stage{background:linear-gradient(#f8ecd0,#ead8ad);border:2px solid #b88d3a;border-radius:18px;padding:13px;color:#24170f}
+.notation-staff{width:100%;max-width:760px;height:auto;display:block;background:#fffaf0;border:1px solid #c5a76a;border-radius:12px;margin:8px auto}
+.notation-answer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:9px}.notation-answer-grid button{background:#fff7df;color:#2b1c10;border-color:#9a7330;min-height:46px}.notation-answer-grid button.correct{background:#315f3e;color:#fff}.notation-answer-grid button.wrong{background:#8c1719;color:#fff}
+.notation-feedback{margin-top:9px;min-height:42px;border-radius:10px;background:rgba(36,23,15,.09);padding:9px;font-size:.72rem;line-height:1.45}
+.notation-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.notation-actions button{flex:1;min-width:135px}.notation-actions .red{background:linear-gradient(#a52224,#761113)}
+.notation-score{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.notation-score span{background:#24170f;color:#f4e7c3;border:1px solid #8d682b;border-radius:999px;padding:5px 9px;font-size:.66rem;font-weight:900}
+.notation-rhythm-symbol{font-family:Georgia,'Times New Roman',serif;font-size:4rem;text-align:center;line-height:1.1;margin:6px 0;color:#24170f}
+.notation-guitar-positions{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:9px}.notation-pos{border:1px solid #a9823c;border-radius:10px;background:#fff9e9;padding:8px;font-size:.72rem;font-weight:900}
+.notation-sight-count{font:900 2rem Georgia,serif;color:#7f1719;text-align:center;min-height:40px;margin:8px 0}.notation-sight-note{font-size:.7rem;line-height:1.45;color:#61471f;text-align:center}
+.notation-bridge{background:#21160f;color:#f5e4b5;border:1px solid #806029;border-radius:12px;padding:10px;margin-top:9px;font-size:.7rem;line-height:1.45}.notation-bridge b{color:#e5bd5a}
+.notation-mini-list{display:grid;gap:5px;margin-top:7px}.notation-mini-list span{display:block;border-left:3px solid #9a7330;padding:5px 8px;background:rgba(255,255,255,.35);font-size:.7rem;line-height:1.35}
+@media(max-width:700px){#notation.active{min-height:100dvh;padding-bottom:34px}.notation-tabs{grid-template-columns:repeat(2,1fr)}.notation-tabs button:last-child{grid-column:1/3}.notation-grid{grid-template-columns:1fr}.notation-answer-grid{grid-template-columns:repeat(2,1fr)}.notation-guitar-positions{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="app" id="app2">
@@ -627,7 +653,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.51 • MOBILE SCROLL</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.52 • LEITURA & NOTAÇÃO</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -686,6 +712,10 @@ html,body{min-height:100%;}
       <button class="mode" type="button" data-open="theory">
         <div class="mode-title">◈ TEORIA &amp; HARMONIA</div>
         <div class="mode-copy">Campos harmônicos, funções, círculo das quintas/quartas, transposição e mapa do braço.</div>
+      </button>
+      <button class="mode" type="button" data-open="notation">
+        <div class="mode-title">🎼 LEITURA &amp; NOTAÇÃO</div>
+        <div class="mode-copy">Aprenda pauta, ritmo e leitura à primeira vista ligando a partitura diretamente ao braço da guitarra.</div>
       </button>
     </div>
 
@@ -754,6 +784,7 @@ html,body{min-height:100%;}
     <button class="tutorial-card" type="button" data-tutorial="intervals"><b>↔ INTERVALOS</b><span>Mapa visual interativo: escolha a tônica, ligue e desligue intervalos e veja as distâncias no braço.</span><span class="arrow-mini">›</span></button>
     <button class="tutorial-card" type="button" data-tutorial="arpeggios"><b>◆ ARPEJOS</b><span>Família, tonalidade, notas do acorde e funções no braço.</span><span class="arrow-mini">›</span></button>
     <button class="tutorial-card" type="button" data-tutorial="theory"><b>◈ TEORIA &amp; HARMONIA</b><span>Construa acordes, harmonize tons, transponha e visualize relações.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="notation"><b>🎼 LEITURA &amp; NOTAÇÃO</b><span>Pauta, figuras rítmicas, partitura → guitarra e leitura à primeira vista.</span><span class="arrow-mini">›</span></button>
   </div>
   <div class="home-section-title"><span>TREINAR</span><i></i></div>
   <div class="tutorial-grid">
@@ -1396,13 +1427,87 @@ html,body{min-height:100%;}
 </section>
 
 
+
+<section id="notation" class="screen">
+  <div class="rowgap">
+    <button class="ghost" type="button" data-home>← VOLTAR</button>
+    <div class="brand" style="font-size:21px">LEITURA &amp; NOTAÇÃO</div>
+    <div style="width:82px"></div>
+  </div>
+  <div class="notation-intro"><b>PARTITURA PARA GUITARRISTAS</b><br>Aprenda a decodificar altura e duração e leve imediatamente a informação para o instrumento. A guitarra é escrita em clave de Sol e, por convenção, soa uma oitava abaixo do que está escrito.</div>
+  <div class="notation-tabs" id="notationTabs">
+    <button type="button" class="active" data-notation-view="learn">APRENDER</button>
+    <button type="button" data-notation-view="notes">NOTAS NA PAUTA</button>
+    <button type="button" data-notation-view="rhythm">RITMO</button>
+    <button type="button" data-notation-view="guitar">PARTITURA → GUITARRA</button>
+    <button type="button" data-notation-view="sight">1ª VISTA</button>
+  </div>
+
+  <div id="notationView-learn" class="notation-view active">
+    <div class="notation-grid">
+      <div class="notation-card"><h3>1 • PAUTA &amp; CLAVE DE SOL</h3><p>O pentagrama possui cinco linhas e quatro espaços. A clave de Sol fixa a nota Sol na segunda linha e, a partir dela, as demais notas seguem a ordem musical.</p><div class="notation-mini-list"><span>Linhas da clave de Sol: E • G • B • D • F.</span><span>Espaços: F • A • C • E.</span><span>Linhas suplementares prolongam a pauta para notas mais graves ou agudas.</span></div></div>
+      <div class="notation-card"><h3>2 • A GUITARRA É OITAVADA</h3><p>Na notação tradicional de guitarra, o som real fica uma oitava abaixo da altura escrita. Essa convenção mantém grande parte da tessitura do instrumento numa pauta de clave de Sol mais legível.</p><div class="notation-bridge"><b>IMPORTANTE:</b> você lê normalmente a nota escrita. A oitava abaixo é uma característica da escrita do instrumento, não um comando para deslocar a mão.</div></div>
+      <div class="notation-card"><h3>3 • DURAÇÃO &amp; PAUSAS</h3><p>As figuras não têm uma duração absoluta: elas representam proporções. Em 4/4, por exemplo, a semínima vale um tempo, a mínima dois e a semibreve quatro.</p><div class="notation-mini-list"><span>Semibreve → 4 tempos em 4/4</span><span>Mínima → 2 • Semínima → 1</span><span>Colcheia → 1/2 • Semicolcheia → 1/4</span></div></div>
+      <div class="notation-card"><h3>4 • COMPASSO, PONTO &amp; LIGADURA</h3><p>O numerador da fórmula de compasso indica quantas unidades há no compasso; o denominador indica qual figura funciona como referência. O ponto acrescenta metade do valor da figura. A ligadura de duração soma valores de notas da mesma altura.</p></div>
+      <div class="notation-card"><h3>5 • ACIDENTES</h3><p>Sustenido, bemol e bequadro alteram a altura escrita. Um acidente local vale para aquela nota até o fim do compasso, salvo nova indicação.</p></div>
+      <div class="notation-card"><h3>6 • PRÉ-LEITURA</h3><p>Antes de tocar, confira clave, fórmula de compasso, andamento, acidentes e padrões repetidos. Depois execute sem parar a cada erro. O objetivo é ler — não decorar a sequência.</p></div>
+    </div>
+  </div>
+
+  <div id="notationView-notes" class="notation-view">
+    <div class="notation-stage">
+      <div class="notation-kicker">EXERCÍCIO • IDENTIFIQUE A ALTURA</div>
+      <svg id="notationNoteStaff" class="notation-staff" viewBox="0 0 560 230" aria-label="Pentagrama com uma nota"></svg>
+      <div id="notationNotePrompt" style="font-weight:900;text-align:center">Qual nota está escrita?</div>
+      <div id="notationNoteAnswers" class="notation-answer-grid"></div>
+      <div id="notationNoteFeedback" class="notation-feedback">Leia primeiro a posição na pauta e só depois escolha a resposta.</div>
+      <div class="notation-score"><span id="notationNoteScore">ACERTOS 0/0</span><span id="notationNoteStreak">SEQUÊNCIA 0</span></div>
+      <div class="notation-actions"><button id="notationPlayNote" type="button">♪ OUVIR NOTA</button><button id="notationNextNote" class="red" type="button">NOVA NOTA</button></div>
+    </div>
+  </div>
+
+  <div id="notationView-rhythm" class="notation-view">
+    <div class="notation-stage">
+      <div class="notation-kicker">EXERCÍCIO • LEITURA RÍTMICA</div>
+      <div id="notationRhythmSymbol" class="notation-rhythm-symbol">♩</div>
+      <div id="notationRhythmPrompt" style="font-weight:900;text-align:center"></div>
+      <div id="notationRhythmAnswers" class="notation-answer-grid"></div>
+      <div id="notationRhythmFeedback" class="notation-feedback">Pense na relação entre a figura, a unidade de tempo e o compasso.</div>
+      <div class="notation-actions"><button id="notationNextRhythm" class="red" type="button">NOVO EXERCÍCIO</button></div>
+    </div>
+  </div>
+
+  <div id="notationView-guitar" class="notation-view">
+    <div class="notation-stage">
+      <div class="notation-kicker">EXERCÍCIO • DA PAUTA PARA O BRAÇO</div>
+      <svg id="notationGuitarStaff" class="notation-staff" viewBox="0 0 560 230" aria-label="Nota escrita para localizar na guitarra"></svg>
+      <div id="notationGuitarPrompt" style="font-weight:900;text-align:center">Escolha uma posição correta para tocar a nota.</div>
+      <div id="notationGuitarAnswers" class="notation-answer-grid"></div>
+      <div id="notationGuitarFeedback" class="notation-feedback">Primeiro reconheça a nota; depois procure-a no braço.</div>
+      <div id="notationGuitarPositions" class="notation-guitar-positions"></div>
+      <div class="notation-actions"><button id="notationNextGuitar" class="red" type="button">NOVA NOTA</button></div>
+    </div>
+  </div>
+
+  <div id="notationView-sight" class="notation-view">
+    <div class="notation-stage">
+      <div class="notation-kicker">LEITURA À PRIMEIRA VISTA • 4 NOTAS</div>
+      <svg id="notationSightStaff" class="notation-staff" viewBox="0 0 760 230" aria-label="Pequena leitura à primeira vista"></svg>
+      <div id="notationSightCount" class="notation-sight-count">PRÉ-LEIA</div>
+      <div id="notationSightNames" class="notation-sight-note">Observe clave, direção melódica e posições antes de tocar.</div>
+      <div class="notation-actions"><button id="notationSightStart" type="button">5s • PREPARAR</button><button id="notationSightReveal" type="button">MOSTRAR NOTAS</button><button id="notationSightNew" class="red" type="button">NOVA LEITURA</button></div>
+      <div class="notation-bridge"><b>REGRA:</b> faça poucas tentativas da mesma sequência. Quando já estiver tocando de memória, gere outra leitura.</div>
+    </div>
+  </div>
+</section>
+
 <section id="training-mode" class="screen">
   <div class="rowgap">
     <button class="ghost" type="button" data-home>← VOLTAR</button>
     <div class="brand" style="font-size:21px">MODO TREINO</div>
     <div style="width:82px"></div>
   </div>
-  <div class="training-intro"><strong class="gold">TREINO GUIADO • FOCO NO QUE MAIS PRECISA</strong><br>Escolha o tempo e a dificuldade. A app alterna Notas, Intervalos, Acordes, Escalas, Arpejos e Harmonia, dando mais peso às áreas com menor taxa de acerto. Depois de um erro, essa área volta mais tarde para reforço, sempre espaçada por outras questões.</div>
+  <div class="training-intro"><strong class="gold">TREINO GUIADO • FOCO NO QUE MAIS PRECISA</strong><br>Escolha o tempo e a dificuldade. A app alterna Notas, Intervalos, Acordes, Escalas, Arpejos, Harmonia e Leitura, dando mais peso às áreas com menor taxa de acerto. Depois de um erro, essa área volta mais tarde para reforço, sempre espaçada por outras questões.</div>
   <div id="trainingSetup" class="v12-setup">
     <div class="v10-section-label">DURAÇÃO</div>
     <div class="v12-duration-grid" id="trainingDurations">
@@ -1416,7 +1521,7 @@ html,body{min-height:100%;}
     <div class="v14-strategy-grid" id="trainingStrategies">
       <button type="button" data-training-strategy="smart" class="active"><b>INTELIGENTE</b><small>Equilibra conteúdo novo, histórico e pontos fracos.</small></button>
       <button type="button" data-training-strategy="weak"><b>REFORÇAR</b><small>Dá prioridade maior às áreas com menor acerto.</small></button>
-      <button type="button" data-training-strategy="balanced"><b>EQUILIBRADO</b><small>Distribui as seis áreas de forma uniforme.</small></button>
+      <button type="button" data-training-strategy="balanced"><b>EQUILIBRADO</b><small>Distribui as sete áreas de forma uniforme.</small></button>
     </div>
     <div id="trainingRecommendation" class="v12-recommend"></div>
     <div id="trainingPlanPreview" class="v14-session-focus"></div>
@@ -1550,7 +1655,7 @@ html,body{min-height:100%;}
     <button type="button" data-challenge-level="advanced">AVANÇADO</button>
   </div>
   <div class="challenge-categories" id="challengeCategories">
-    <button type="button" data-challenge-cat="notes">NOTAS</button><button type="button" data-challenge-cat="intervals">INTERVALOS</button><button type="button" data-challenge-cat="chords">ACORDES</button><button type="button" data-challenge-cat="scales">ESCALAS</button><button type="button" data-challenge-cat="arpeggios">ARPEJOS</button><button type="button" data-challenge-cat="harmony">HARMONIA</button><button type="button" data-challenge-cat="mixed" class="active">MISTO</button>
+    <button type="button" data-challenge-cat="notes">NOTAS</button><button type="button" data-challenge-cat="intervals">INTERVALOS</button><button type="button" data-challenge-cat="chords">ACORDES</button><button type="button" data-challenge-cat="scales">ESCALAS</button><button type="button" data-challenge-cat="arpeggios">ARPEJOS</button><button type="button" data-challenge-cat="harmony">HARMONIA</button><button type="button" data-challenge-cat="notation">LEITURA</button><button type="button" data-challenge-cat="mixed" class="active">MISTO</button>
   </div>
   <div class="challenge-progress"><span id="challengeProgressBar"></span></div>
   <div class="quiz-shell" id="challengeQuiz">
@@ -1574,7 +1679,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.51 • JAM • 19 BACKTRACKS</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.52 • JAM • 19 BACKTRACKS</strong><br>
     Escolha uma <b>backtrack</b> ou deixe em <b>AUTO</b>. A app organiza estilo, tom e BPM e prepara a faixa certa conforme você escolher <b>EU TOCO SOLO</b> ou <b>EU TOCO BASE</b>. Para preservar a qualidade das guitarras, a transposição tonal fica limitada a <b>±1 semitom</b>.
   </div>
 
@@ -2107,6 +2212,13 @@ const GUIDED_TUTORIAL={
     {topic:'capo',sel:'#capo',title:'CAPOTRASTE',copy:'Separe a forma que a mão toca do acorde que realmente soa. Cada casa do capo sobe um semitom; toque numa cifra para visualizar a forma no braço.'},
     {topic:'map',sel:'#map',title:'MAPA LIVRE',copy:'Selecione tônica e intervalos para construir visualmente acordes, arpejos ou partes de escalas em todo o braço.'}
   ]},
+  notation:{title:'LEITURA & NOTAÇÃO',screen:'notation',steps:[
+    {sel:'#notationTabs',title:'CINCO CAMINHOS',copy:'Comece por APRENDER e depois treine notas na pauta, ritmo, ligação com o braço e leitura à primeira vista.'},
+    {sel:'#notationNoteStaff',title:'NOTA NA PAUTA',copy:'Leia a posição da cabeça da nota antes de olhar as respostas. A app usa a clave de Sol e inclui linhas suplementares da tessitura comum da guitarra.'},
+    {sel:'#notationRhythmSymbol',title:'DURAÇÃO',copy:'Treine semibreve, mínima, semínima, colcheia e semicolcheia, além de ponto, ligadura e fórmulas de compasso nos níveis mais altos.'},
+    {sel:'#notationGuitarStaff',title:'PARTITURA → GUITARRA',copy:'Depois de reconhecer a nota, escolha uma posição real no braço. A resposta mostra outras posições possíveis para o mesmo som.'},
+    {sel:'#notationSightStaff',title:'LEITURA À PRIMEIRA VISTA',copy:'Pré-leia uma sequência curta, toque sem decorar e gere outra leitura quando a frase já estiver memorizada.'}
+  ]},
   training:{title:'MODO TREINO',screen:'training-mode',steps:[
     {sel:'#trainingDurations',title:'DURAÇÃO',copy:'Escolha sessões de 10, 20, 30 ou 45 minutos. O cronómetro acompanha o tempo restante.'},
     {sel:'#trainingLevels',title:'DIFICULDADE',copy:'Selecione Iniciante, Intermediário ou Avançado antes de começar a sessão.'},
@@ -2116,7 +2228,7 @@ const GUIDED_TUTORIAL={
   progress:{title:'PROGRESSO',screen:'progress',steps:[
     {sel:'.progress-hero',title:'RESUMO GERAL',copy:'Veja questões respondidas, acerto geral, tempo no Modo Treino e número de sessões.'},
     {sel:'.xp-panel',title:'XP, NÍVEL E RANKING',copy:'O XP pertence ao perfil ativo. Aqui você acompanha o nível, o avanço até o próximo nível e a posição no ranking local.'},
-    {sel:'#progressCategoryRows',title:'DESEMPENHO POR ÁREA',copy:'Compare Notas, Intervalos, Acordes, Escalas, Arpejos e Harmonia. A app destaca pontos fortes e áreas a reforçar.'},
+    {sel:'#progressCategoryRows',title:'DESEMPENHO POR ÁREA',copy:'Compare Notas, Intervalos, Acordes, Escalas, Arpejos, Harmonia e Leitura. A app destaca pontos fortes e áreas a reforçar.'},
     {sel:'#progressEarRows',title:'TREINO DE OUVIDO',copy:'Os resultados auditivos ficam separados por modalidade para mostrar onde o ouvido precisa de mais prática.'},
     {sel:'#progressRecent',title:'SESSÕES RECENTES',copy:'O histórico fica guardado localmente neste aparelho/navegador, sem conta ou internet.'}
   ]},
@@ -2135,7 +2247,7 @@ const GUIDED_TUTORIAL={
   challenges:{title:'DESAFIOS',screen:'challenges',steps:[
     {sel:'.challenge-mission-wrap',title:'MISSÕES',copy:'As missões diárias e semanais dão XP extra uma única vez por período e incentivam variedade e consistência.'},
     {sel:'#challengeLevels',title:'DIFICULDADE & XP',copy:'Iniciante, Intermediário e Avançado alteram as perguntas e também o XP ganho por resposta.'},
-    {sel:'#challengeCategories',title:'ÁREA OU MISTO',copy:'Faça uma rodada focada em uma área ou use MISTO para alternar entre vários conteúdos.'},
+    {sel:'#challengeCategories',title:'ÁREA OU MISTO',copy:'Faça uma rodada focada em uma área — incluindo LEITURA — ou use MISTO para alternar entre vários conteúdos.'},
     {sel:'.challenge-progress',title:'RODADA DE 10',copy:'Cada desafio tem 10 questões. Depois de responder, a app mostra o feedback por um instante e avança automaticamente, como no Modo Treino; PRÓXIMA AGORA continua disponível se quiser acelerar. O XP por respostas vale nas primeiras 30 questões do dia.'},
     {sel:'#challengeHistory',title:'HISTÓRICO',copy:'As rodadas concluídas ficam registradas por perfil e alimentam as missões, a sequência de dias e o PROGRESSO.'}
   ]},
@@ -3963,9 +4075,67 @@ function stopMetronome(){metroRunning=false;if(metroTimer){clearInterval(metroTi
 document.getElementById('metroStart').addEventListener('click',startMetronome);document.getElementById('tapTempo').addEventListener('click',()=>{const now=performance.now();tapTimes=tapTimes.filter(t=>now-t<3000);tapTimes.push(now);if(tapTimes.length>=2){const ints=[];for(let i=1;i<tapTimes.length;i++)ints.push(tapTimes[i]-tapTimes[i-1]);setBpm(60000/(ints.reduce((a,b)=>a+b,0)/ints.length))}});
 renderPulseFigures();renderSubdivisionButtons();renderTempoPresets();setMeter(4,4);setBpm(120);renderAccentProgram();renderRhythmExercise();updateMetroTrainerStatus();
 
+
+/* ---------------- V14.52 • LEITURA & NOTAÇÃO ---------------- */
+const GT_NOTATION_LETTERS=['C','D','E','F','G','A','B'];
+const GT_NOTATION_SEMIS={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+const GT_NOTATION_NATURAL=['E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5'];
+const GT_NOTATION_STRINGS=[{label:'6ª corda',midi:40},{label:'5ª corda',midi:45},{label:'4ª corda',midi:50},{label:'3ª corda',midi:55},{label:'2ª corda',midi:59},{label:'1ª corda',midi:64}];
+let notationNoteCurrent=null,notationNoteStats={correct:0,total:0,streak:0},notationNoteLocked=false,notationGuitarCurrent=null,notationGuitarLocked=false,notationSightTimer=null;
+function notationPick(a){return a[Math.floor(Math.random()*a.length)]}
+function notationShuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function notationParseName(name){const m=String(name).match(/^([A-G])([#b]?)(\d)$/);if(!m)return null;return{letter:m[1],acc:m[2]||'',oct:Number(m[3])}}
+function notationPc(note){let pc=GT_NOTATION_SEMIS[note.letter];if(note.acc==='#')pc++;if(note.acc==='b')pc--;return(pc+12)%12}
+function notationWrittenMidi(name){const n=notationParseName(name);return n?12*(n.oct+1)+notationPc(n):60}
+function notationDiatonic(name){const n=notationParseName(name);return n?n.oct*7+GT_NOTATION_LETTERS.indexOf(n.letter):30}
+function notationNamePt(name){const n=notationParseName(name);if(!n)return name;const pt={C:'Dó',D:'Ré',E:'Mi',F:'Fá',G:'Sol',A:'Lá',B:'Si'}[n.letter];return pt+(n.acc==='#'?'♯':n.acc==='b'?'♭':'')}
+function notationY(name){return 120-(notationDiatonic(name)-30)*10}
+function notationLedger(x,y){let out='';if(y>=140){for(let yy=140;yy<=y+(y%20===0?0:-10);yy+=20)out+=`<line x1="${x-16}" y1="${yy}" x2="${x+16}" y2="${yy}" stroke="#3a2a17" stroke-width="2"/>`}if(y<=20){for(let yy=20;yy>=y;yy-=20)out+=`<line x1="${x-16}" y1="${yy}" x2="${x+16}" y2="${yy}" stroke="#3a2a17" stroke-width="2"/>`}return out}
+function notationStaffMarkup(names,width=560){const arr=Array.isArray(names)?names:[names],xs=arr.length===1?[330]:arr.map((_,i)=>160+i*((width-230)/Math.max(1,arr.length-1)));let svg=`<rect width="${width}" height="230" fill="#fffaf0"/>`;[40,60,80,100,120].forEach(y=>svg+=`<line x1="95" y1="${y}" x2="${width-35}" y2="${y}" stroke="#3a2a17" stroke-width="2"/>`);svg+=`<text x="35" y="119" font-size="74" font-family="Georgia,serif" fill="#3a2a17">𝄞</text>`;arr.forEach((name,i)=>{const n=notationParseName(name),x=xs[i],y=notationY(name);svg+=notationLedger(x,y);if(n?.acc)svg+=`<text x="${x-25}" y="${y+7}" font-size="25" font-family="Georgia,serif" fill="#3a2a17">${n.acc==='#'?'♯':'♭'}</text>`;svg+=`<ellipse cx="${x}" cy="${y}" rx="9" ry="6.5" transform="rotate(-18 ${x} ${y})" fill="#24170f"/><line x1="${x+8}" y1="${y}" x2="${x+8}" y2="${y-39}" stroke="#24170f" stroke-width="2.5"/>`});return svg}
+function notationRecord(ok){try{if(typeof recordPersistentResult==='function')recordPersistentResult('notation',ok,'notation')}catch(e){}}
+function notationChoiceNames(correct){const names=['Dó','Ré','Mi','Fá','Sol','Lá','Si'],out=[correct];for(const x of notationShuffle(names)){if(!out.includes(x))out.push(x);if(out.length===4)break}return notationShuffle(out)}
+function notationNewNote(){notationNoteLocked=false;notationNoteCurrent=notationPick(GT_NOTATION_NATURAL);document.getElementById('notationNoteStaff').innerHTML=notationStaffMarkup(notationNoteCurrent);const ans=notationNamePt(notationNoteCurrent),box=document.getElementById('notationNoteAnswers');box.innerHTML='';notationChoiceNames(ans).forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.onclick=()=>notationAnswerNote(c,b);box.appendChild(b)});document.getElementById('notationNoteFeedback').textContent='Leia primeiro a posição na pauta e só depois escolha a resposta.'}
+function notationAnswerNote(choice,btn){if(notationNoteLocked)return;notationNoteLocked=true;notationNoteStats.total++;const ans=notationNamePt(notationNoteCurrent),ok=choice===ans;if(ok){notationNoteStats.correct++;notationNoteStats.streak++;btn.classList.add('correct')}else{notationNoteStats.streak=0;btn.classList.add('wrong');[...document.getElementById('notationNoteAnswers').children].find(x=>x.textContent===ans)?.classList.add('correct')}[...document.getElementById('notationNoteAnswers').children].forEach(x=>x.disabled=true);notationRecord(ok);document.getElementById('notationNoteFeedback').innerHTML=ok?`<b>✓ Correto.</b> ${ans} está nesta posição da clave de Sol.`:`<b>Resposta: ${ans}.</b> Observe se a cabeça está sobre uma linha ou num espaço.`;document.getElementById('notationNoteScore').textContent=`ACERTOS ${notationNoteStats.correct}/${notationNoteStats.total}`;document.getElementById('notationNoteStreak').textContent=`SEQUÊNCIA ${notationNoteStats.streak}`}
+function notationPlayCurrent(){if(!notationNoteCurrent)return;const midi=notationWrittenMidi(notationNoteCurrent)-12,f=440*Math.pow(2,(midi-69)/12),ctx=new (window.AudioContext||window.webkitAudioContext)(),o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.16,ctx.currentTime+.02);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.85);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.9);setTimeout(()=>ctx.close().catch(()=>{}),1100)}
+const GT_NOTATION_RHYTHM=[{name:'Semibreve',symbol:'𝅝',beats:'4 tempos',value:4},{name:'Mínima',symbol:'𝅗𝅥',beats:'2 tempos',value:2},{name:'Semínima',symbol:'♩',beats:'1 tempo',value:1},{name:'Colcheia',symbol:'♪',beats:'1/2 tempo',value:.5},{name:'Semicolcheia',symbol:'𝅘𝅥𝅯',beats:'1/4 de tempo',value:.25}];
+function notationNewRhythm(){const advanced=[{prompt:'Em 4/4, quanto vale uma mínima pontuada?',answer:'3 tempos',choices:['1,5 tempo','2 tempos','3 tempos','4 tempos'],explain:'O ponto soma metade do valor: 2 + 1 = 3.'},{prompt:'Uma semínima ligada a uma mínima da mesma altura dura, em 4/4:',answer:'3 tempos',choices:['1 tempo','2 tempos','3 tempos','4 tempos'],explain:'A ligadura de duração soma 1 + 2 = 3 tempos.'},{prompt:'Na fórmula 6/8, o denominador 8 indica qual figura-base?',answer:'Colcheia',choices:['Mínima','Semínima','Colcheia','Semicolcheia'],explain:'O denominador 8 corresponde à colcheia.'}],useTheory=Math.random()<.35;if(useTheory){const q=notationPick(advanced);document.getElementById('notationRhythmSymbol').textContent='𝄚';document.getElementById('notationRhythmPrompt').textContent=q.prompt;notationRenderRhythmAnswers(q.answer,q.choices,q.explain);return}const r=notationPick(GT_NOTATION_RHYTHM);document.getElementById('notationRhythmSymbol').textContent=r.symbol;document.getElementById('notationRhythmPrompt').textContent=`Em 4/4, qual é o valor desta figura (${r.name})?`;const pool=['4 tempos','2 tempos','1 tempo','1/2 tempo','1/4 de tempo'];notationRenderRhythmAnswers(r.beats,notationShuffle(pool).slice(0,4).includes(r.beats)?notationShuffle(pool).slice(0,4):notationShuffle([r.beats,...pool.filter(x=>x!==r.beats)]).slice(0,4),`${r.name}: ${r.beats} em 4/4.`)}
+function notationRenderRhythmAnswers(answer,choices,explain){const box=document.getElementById('notationRhythmAnswers');box.innerHTML='';const final=choices.includes(answer)?notationShuffle(choices):notationShuffle([answer,...choices.slice(0,3)]);final.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.onclick=()=>{const ok=c===answer;b.classList.add(ok?'correct':'wrong');[...box.children].find(x=>x.textContent===answer)?.classList.add('correct');[...box.children].forEach(x=>x.disabled=true);notationRecord(ok);document.getElementById('notationRhythmFeedback').innerHTML=(ok?'<b>✓ Correto.</b> ':'<b>Resposta: '+answer+'.</b> ')+explain};box.appendChild(b)});document.getElementById('notationRhythmFeedback').textContent='Pense na relação entre a figura, a unidade de tempo e o compasso.'}
+function notationPositions(name,maxFret=12){const target=notationWrittenMidi(name)-12,out=[];GT_NOTATION_STRINGS.forEach(s=>{const fret=target-s.midi;if(fret>=0&&fret<=maxFret)out.push({label:`${s.label} • casa ${fret}`,fret})});return out}
+function notationFakePositions(correct){const pool=[];GT_NOTATION_STRINGS.forEach(s=>{for(let f=0;f<=7;f++){const label=`${s.label} • casa ${f}`;if(label!==correct&&!pool.includes(label))pool.push(label)}});return notationShuffle(pool)}
+function notationNewGuitar(){notationGuitarLocked=false;let tries=0,pos=[];do{notationGuitarCurrent=notationPick(GT_NOTATION_NATURAL);pos=notationPositions(notationGuitarCurrent,12);tries++}while(!pos.length&&tries<20);document.getElementById('notationGuitarStaff').innerHTML=notationStaffMarkup(notationGuitarCurrent);const correct=notationPick(pos).label,choices=notationShuffle([correct,...notationFakePositions(correct).slice(0,3)]),box=document.getElementById('notationGuitarAnswers');box.innerHTML='';choices.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.onclick=()=>notationAnswerGuitar(c,correct,b,pos);box.appendChild(b)});document.getElementById('notationGuitarFeedback').textContent='Primeiro reconheça a nota; depois procure-a no braço.';document.getElementById('notationGuitarPositions').innerHTML=''}
+function notationAnswerGuitar(choice,correct,btn,pos){if(notationGuitarLocked)return;notationGuitarLocked=true;const ok=choice===correct,ans=notationNamePt(notationGuitarCurrent);btn.classList.add(ok?'correct':'wrong');[...document.getElementById('notationGuitarAnswers').children].find(x=>x.textContent===correct)?.classList.add('correct');[...document.getElementById('notationGuitarAnswers').children].forEach(x=>x.disabled=true);notationRecord(ok);document.getElementById('notationGuitarFeedback').innerHTML=(ok?'<b>✓ Correto.</b> ':'<b>Uma posição correta é '+correct+'.</b> ')+`A nota escrita é ${ans}. Na guitarra, a notação soa uma oitava abaixo.`;document.getElementById('notationGuitarPositions').innerHTML=pos.map(p=>`<div class="notation-pos">${p.label}</div>`).join('')}
+function notationNewSight(){clearInterval(notationSightTimer);const pool=GT_NOTATION_NATURAL.filter(n=>notationY(n)>=90&&notationY(n)<=170),seq=Array.from({length:4},()=>notationPick(pool));document.getElementById('notationSightStaff').dataset.seq=seq.join(',');document.getElementById('notationSightStaff').innerHTML=notationStaffMarkup(seq,760);document.getElementById('notationSightNames').textContent='Observe clave, direção melódica e posições antes de tocar.';document.getElementById('notationSightCount').textContent='PRÉ-LEIA'}
+function notationStartSight(){clearInterval(notationSightTimer);let n=5;document.getElementById('notationSightCount').textContent=n;notationSightTimer=setInterval(()=>{n--;document.getElementById('notationSightCount').textContent=n>0?n:'TOQUE';if(n<=0){clearInterval(notationSightTimer);notationSightTimer=null}},1000)}
+function notationRevealSight(){const seq=(document.getElementById('notationSightStaff').dataset.seq||'').split(',').filter(Boolean);document.getElementById('notationSightNames').textContent=seq.length?'Notas: '+seq.map(notationNamePt).join(' • '):'Gere uma leitura.'}
+function notationSetView(view){document.querySelectorAll('[data-notation-view]').forEach(b=>b.classList.toggle('active',b.dataset.notationView===view));document.querySelectorAll('.notation-view').forEach(x=>x.classList.toggle('active',x.id===`notationView-${view}`))}
+function notationInit(){if(!document.getElementById('notationNoteStaff'))return;notationNewNote();notationNewRhythm();notationNewGuitar();notationNewSight()}
+document.querySelectorAll('[data-notation-view]').forEach(b=>b.addEventListener('click',()=>notationSetView(b.dataset.notationView)));
+document.getElementById('notationNextNote')?.addEventListener('click',notationNewNote);document.getElementById('notationPlayNote')?.addEventListener('click',notationPlayCurrent);document.getElementById('notationNextRhythm')?.addEventListener('click',notationNewRhythm);document.getElementById('notationNextGuitar')?.addEventListener('click',notationNewGuitar);document.getElementById('notationSightStart')?.addEventListener('click',notationStartSight);document.getElementById('notationSightReveal')?.addEventListener('click',notationRevealSight);document.getElementById('notationSightNew')?.addEventListener('click',notationNewSight);notationInit();
+function notationChallengeQuestion(){
+  const basic=[
+    {p:'Na clave de Sol, qual nota ocupa a 2ª linha da pauta?',a:'Sol',c:['Mi','Fá','Sol','Lá'],e:'A clave de Sol fixa o Sol na segunda linha.'},
+    {p:'Em 4/4, quantos tempos vale uma semínima?',a:'1 tempo',c:['1/2 tempo','1 tempo','2 tempos','4 tempos'],e:'Em 4/4, a semínima é a unidade de tempo.'},
+    {p:'Em 4/4, quantos tempos vale uma mínima?',a:'2 tempos',c:['1 tempo','2 tempos','3 tempos','4 tempos'],e:'A mínima vale o dobro da semínima.'}
+  ];
+  const inter=[
+    {p:'O que o bequadro faz?',a:'Anula um acidente anterior',c:['Sobe 1 semitom','Desce 1 semitom','Anula um acidente anterior','Duplica a duração'],e:'O bequadro devolve a nota à forma natural.'},
+    {p:'Em uma fórmula de compasso, o numerador indica:',a:'Quantas unidades há no compasso',c:['A tonalidade','Quantas unidades há no compasso','O BPM','A oitava'],e:'O numerador organiza a quantidade de unidades do compasso.'},
+    {p:'Uma semínima pontuada vale:',a:'1,5 vez o valor original',c:['Metade do valor','O dobro','1,5 vez o valor original','3 vezes'],e:'O ponto acrescenta metade do valor original.'},
+    {p:'Um acidente local normalmente permanece válido até:',a:'O fim do compasso',c:['A próxima nota apenas','O fim do compasso','O fim da música','A próxima pauta'],e:'Sem nova indicação, o acidente local vale até a barra de compasso.'}
+  ];
+  const adv=[
+    {p:'Na notação tradicional de guitarra, o instrumento soa:',a:'Uma oitava abaixo do escrito',c:['Na mesma oitava','Uma oitava acima','Uma oitava abaixo do escrito','Duas oitavas abaixo'],e:'A guitarra é um instrumento transpositor de oitava.'},
+    {p:'Em 4/4, uma mínima pontuada dura:',a:'3 tempos',c:['2 tempos','2,5 tempos','3 tempos','4 tempos'],e:'Mínima = 2; o ponto acrescenta 1.'},
+    {p:'Uma semínima ligada a uma mínima da mesma altura totaliza:',a:'3 tempos em 4/4',c:['1 tempo em 4/4','2 tempos em 4/4','3 tempos em 4/4','4 tempos em 4/4'],e:'Ligadura de duração soma os valores: 1 + 2.'},
+    {p:'Na fórmula 6/8, o denominador 8 corresponde à:',a:'Colcheia',c:['Semibreve','Mínima','Semínima','Colcheia'],e:'O número 8 representa a colcheia como figura de referência.'},
+    {p:'Antes de uma leitura à primeira vista, a melhor pré-leitura procura primeiro:',a:'Clave, compasso, andamento e padrões',c:['Apenas a última nota','Clave, compasso, andamento e padrões','Somente a digitação','Memorizar cada compasso'],e:'A pré-leitura identifica a estrutura antes da execução.'}
+  ];
+  const pool=challengeLevel==='beginner'?basic:challengeLevel==='intermediate'?[...basic,...inter]:[...inter,...adv],q=notationPick(pool);return{prompt:q.p,answer:q.a,choices:notationShuffle(q.c),explain:q.e}
+}
+
 /* ---------------- V14.18 • MODO TREINO INTELIGENTE + PROGRESSO COACH ---------------- */
 const GT_PROGRESS_KEY='guitarTrainerV12Progress';
-const V12_CATEGORY_LABELS={notes:'Notas',intervals:'Intervalos',chords:'Acordes',scales:'Escalas',arpeggios:'Arpejos',harmony:'Harmonia'};
+const V12_CATEGORY_LABELS={notes:'Notas',intervals:'Intervalos',chords:'Acordes',scales:'Escalas',arpeggios:'Arpejos',harmony:'Harmonia',notation:'Leitura'};
 const V12_EAR_LABELS={note:'Notas',interval:'Intervalos',majorMinor:'Maior × Menor',triad:'Tríades',seventh:'Tétrades',function:'Função'};
 const V14_STRATEGY_LABELS={smart:'Inteligente',weak:'Reforçar',balanced:'Equilibrado'};
 function emptyPersistentProgress(){return{version:2,totalQuestions:0,totalCorrect:0,totalStudySeconds:0,sessions:0,bestStreak:0,categories:Object.fromEntries(Object.keys(V12_CATEGORY_LABELS).map(k=>[k,{attempts:0,correct:0}])),ear:Object.fromEntries(Object.keys(V12_EAR_LABELS).map(k=>[k,{attempts:0,correct:0}])),recentSessions:[]}}
@@ -4017,7 +4187,7 @@ let trainingMinutes=10,trainingLevel='intermediate',trainingStrategy='smart',tra
 function trainingPickWeightedCategory(excluded=[]){const all=Object.keys(V12_CATEGORY_LABELS),cats=all.filter(k=>!excluded.includes(k)),pool=cats.length?cats:all;let weights;if(trainingStrategy==='balanced')weights=pool.map(()=>1);else{const ranked=rankedMeasuredCategories(),weakSet=new Set(ranked.slice(-2));weights=pool.map(k=>{const c=persistentProgress.categories[k];if(!c.attempts)return trainingStrategy==='weak'?1.6:2.2;const acc=c.correct/c.attempts;if(trainingStrategy==='weak')return 1+Math.max(0,1-acc)*6+(weakSet.has(k)?2.5:0);return 1+Math.max(0,1-acc)*3+(weakSet.has(k)?0.7:0)})}const total=weights.reduce((a,b)=>a+b,0);let r=Math.random()*total;for(let i=0;i<pool.length;i++){r-=weights[i];if(r<=0)return pool[i]}return pool[pool.length-1]}
 function trainingPickCategory(){const dueIndex=trainingReviewQueue.findIndex(item=>item.dueAt<=trainingQuestionCount);if(dueIndex>=0){const [review]=trainingReviewQueue.splice(dueIndex,1);return review.category}const excluded=Object.keys(trainingCategoryCooldowns).filter(k=>(trainingCategoryCooldowns[k]||0)>trainingQuestionCount);return trainingPickWeightedCategory(excluded)}
 function scheduleTrainingReview(category){const gap=4+Math.floor(Math.random()*4);trainingReviewQueue.push({category,dueAt:trainingQuestionCount+gap});trainingCategoryCooldowns[category]=Math.max(trainingCategoryCooldowns[category]||0,trainingQuestionCount+3)}
-function trainingGenerateQuestion(cat){const prev=challengeLevel;challengeLevel=trainingLevel;let q;if(cat==='notes')q=challengeNoteQuestion();else if(cat==='intervals')q=challengeIntervalQuestion();else if(cat==='chords')q=challengeChordQuestion();else if(cat==='scales')q=challengeScaleQuestion();else if(cat==='arpeggios')q=challengeArpeggioQuestion();else q=challengeHarmonyQuestion();challengeLevel=prev;q._category=cat;return q}
+function trainingGenerateQuestion(cat){const prev=challengeLevel;challengeLevel=trainingLevel;let q;if(cat==='notes')q=challengeNoteQuestion();else if(cat==='intervals')q=challengeIntervalQuestion();else if(cat==='chords')q=challengeChordQuestion();else if(cat==='scales')q=challengeScaleQuestion();else if(cat==='arpeggios')q=challengeArpeggioQuestion();else if(cat==='notation')q=notationChallengeQuestion();else q=challengeHarmonyQuestion();challengeLevel=prev;q._category=cat;return q}
 function updateTrainingClock(){if(!trainingRunning)return;const elapsed=Math.max(0,Math.floor((Date.now()-trainingStartedAt)/1000)),remaining=Math.max(0,trainingTargetSeconds-elapsed),m=Math.floor(remaining/60),sec=remaining%60;document.getElementById('trainingTimer').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');document.getElementById('trainingTimeBar').style.width=Math.min(100,elapsed/trainingTargetSeconds*100)+'%';if(remaining<=0)finishTrainingSession('time')}
 function renderTrainingQuestion(){if(!trainingRunning)return;trainingLocked=false;const cat=trainingPickCategory();trainingQuestion=trainingGenerateQuestion(cat);document.getElementById('trainingCategory').textContent=V12_CATEGORY_LABELS[cat].toUpperCase();document.getElementById('trainingKicker').textContent=({beginner:'INICIANTE',intermediate:'INTERMEDIÁRIO',advanced:'AVANÇADO'})[trainingLevel]+' • '+(V14_STRATEGY_LABELS[trainingStrategy]||'TREINO').toUpperCase();document.getElementById('trainingPrompt').textContent=trainingQuestion.prompt;document.getElementById('trainingFeedback').textContent=trainingReviewQueue.length?`Escolha uma resposta. Reforços pendentes: ${trainingReviewQueue.length}.`:'Escolha uma resposta.';const box=document.getElementById('trainingAnswers');box.innerHTML='';trainingQuestion.choices.forEach(choice=>{const b=document.createElement('button');b.type='button';b.textContent=choice;b.addEventListener('click',()=>answerTraining(choice,b));box.appendChild(b)});const next=document.getElementById('trainingNext');next.disabled=true;next.textContent='PRÓXIMA'}
 function answerTraining(choice,button){if(trainingLocked||!trainingQuestion)return;trainingLocked=true;trainingQuestionCount++;const ok=choice===trainingQuestion.answer,cat=trainingQuestion._category;const st=trainingSessionStats[cat]||(trainingSessionStats[cat]={attempts:0,correct:0});st.attempts++;if(ok)st.correct++;if(ok){trainingCorrectN++;trainingStreakN++;trainingBestStreakN=Math.max(trainingBestStreakN,trainingStreakN);button.classList.add('correct');document.getElementById('trainingFeedback').innerHTML=`<strong>✓ Correto.</strong> ${trainingQuestion.explain||''}<br><span style="font-size:.7rem">Próxima questão em instantes…</span>`}else{trainingStreakN=0;button.classList.add('wrong');[...document.getElementById('trainingAnswers').children].find(b=>b.textContent===trainingQuestion.answer)?.classList.add('correct');scheduleTrainingReview(cat);document.getElementById('trainingFeedback').innerHTML=`<strong>Resposta: ${trainingQuestion.answer}.</strong> ${trainingQuestion.explain||''}<br><span style="font-size:.7rem">${V12_CATEGORY_LABELS[cat]} voltará depois de outras questões. Reforços pendentes: ${trainingReviewQueue.length}.</span>`}[...document.getElementById('trainingAnswers').children].forEach(b=>b.disabled=true);recordPersistentResult(cat,ok,'training');persistentProgress.bestStreak=Math.max(persistentProgress.bestStreak||0,trainingBestStreakN);savePersistentProgress();document.getElementById('trainingCorrect').textContent='ACERTOS '+trainingCorrectN;document.getElementById('trainingQuestions').textContent='QUESTÕES '+trainingQuestionCount;document.getElementById('trainingStreak').textContent='SEQUÊNCIA '+trainingStreakN;const next=document.getElementById('trainingNext');next.disabled=false;next.textContent='PRÓXIMA AGORA';clearTimeout(trainingAdvanceTimer);trainingAdvanceTimer=setTimeout(()=>{trainingAdvanceTimer=null;if(trainingRunning)renderTrainingQuestion()},1400)}
@@ -4084,8 +4254,8 @@ document.getElementById('earPlay').addEventListener('click',()=>{earStop();earQu
 
 /* ---------------- V14.23 • DESAFIOS, MISSÕES & XP ---------------- */
 let challengeLevel='beginner',challengeCat='mixed',challengeIndex=0,challengeScoreN=0,challengeStreakN=0,challengeBestN=0,challengeLocked=false,challengeQ=null,challengeRoundStartXP=gtGetXP(),challengeAdvanceTimer=null;
-const CHALLENGE_CATS=['notes','intervals','chords','scales','arpeggios','harmony'];
-const CHALLENGE_CAT_LABELS={notes:'NOTAS',intervals:'INTERVALOS',chords:'ACORDES',scales:'ESCALAS',arpeggios:'ARPEJOS',harmony:'HARMONIA'};
+const CHALLENGE_CATS=['notes','intervals','chords','scales','arpeggios','harmony','notation'];
+const CHALLENGE_CAT_LABELS={notes:'NOTAS',intervals:'INTERVALOS',chords:'ACORDES',scales:'ESCALAS',arpeggios:'ARPEJOS',harmony:'HARMONIA',notation:'LEITURA'};
 const GT_CHALLENGE_META_KEY='guitarTrainerChallengeMetaV1';
 function gtDayKey(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function gtWeekKey(d=new Date()){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate()),n=(x.getDay()+6)%7;x.setDate(x.getDate()-n);return gtDayKey(x)}
@@ -4121,7 +4291,7 @@ const CHALLENGE_SCALES=[['Maior / Jônio',[0,2,4,5,7,9,11]],['Menor natural / E�
 function challengeScaleQuestion(){const pool=challengeLevel==='beginner'?CHALLENGE_SCALES.slice(0,2):challengeLevel==='intermediate'?CHALLENGE_SCALES.slice(0,7):CHALLENGE_SCALES,sc=randomChoice(pool),formula=sc[1].map(o=>EAR_INTERVAL_NAMES[o]).join(' – ');return{prompt:`Que escala/modo tem a fórmula ${formula}?`,answer:sc[0],choices:makeChoices(sc[0],pool.map(x=>x[0]),4),explain:`${sc[0]} = ${formula}.`}}
 function challengeArpeggioQuestion(){const rootPc=Math.floor(Math.random()*12),keys=challengeLevel==='beginner'?['major','minor']:challengeLevel==='intermediate'?['major','minor','maj7','dom7','min7']:['major','minor','dim','aug','maj7','dom7','min7','halfDim','dim7'],key=randomChoice(keys),c=EAR_CHORDS[key],notes=c.offs.map(o=>NOTE_NAMES[(rootPc+o)%12]),answer=notes.join(' • ');const pool=[answer];while(pool.length<4){const fake=c.offs.map((o,i)=>NOTE_NAMES[(rootPc+o+(i===1?randomChoice([-1,1,2]):0)+12)%12]).join(' • ');if(!pool.includes(fake))pool.push(fake)}return{prompt:`Quais notas formam o arpejo ${NOTE_NAMES[rootPc]} ${c.label}?`,answer,choices:shuffled(pool),explain:`Fórmula: ${c.offs.map(o=>EAR_INTERVAL_NAMES[o]).join(' – ')} → ${answer}.`}}
 function challengeHarmonyQuestion(){const qs=[{p:'No campo maior, qual grau tem a função dominante mais forte?',a:'V',c:['I','ii','IV','V'],e:'O V contém a sensível e tende fortemente a resolver em I.'},{p:'No campo maior, quais graus são predominantes mais comuns?',a:'ii e IV',c:['I e vi','ii e IV','iii e vi','V e vii°'],e:'ii e IV afastam do repouso e frequentemente preparam a dominante.'},{p:'Jônio é outro nome para qual escala?',a:'Escala maior',c:['Menor natural','Escala maior','Menor harmônica','Mixolídio'],e:'Jônio e escala maior têm a mesma coleção intervalar.'},{p:'Eólio é outro nome para qual escala?',a:'Menor natural',c:['Menor natural','Menor melódica','Dórico','Frígio'],e:'Eólio e menor natural têm a mesma coleção intervalar.'},{p:'Qual movimento representa tensão → resolução no sistema tonal maior?',a:'V → I',c:['I → vi','ii → IV','V → I','I → iii'],e:'V → I é a cadência dominante–tônica clássica.'}];return (()=>{const q=randomChoice(qs);return{prompt:q.p,answer:q.a,choices:shuffled(q.c),explain:q.e}})()}
-function generateChallengeQuestion(){let cat=challengeCat==='mixed'?randomChoice(CHALLENGE_CATS):challengeCat,q;if(cat==='notes')q=challengeNoteQuestion();else if(cat==='intervals')q=challengeIntervalQuestion();else if(cat==='chords')q=challengeChordQuestion();else if(cat==='scales')q=challengeScaleQuestion();else if(cat==='arpeggios')q=challengeArpeggioQuestion();else q=challengeHarmonyQuestion();q._category=cat;return q}
+function generateChallengeQuestion(){let cat=challengeCat==='mixed'?randomChoice(CHALLENGE_CATS):challengeCat,q;if(cat==='notes')q=challengeNoteQuestion();else if(cat==='intervals')q=challengeIntervalQuestion();else if(cat==='chords')q=challengeChordQuestion();else if(cat==='scales')q=challengeScaleQuestion();else if(cat==='arpeggios')q=challengeArpeggioQuestion();else if(cat==='notation')q=notationChallengeQuestion();else q=challengeHarmonyQuestion();q._category=cat;return q}
 function renderChallengeQuestion(){if(challengeAdvanceTimer){clearTimeout(challengeAdvanceTimer);challengeAdvanceTimer=null}challengeLocked=false;if(challengeIndex>=10){finishChallenge();return}challengeQ=generateChallengeQuestion();const lvl={beginner:'INICIANTE',intermediate:'INTERMEDIÁRIO',advanced:'AVANÇADO'}[challengeLevel];document.getElementById('challengeKicker').textContent=challengeCat.toUpperCase()+' • '+lvl+' • '+(challengeIndex+1)+'/10';document.getElementById('challengePrompt').textContent=challengeQ.prompt;document.getElementById('challengeFeedback').textContent='Escolha uma resposta.';const box=document.getElementById('challengeAnswers');box.innerHTML='';challengeQ.choices.forEach(choice=>{const b=document.createElement('button');b.type='button';b.textContent=choice;b.addEventListener('click',()=>answerChallenge(choice,b));box.appendChild(b)});document.getElementById('challengeProgressBar').style.width=(challengeIndex*10)+'%';const next=document.getElementById('challengeNext');next.textContent=challengeIndex===9?'VER RESULTADO':'PRÓXIMA QUESTÃO';next.disabled=true;document.getElementById('challengeResult').style.display='none';document.getElementById('challengeQuiz').style.display='block'}
 function answerChallenge(choice,button){if(challengeLocked)return;challengeLocked=true;const ok=choice===challengeQ.answer;recordPersistentResult(challengeQ._category||challengeCat,ok,'challenge');gtTrackChallengeAnswer(challengeQ._category||challengeCat,ok);if(ok){challengeScoreN++;challengeStreakN++;challengeBestN=Math.max(challengeBestN,challengeStreakN);button.classList.add('correct');document.getElementById('challengeFeedback').innerHTML=`<strong>✓ Correto.</strong> ${challengeQ.explain}<br><span style="font-size:.7rem">Próxima questão em instantes…</span>`}else{challengeStreakN=0;button.classList.add('wrong');[...document.getElementById('challengeAnswers').children].find(b=>b.textContent===challengeQ.answer)?.classList.add('correct');document.getElementById('challengeFeedback').innerHTML=`<strong>Resposta: ${challengeQ.answer}.</strong> ${challengeQ.explain}<br><span style="font-size:.7rem">Próxima questão em instantes…</span>`}[...document.getElementById('challengeAnswers').children].forEach(b=>b.disabled=true);document.getElementById('challengeScore').textContent='ACERTOS '+challengeScoreN;document.getElementById('challengeStreak').textContent='SEQUÊNCIA '+challengeStreakN;document.getElementById('challengeBest').textContent='MELHOR '+challengeBestN;document.getElementById('challengeProgressBar').style.width=((challengeIndex+1)*10)+'%';renderChallengeMissions();const next=document.getElementById('challengeNext');next.disabled=false;next.textContent=challengeIndex===9?'VER RESULTADO AGORA':'PRÓXIMA AGORA';if(challengeAdvanceTimer)clearTimeout(challengeAdvanceTimer);challengeAdvanceTimer=setTimeout(()=>{challengeAdvanceTimer=null;if(!challengeLocked)return;challengeIndex++;renderChallengeQuestion()},1400)}
 function nextChallenge(){if(!challengeLocked)return;if(challengeAdvanceTimer){clearTimeout(challengeAdvanceTimer);challengeAdvanceTimer=null}challengeIndex++;renderChallengeQuestion()}
