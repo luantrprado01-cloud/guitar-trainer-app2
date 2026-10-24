@@ -269,8 +269,9 @@ html,body{min-height:100%;}
   .rowgap{margin-bottom:7px}
 }
 @media (max-width:1000px) and (orientation:landscape){
-  html,body{height:100%;overflow:hidden}
-  .app{height:100dvh;max-width:none;padding:4px}
+  html,body{min-height:100%;height:auto;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  body{overscroll-behavior-y:auto}
+  .app{min-height:100dvh;height:auto;max-height:none;max-width:none;overflow:visible;padding:4px;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
   #notes.active{height:calc(100dvh - 8px);display:grid;grid-template-rows:auto minmax(0,1fr)}
   #notes .rowgap{margin-bottom:4px;min-height:38px}
   #notes .rowgap button{min-height:36px;padding:5px 10px}
@@ -556,7 +557,7 @@ html,body{min-height:100%;}
 </style>
 
 <style id="v14-52-notation">
-/* V14.54 • LEITURA & NOTAÇÃO */
+/* V14.56 • LEITURA & NOTAÇÃO */
 .notation-intro{background:linear-gradient(145deg,#21160f,#120d09);border:1px solid #806029;border-radius:16px;padding:12px;color:#f5e6bb;font-size:.76rem;line-height:1.5;margin-bottom:10px}
 .notation-intro b{color:#e0b960}
 .notation-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:9px 0 12px}
@@ -581,7 +582,8 @@ html,body{min-height:100%;}
 .notation-anchor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}.notation-anchor{border:1px solid #b48a3c;background:#fff8e4;border-radius:10px;padding:8px;font-size:.68rem;line-height:1.35}.notation-anchor b{display:block;color:#7f1719;font-size:.75rem;margin-bottom:2px}
 .notation-memory-box{background:#fff8e5;border:1px solid #b88d3a;border-radius:14px;padding:11px;margin-top:10px;color:#2b1c10}.notation-memory-box h3{margin:0 0 6px;font:900 1rem Georgia,serif;color:#7f1719}.notation-memory-box p{font-size:.71rem;line-height:1.48;margin:5px 0}
 .notation-reference-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #ad8236;border-radius:12px;margin-top:9px;background:#fffaf0}.notation-reference-table{border-collapse:collapse;width:100%;min-width:760px;font-size:.68rem;color:#2b1c10}.notation-reference-table th{position:sticky;top:0;background:#2a1b11;color:#f3dfaa;padding:8px 7px;text-align:left;z-index:1}.notation-reference-table td{padding:7px;border-top:1px solid #dec99d;vertical-align:middle}.notation-reference-table tbody tr:nth-child(even){background:rgba(184,141,58,.08)}.notation-reference-staff{width:120px;height:50px;display:block}.notation-reference-note{font-weight:1000;font-size:.78rem;color:#7f1719;white-space:nowrap}.notation-reference-place{min-width:180px;line-height:1.35}.notation-reference-pos{min-width:260px;line-height:1.5}.notation-reference-pos b{color:#7f1719}.notation-open-strings{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-top:8px}.notation-open-string{background:#24170f;color:#f4e7c3;border:1px solid #8d682b;border-radius:10px;padding:7px;text-align:center;font-size:.65rem;line-height:1.3}.notation-open-string b{display:block;color:#e5bd5a;font-size:.78rem}.notation-figure-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:8px}.notation-figure-item{background:#fff8e4;border:1px solid #b48a3c;border-radius:10px;padding:7px;text-align:center;font-size:.64rem;line-height:1.25}.notation-figure-item strong{display:block;font:900 1.65rem Georgia,serif;color:#2b1c10;line-height:1}.notation-rule{border-left:4px solid #8c1719;background:rgba(140,23,25,.08);padding:8px 9px;margin-top:8px;border-radius:0 9px 9px 0;font-size:.69rem;line-height:1.45}
-@media(max-width:700px){#notation.active{min-height:100dvh;padding-bottom:34px}.notation-tabs{grid-template-columns:repeat(2,1fr)}.notation-tabs button:last-child{grid-column:1/3}.notation-grid{grid-template-columns:1fr}.notation-answer-grid{grid-template-columns:repeat(2,1fr)}.notation-guitar-positions{grid-template-columns:1fr}.notation-learning-path{grid-template-columns:repeat(2,1fr)}.notation-anchor-grid{grid-template-columns:1fr}.notation-open-strings{grid-template-columns:repeat(3,1fr)}.notation-figure-row{grid-template-columns:repeat(2,1fr)}.notation-figure-row .notation-figure-item:last-child{grid-column:1/3}}
+.notation-rhythm-demo{background:#fff8e4;border:1px solid #b48a3c;border-radius:14px;padding:10px;margin-top:10px}.notation-rhythm-demo h3{margin:0 0 6px;font:900 1rem Georgia,serif;color:#7f1719}.notation-rhythm-demo p{margin:4px 0;font-size:.71rem;line-height:1.45}.notation-rhythm-demo-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:9px}.notation-rhythm-demo-controls button{min-height:42px;font-size:.68rem;padding:6px 5px;background:#24170f;border-color:#8d682b}.notation-rhythm-demo-controls button.active{background:#8c1719;border-color:#e0b85e;color:#fff}.notation-rhythm-demo-readout{margin-top:8px;background:#21160f;color:#f5e4b5;border:1px solid #806029;border-radius:12px;padding:9px;font-size:.7rem;line-height:1.45}.notation-rhythm-demo-readout b{color:#e5bd5a}.notation-rhythm-demo-symbols{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.notation-rhythm-demo-symbols span{display:inline-flex;align-items:center;gap:6px;background:#fffdf4;border:1px solid #b88d3a;border-radius:999px;padding:5px 9px;font-size:.67rem;font-weight:900;color:#2b1c10}.notation-rhythm-demo-symbols strong{font:900 1rem Georgia,serif;color:#7f1719}.notation-rhythm-demo svg{max-width:980px}.notation-rhythm-demo-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.notation-rhythm-demo-actions button{flex:1;min-width:145px}.notation-rhythm-demo-actions .stop{background:linear-gradient(#6b5a35,#4f3d1c);border-color:#b58d3f}.notation-rhythm-demo-status{margin-top:8px;font-size:.7rem;line-height:1.4;color:#61471f}.notation-rhythm-demo-status b{color:#7f1719}.notation-rhythm-demo-notehint{margin-top:6px;font-size:.67rem;line-height:1.35;color:#61471f}
+@media(max-width:700px){#notation.active{min-height:100dvh;padding-bottom:34px}.notation-tabs{grid-template-columns:repeat(2,1fr)}.notation-tabs button:last-child{grid-column:1/3}.notation-grid{grid-template-columns:1fr}.notation-answer-grid{grid-template-columns:repeat(2,1fr)}.notation-guitar-positions{grid-template-columns:1fr}.notation-learning-path{grid-template-columns:repeat(2,1fr)}.notation-anchor-grid{grid-template-columns:1fr}.notation-open-strings{grid-template-columns:repeat(3,1fr)}.notation-figure-row{grid-template-columns:repeat(2,1fr)}.notation-figure-row .notation-figure-item:last-child{grid-column:1/3}.notation-rhythm-demo-controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 
 </head>
@@ -657,7 +659,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.54 • LEITURA & NOTAÇÃO</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.56 • LEITURA & NOTAÇÃO</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -1541,6 +1543,34 @@ html,body{min-height:100%;}
       </div>
     </div>
 
+    <div class="notation-rhythm-demo">
+      <h3>EXEMPLO SONORO • COMO CADA FIGURA MUDA O RITMO</h3>
+      <p>Veja a <b>mesma altura</b> escrita em compasso <b>4/4</b>, mas com desenhos rítmicos diferentes. Primeiro escolha uma figura para ouvi-la sozinha; depois use <b>TODAS EM SEGUIDA</b> para comparar as diferenças na prática.</p>
+      <div class="notation-rhythm-demo-symbols">
+        <span><strong>𝅝</strong> Semibreve</span>
+        <span><strong>𝅗𝅥</strong> Mínima</span>
+        <span><strong>♩</strong> Semínima</span>
+        <span><strong>♪</strong> Colcheia</span>
+        <span><strong>𝅘𝅥𝅯</strong> Semicolcheia</span>
+      </div>
+      <div id="notationRhythmDemoControls" class="notation-rhythm-demo-controls">
+        <button type="button" data-rhythm-demo="whole" class="active">SEMIBREVE</button>
+        <button type="button" data-rhythm-demo="half">MÍNIMA</button>
+        <button type="button" data-rhythm-demo="quarter">SEMÍNIMA</button>
+        <button type="button" data-rhythm-demo="eighth">COLCHEIA</button>
+        <button type="button" data-rhythm-demo="sixteenth">SEMICOLCHEIA</button>
+        <button type="button" data-rhythm-demo="all">TODAS EM SEGUIDA</button>
+      </div>
+      <div id="notationRhythmDemoReadout" class="notation-rhythm-demo-readout"><b>FIGURA ATUAL:</b> Semibreve • 1 nota por compasso • duração de 4 tempos.</div>
+      <svg id="notationRhythmDemoStaff" class="notation-staff" viewBox="0 0 980 230" aria-label="Exemplo rítmico em pauta"></svg>
+      <div class="notation-rhythm-demo-actions">
+        <button id="notationRhythmDemoPlay" type="button">▶ OUVIR EXEMPLO</button>
+        <button id="notationRhythmDemoStop" type="button" class="stop">■ PARAR</button>
+      </div>
+      <div id="notationRhythmDemoStatus" class="notation-rhythm-demo-status"><b>ESTUDO SUGERIDO:</b> observe primeiro quantas notas cabem em cada compasso; depois ouça como o pulso fica mais “cheio” conforme a subdivisão aumenta.</div>
+      <div class="notation-rhythm-demo-notehint">A nota escrita permanece na mesma linha para que a diferença percebida seja <b>apenas rítmica</b>. A ordem sugerida de comparação é: <b>semibreve → mínima → semínima → colcheia → semicolcheia</b>.</div>
+    </div>
+
     <div class="notation-memory-box">
       <h3>MAPA DE MEMORIZAÇÃO • PARTITURA → BRAÇO</h3>
       <p>Use esta tabela como referência de estudo. Ela cobre as notas naturais trabalhadas pelo módulo, do <b>Mi grave da 6ª corda solta</b> até o <b>Sol acima da pauta</b>. As posições mostradas produzem a <b>mesma altura real</b> e vão até a casa 12.</p>
@@ -1774,7 +1804,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.54 • JAM • 19 BACKTRACKS</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.56 • JAM • 19 BACKTRACKS</strong><br>
     Escolha uma <b>backtrack</b> ou deixe em <b>AUTO</b>. A app organiza estilo, tom e BPM e prepara a faixa certa conforme você escolher <b>EU TOCO SOLO</b> ou <b>EU TOCO BASE</b>. Para preservar a qualidade das guitarras, a transposição tonal fica limitada a <b>±1 semitom</b>.
   </div>
 
@@ -2315,7 +2345,7 @@ const GUIDED_TUTORIAL={
     {topic:'map',sel:'#map',title:'MAPA LIVRE',copy:'Selecione tônica e intervalos para construir visualmente acordes, arpejos ou partes de escalas em todo o braço.'}
   ]},
   notation:{title:'LEITURA & NOTAÇÃO',screen:'notation',steps:[
-    {sel:'#notationTabs',title:'CINCO CAMINHOS',copy:'Comece por APRENDER: agora ele inclui pontos de referência, cordas soltas, ritmo e um mapa completo pauta → braço. Depois pratique notas, ritmo, localização e leitura à primeira vista.'},
+    {sel:'#notationTabs',title:'CINCO CAMINHOS',copy:'Comece por APRENDER: agora ele inclui pontos de referência, cordas soltas, ritmo, um mapa completo pauta → braço e um exemplo sonoro comparando semibreve, mínima, semínima, colcheia e semicolcheia. Depois pratique notas, ritmo, localização e leitura à primeira vista.'},
     {sel:'#notationNoteStaff',title:'NOTA NA PAUTA',copy:'Leia a posição da cabeça da nota antes de olhar as respostas. A app usa a clave de Sol e inclui linhas suplementares da tessitura comum da guitarra.'},
     {sel:'#notationRhythmSymbol',title:'DURAÇÃO',copy:'Treine semibreve, mínima, semínima, colcheia e semicolcheia, além de ponto, ligadura e fórmulas de compasso nos níveis mais altos.'},
     {sel:'#notationGuitarStaff',title:'PARTITURA → GUITARRA',copy:'Depois de reconhecer a nota, escolha uma posição real no braço. A resposta mostra outras posições possíveis para o mesmo som.'},
@@ -4178,7 +4208,7 @@ document.getElementById('metroStart').addEventListener('click',startMetronome);d
 renderPulseFigures();renderSubdivisionButtons();renderTempoPresets();setMeter(4,4);setBpm(120);renderAccentProgram();renderRhythmExercise();updateMetroTrainerStatus();
 
 
-/* ---------------- V14.54 • LEITURA & NOTAÇÃO ---------------- */
+/* ---------------- V14.56 • LEITURA & NOTAÇÃO ---------------- */
 const GT_NOTATION_LETTERS=['C','D','E','F','G','A','B'];
 const GT_NOTATION_SEMIS={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
 const GT_NOTATION_NATURAL=['E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5'];
@@ -4206,6 +4236,19 @@ function notationPositions(name,maxFret=12){const target=notationWrittenMidi(nam
 function notationLocationText(name){const y=notationY(name),insideLines={120:'1ª linha',100:'2ª linha',80:'3ª linha',60:'4ª linha',40:'5ª linha'},insideSpaces={110:'1º espaço',90:'2º espaço',70:'3º espaço',50:'4º espaço'};if(insideLines[y])return insideLines[y];if(insideSpaces[y])return insideSpaces[y];const below={130:'espaço logo abaixo da pauta',140:'1ª linha suplementar inferior',150:'espaço abaixo da 1ª suplementar',160:'2ª linha suplementar inferior',170:'espaço abaixo da 2ª suplementar',180:'3ª linha suplementar inferior',190:'espaço abaixo da 3ª suplementar'};const above={30:'espaço logo acima da pauta',20:'1ª linha suplementar superior',10:'espaço acima da 1ª suplementar',0:'2ª linha suplementar superior'};return below[y]||above[y]||'fora da região principal'}
 function notationMiniStaff(name){return `<svg class="notation-reference-staff" viewBox="0 0 560 230" aria-label="${notationNamePt(name)} na pauta">${notationStaffMarkup(name,560)}</svg>`}
 function notationRenderReferenceTable(){const host=document.getElementById('notationReferenceTable');if(!host)return;const rows=GT_NOTATION_NATURAL.map(name=>{const positions=notationPositions(name,12),n=notationParseName(name),pt=notationNamePt(name),pos=positions.length?positions.map(p=>`<b>${p.label.replace(' • ','</b> • ')}`).join('<br>'):'—';return `<tr><td>${notationMiniStaff(name)}</td><td class="notation-reference-note">${pt}<br><small>${n.letter}${n.oct} escrita</small></td><td class="notation-reference-place">${notationLocationText(name)}</td><td class="notation-reference-pos">${pos}</td></tr>`}).join('');host.innerHTML=`<table class="notation-reference-table"><thead><tr><th>NA PAUTA</th><th>NOTA</th><th>LOCALIZAÇÃO</th><th>NA GUITARRA • MESMA ALTURA</th></tr></thead><tbody>${rows}</tbody></table>`}
+const GT_RHYTHM_DEMO={whole:{key:'whole',label:'Semibreve',symbol:'𝅝',beats:[4],summary:'1 nota por compasso • duração de 4 tempos.'},half:{key:'half',label:'Mínima',symbol:'𝅗𝅥',beats:[2,2],summary:'2 notas por compasso • cada uma dura 2 tempos.'},quarter:{key:'quarter',label:'Semínima',symbol:'♩',beats:[1,1,1,1],summary:'4 notas por compasso • cada uma vale 1 tempo.'},eighth:{key:'eighth',label:'Colcheia',symbol:'♪',beats:[.5,.5,.5,.5,.5,.5,.5,.5],summary:'8 notas por compasso • duas notas por tempo.'},sixteenth:{key:'sixteenth',label:'Semicolcheia',symbol:'𝅘𝅥𝅯',beats:[.25,.25,.25,.25,.25,.25,.25,.25,.25,.25,.25,.25,.25,.25,.25,.25],summary:'16 notas por compasso • quatro notas por tempo.'}};
+let notationRhythmDemoMode='whole',notationRhythmDemoPlaying=false,notationRhythmDemoCtx=null,notationRhythmDemoTimerIds=[],notationRhythmDemoActive=-1;
+function notationRhythmDemoStop(){notationRhythmDemoPlaying=false;notationRhythmDemoActive=-1;notationRhythmDemoTimerIds.forEach(id=>clearTimeout(id));notationRhythmDemoTimerIds=[];notationRenderRhythmDemo();const st=document.getElementById('notationRhythmDemoStatus');if(st)st.innerHTML='<b>PRONTO:</b> escolha uma figura e toque em “OUVIR EXEMPLO”.';}
+function notationRhythmDemoSetMode(mode){notationRhythmDemoMode=mode;document.querySelectorAll('[data-rhythm-demo]').forEach(b=>b.classList.toggle('active',b.dataset.rhythmDemo===mode));notationRhythmDemoStop();notationRenderRhythmDemo();}
+function notationRhythmDemoBars(){return notationRhythmDemoMode==='all'?['whole','half','quarter','eighth','sixteenth']:[notationRhythmDemoMode,notationRhythmDemoMode];}
+function notationRhythmDemoEvents(){const bars=notationRhythmDemoBars(),events=[];bars.forEach((key,barIndex)=>{let start=0;(GT_RHYTHM_DEMO[key].beats||[]).forEach((dur,indexInBar)=>{events.push({barIndex,key,dur,start,indexInBar});start+=dur})});return events}
+function notationRhythmReadoutText(){const host=document.getElementById('notationRhythmDemoReadout');if(!host)return;const def=GT_RHYTHM_DEMO[notationRhythmDemoMode]||GT_RHYTHM_DEMO.whole;if(notationRhythmDemoMode==='all')host.innerHTML='<b>FIGURA ATUAL:</b> Sequência completa • 5 compassos em 4/4 • ordem: semibreve → mínima → semínima → colcheia → semicolcheia.';else host.innerHTML=`<b>FIGURA ATUAL:</b> ${def.label} • ${def.summary}`}
+function notationRhythmDemoBeep(duration=.25,accent=false){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;notationRhythmDemoCtx=notationRhythmDemoCtx||new C();const ctx=notationRhythmDemoCtx,o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=accent?880:660;g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.2,ctx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+Math.max(.08,duration*.75));o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+Math.max(.09,duration*.8))}catch(e){}}
+function notationRhythmDemoNote(x,y,type,active){const stroke=active?'#a0181b':'#24170f';const fill=(type==='whole'||type==='half')?'#fffaf0':(active?'#a0181b':'#24170f');let s=`<ellipse cx="${x}" cy="${y}" rx="9" ry="6.5" transform="rotate(-18 ${x} ${y})" fill="${fill}" stroke="${stroke}" stroke-width="2"/>`;if(type!=='whole')s+=`<line x1="${x+8}" y1="${y}" x2="${x+8}" y2="${y-38}" stroke="${stroke}" stroke-width="2.4"/>`;return s}
+function notationRhythmDemoSingleFlag(x,y,stroke,doubleFlag){let s=`<path d="M ${x+8} ${y-38} q 10 3 12 14" fill="none" stroke="${stroke}" stroke-width="2.2" stroke-linecap="round"/>`;if(doubleFlag)s+=`<path d="M ${x+8} ${y-31} q 10 3 12 14" fill="none" stroke="${stroke}" stroke-width="2.2" stroke-linecap="round"/>`;return s}
+function notationRenderRhythmDemo(){const svg=document.getElementById('notationRhythmDemoStaff');if(!svg)return;notationRhythmReadoutText();const bars=notationRhythmDemoBars(),width=980,left=95,right=30,lines=[40,60,80,100,120],barW=(width-left-right)/bars.length;let out=`<rect width="${width}" height="230" fill="#fffaf0"/>`;lines.forEach(y=>out+=`<line x1="${left}" y1="${y}" x2="${width-right}" y2="${y}" stroke="#3a2a17" stroke-width="2"/>`);out+=`<text x="35" y="119" font-size="74" font-family="Georgia,serif" fill="#3a2a17">𝄞</text><text x="73" y="60" font-size="20" font-family="Georgia,serif" fill="#3a2a17">4</text><text x="73" y="91" font-size="20" font-family="Georgia,serif" fill="#3a2a17">4</text>`;
+let globalIdx=0;bars.forEach((key,barIndex)=>{const def=GT_RHYTHM_DEMO[key],x0=left+barW*barIndex,x1=x0+barW;out+=`<line x1="${x0}" y1="40" x2="${x0}" y2="120" stroke="#3a2a17" stroke-width="2"/>`;if(barIndex===bars.length-1)out+=`<line x1="${x1}" y1="40" x2="${x1}" y2="120" stroke="#3a2a17" stroke-width="4"/><line x1="${x1-6}" y1="40" x2="${x1-6}" y2="120" stroke="#3a2a17" stroke-width="1.5"/>`;out+=`<text x="${x0+10}" y="145" font-size="14" font-weight="900" fill="#7f1719">${def.label.toUpperCase()}</text>`;const n=def.beats.length,y=80,pad=Math.min(32,barW*.16);const xs=n===1?[x0+barW/2]:Array.from({length:n},(_,i)=>x0+pad+i*((barW-2*pad)/(n-1)));const type=def.key;xs.forEach((x,i)=>{const active=globalIdx===notationRhythmDemoActive;out+=notationRhythmDemoNote(x,y,type,active);if(type==='eighth'){const stroke=active?'#a0181b':'#24170f';if(i%2===0&&xs[i+1])out+=`<line x1="${x+8}" y1="${y-38}" x2="${xs[i+1]+8}" y2="${y-38}" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/>`;if(i===n-1&&n===1)out+=notationRhythmDemoSingleFlag(x,y,stroke,false)}else if(type==='sixteenth'){const stroke=active?'#a0181b':'#24170f';if(i%4===0&&xs[i+3]){out+=`<line x1="${x+8}" y1="${y-38}" x2="${xs[i+3]+8}" y2="${y-38}" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/><line x1="${x+8}" y1="${y-30}" x2="${xs[i+3]+8}" y2="${y-30}" stroke="${stroke}" stroke-width="5" stroke-linecap="round"/>`;} if(n<4)out+=notationRhythmDemoSingleFlag(x,y,stroke,true)}else if(type==='eighth'&&n<2){out+=notationRhythmDemoSingleFlag(x,y,active?'#a0181b':'#24170f',false)}else if(type==='sixteenth'&&n<4){out+=notationRhythmDemoSingleFlag(x,y,active?'#a0181b':'#24170f',true)}globalIdx++;});});svg.innerHTML=out}
+function notationPlayRhythmDemo(){notationRhythmDemoStop();const events=notationRhythmDemoEvents();if(!events.length)return;notationRhythmDemoPlaying=true;const bpm=70,beatMs=60000/bpm;const st=document.getElementById('notationRhythmDemoStatus');if(st)st.innerHTML='<b>TOCANDO:</b> siga o pulso em 4/4 e observe como o mesmo compasso fica mais preenchido conforme a subdivisão aumenta.';events.forEach((ev,idx)=>{const totalBeats=ev.barIndex*4+ev.start;notationRhythmDemoTimerIds.push(setTimeout(()=>{notationRhythmDemoActive=idx;notationRenderRhythmDemo();notationRhythmDemoBeep((ev.dur*beatMs)/1000,ev.start===0)},totalBeats*beatMs));});const totalDur=(events.reduce((sum,e)=>sum+e.dur,0))*beatMs;notationRhythmDemoTimerIds.push(setTimeout(()=>{notationRhythmDemoStop();const st2=document.getElementById('notationRhythmDemoStatus');if(st2)st2.innerHTML='<b>CONCLUÍDO:</b> compare os espaços entre os ataques. Semibreve ocupa o compasso inteiro; a semicolcheia divide cada tempo em quatro partes.'},totalDur+180));}
 function notationFakePositions(correct){const pool=[];GT_NOTATION_STRINGS.forEach(s=>{for(let f=0;f<=7;f++){const label=`${s.label} • casa ${f}`;if(label!==correct&&!pool.includes(label))pool.push(label)}});return notationShuffle(pool)}
 function notationNewGuitar(){notationGuitarLocked=false;let tries=0,pos=[];do{notationGuitarCurrent=notationPick(GT_NOTATION_NATURAL);pos=notationPositions(notationGuitarCurrent,12);tries++}while(!pos.length&&tries<20);document.getElementById('notationGuitarStaff').innerHTML=notationStaffMarkup(notationGuitarCurrent);const correct=notationPick(pos).label,choices=notationShuffle([correct,...notationFakePositions(correct).slice(0,3)]),box=document.getElementById('notationGuitarAnswers');box.innerHTML='';choices.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.onclick=()=>notationAnswerGuitar(c,correct,b,pos);box.appendChild(b)});document.getElementById('notationGuitarFeedback').textContent='Primeiro reconheça a nota; depois procure-a no braço.';document.getElementById('notationGuitarPositions').innerHTML=''}
 function notationAnswerGuitar(choice,correct,btn,pos){if(notationGuitarLocked)return;notationGuitarLocked=true;const ok=choice===correct,ans=notationNamePt(notationGuitarCurrent);btn.classList.add(ok?'correct':'wrong');[...document.getElementById('notationGuitarAnswers').children].find(x=>x.textContent===correct)?.classList.add('correct');[...document.getElementById('notationGuitarAnswers').children].forEach(x=>x.disabled=true);notationRecord(ok);document.getElementById('notationGuitarFeedback').innerHTML=(ok?'<b>✓ Correto.</b> ':'<b>Uma posição correta é '+correct+'.</b> ')+`A nota escrita é ${ans}. Na guitarra, a notação soa uma oitava abaixo.`;document.getElementById('notationGuitarPositions').innerHTML=pos.map(p=>`<div class="notation-pos">${p.label}</div>`).join('')}
@@ -4213,9 +4256,9 @@ function notationNewSight(){clearInterval(notationSightTimer);const pool=GT_NOTA
 function notationStartSight(){clearInterval(notationSightTimer);let n=5;document.getElementById('notationSightCount').textContent=n;notationSightTimer=setInterval(()=>{n--;document.getElementById('notationSightCount').textContent=n>0?n:'TOQUE';if(n<=0){clearInterval(notationSightTimer);notationSightTimer=null}},1000)}
 function notationRevealSight(){const seq=(document.getElementById('notationSightStaff').dataset.seq||'').split(',').filter(Boolean);document.getElementById('notationSightNames').textContent=seq.length?'Notas: '+seq.map(notationNamePt).join(' • '):'Gere uma leitura.'}
 function notationSetView(view){document.querySelectorAll('[data-notation-view]').forEach(b=>b.classList.toggle('active',b.dataset.notationView===view));document.querySelectorAll('.notation-view').forEach(x=>x.classList.toggle('active',x.id===`notationView-${view}`))}
-function notationInit(){if(!document.getElementById('notationNoteStaff'))return;notationRenderReferenceTable();notationNewNote();notationNewRhythm();notationNewGuitar();notationNewSight()}
+function notationInit(){if(!document.getElementById('notationNoteStaff'))return;notationRenderReferenceTable();notationRenderRhythmDemo();notationNewNote();notationNewRhythm();notationNewGuitar();notationNewSight()}
 document.querySelectorAll('[data-notation-view]').forEach(b=>b.addEventListener('click',()=>notationSetView(b.dataset.notationView)));
-document.getElementById('notationNextNote')?.addEventListener('click',notationNewNote);document.getElementById('notationPlayNote')?.addEventListener('click',notationPlayCurrent);document.getElementById('notationNextRhythm')?.addEventListener('click',notationNewRhythm);document.getElementById('notationNextGuitar')?.addEventListener('click',notationNewGuitar);document.getElementById('notationSightStart')?.addEventListener('click',notationStartSight);document.getElementById('notationSightReveal')?.addEventListener('click',notationRevealSight);document.getElementById('notationSightNew')?.addEventListener('click',notationNewSight);notationInit();
+document.getElementById('notationNextNote')?.addEventListener('click',notationNewNote);document.getElementById('notationPlayNote')?.addEventListener('click',notationPlayCurrent);document.getElementById('notationNextRhythm')?.addEventListener('click',notationNewRhythm);document.getElementById('notationNextGuitar')?.addEventListener('click',notationNewGuitar);document.getElementById('notationSightStart')?.addEventListener('click',notationStartSight);document.getElementById('notationSightReveal')?.addEventListener('click',notationRevealSight);document.getElementById('notationSightNew')?.addEventListener('click',notationNewSight);document.querySelectorAll('[data-rhythm-demo]').forEach(b=>b.addEventListener('click',()=>notationRhythmDemoSetMode(b.dataset.rhythmDemo)));document.getElementById('notationRhythmDemoPlay')?.addEventListener('click',notationPlayRhythmDemo);document.getElementById('notationRhythmDemoStop')?.addEventListener('click',notationRhythmDemoStop);notationInit();
 function notationChallengeQuestion(){
   const basic=[
     {p:'Na clave de Sol, qual nota ocupa a 2ª linha da pauta?',a:'Sol',c:['Mi','Fá','Sol','Lá'],e:'A clave de Sol fixa o Sol na segunda linha.'},
@@ -4988,7 +5031,7 @@ function jamApplyMix(){if(jamWebNode){const v=(Number(document.getElementById('j
 async function jamPlayAll(){if(!jamAllReady())return;if(!window.Tone){document.getElementById('jamStatus').innerHTML='<strong>MOTOR DE ÁUDIO NÃO CARREGOU.</strong> Verifique sua conexão e reabra a app.';return}try{await Tone.start();jamApplyTransform(false);jamApplyMix();const startAt=Tone.now()+0.12;const maxOffset=Math.max(0,jamSourceDuration-.05);const offset=Math.max(0,Math.min(jamPositionSource,maxOffset));if(jamWebNode){const n=jamWebNode,dur=n.player.buffer.duration||0;n.player.loop=document.getElementById('jamLoop').checked;n.player.loopStart=0;n.player.loopEnd=dur||0;n.player.start(startAt,Math.min(offset,Math.max(0,dur-.05)))}else{Object.values(jamNodes).forEach(n=>{if(n){const dur=n.player.buffer.duration||0;if(offset>=Math.max(0,dur-.05))return;const loopRequested=document.getElementById('jamLoop').checked;const sameLength=Math.abs(dur-jamSourceDuration)<0.35;n.player.loop=loopRequested&&sameLength;n.player.loopStart=Math.min(jamContentStart,Math.max(0,dur-.05));n.player.loopEnd=dur||0;n.player.start(startAt,offset)}})}jamStartToneTime=startAt;jamRunning=true;document.getElementById('jamStart').textContent='❚❚ PAUSAR JAM';document.getElementById('jamStatus').innerHTML='<strong>TOCANDO.</strong> '+(jamRole==='solo'?'Você toca o SOLO; a guitarra solo gravada está fora da banda.':'Você toca a BASE; a guitarra base gravada está fora da banda.')+` • ${jamPack().knownKey===false?'TOM ORIGINAL':JAM_NOTE_NAMES[Number(document.getElementById('jamTargetKey').value)]+' '+jamPack().modeLabel} • ${jamTargetBpm()} BPM`;jamStartTimer()}catch(err){console.error(err);jamRunning=false;document.getElementById('jamStart').textContent='▶ INICIAR JAM';document.getElementById('jamStatus').innerHTML='<strong>ERRO AO INICIAR.</strong> '+(err&&err.message?err.message:'Não foi possível iniciar a backtrack.')}}
 function jamPause(){jamPositionSource=jamCurrentSourcePos();jamStopPlayers();jamRunning=false;jamStopTimer();document.getElementById('jamStart').textContent='▶ CONTINUAR JAM';document.getElementById('jamStatus').innerHTML='<strong>PAUSADO.</strong> Toque CONTINUAR JAM para seguir do mesmo ponto.';jamUpdateTransport()}
 function jamStop(){jamStopPlayers();jamRunning=false;jamPositionSource=jamContentStart;jamStopTimer();const b=document.getElementById('jamStart');if(b)b.textContent='▶ INICIAR JAM';jamUpdateTransport();const st=document.getElementById('jamStatus');if(st)st.innerHTML='<strong>PARADO.</strong> Jam no início.'}
-/* V14.54 • segurança global: a Jam nunca continua tocando fora da tela */
+/* V14.56 • segurança global: a Jam nunca continua tocando fora da tela */
 const jamScreenGuard=document.getElementById('jam');
 if(jamScreenGuard&&typeof MutationObserver!=='undefined'){
   new MutationObserver(()=>{
@@ -5001,11 +5044,13 @@ document.addEventListener('visibilitychange',()=>{
   if(document.hidden&&jamRunning){
     try{jamStop()}catch(e){console.warn('Jam: falha ao ir para segundo plano',e)}
   }
+  if(document.hidden){try{notationRhythmDemoStop()}catch(e){}}
 });
 window.addEventListener('pagehide',()=>{
   if(jamRunning){
     try{jamStop()}catch(e){}
   }
+  try{notationRhythmDemoStop()}catch(e){}
 });
 function jamStartTimer(){jamStopTimer();jamUiTimer=setInterval(()=>{jamUpdateTransport();if(!document.getElementById('jamLoop').checked&&jamSourceDuration>0&&jamCurrentSourcePos()>=jamSourceDuration-.04)jamStop()},100)}
 function jamStopTimer(){if(jamUiTimer){clearInterval(jamUiTimer);jamUiTimer=null}}
