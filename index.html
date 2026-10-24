@@ -556,7 +556,7 @@ html,body{min-height:100%;}
 </style>
 
 <style id="v14-52-notation">
-/* V14.52 • LEITURA & NOTAÇÃO */
+/* V14.53 • LEITURA & NOTAÇÃO */
 .notation-intro{background:linear-gradient(145deg,#21160f,#120d09);border:1px solid #806029;border-radius:16px;padding:12px;color:#f5e6bb;font-size:.76rem;line-height:1.5;margin-bottom:10px}
 .notation-intro b{color:#e0b960}
 .notation-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:9px 0 12px}
@@ -653,7 +653,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.52 • LEITURA & NOTAÇÃO</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V14.53 • LEITURA & NOTAÇÃO</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -1679,7 +1679,7 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
 
-  <div class="jam-intro"><strong class="gold">V14.52 • JAM • 19 BACKTRACKS</strong><br>
+  <div class="jam-intro"><strong class="gold">V14.53 • JAM • 19 BACKTRACKS</strong><br>
     Escolha uma <b>backtrack</b> ou deixe em <b>AUTO</b>. A app organiza estilo, tom e BPM e prepara a faixa certa conforme você escolher <b>EU TOCO SOLO</b> ou <b>EU TOCO BASE</b>. Para preservar a qualidade das guitarras, a transposição tonal fica limitada a <b>±1 semitom</b>.
   </div>
 
@@ -2059,7 +2059,14 @@ html,body{min-height:100%;}
 (()=>{
 const app=document.getElementById('app2');
 const screens=[...app.querySelectorAll('.screen')];
-const show=id=>screens.forEach(s=>s.classList.toggle('active',s.id===id));
+const show=id=>{
+  const jamScreen=document.getElementById('jam');
+  const leavingJam=!!(jamScreen&&jamScreen.classList.contains('active')&&id!=='jam');
+  if(leavingJam&&typeof jamStop==='function'){
+    try{jamStop()}catch(e){console.warn('Jam: falha ao parar ao sair da tela',e)}
+  }
+  screens.forEach(s=>s.classList.toggle('active',s.id===id));
+};
 const GT_PROFILES_KEY='guitarTrainerProfilesV1';
 const GT_ACTIVE_PROFILE_KEY='guitarTrainerActiveProfileV1';
 const GT_PROFILE_MAX=4;
@@ -4076,7 +4083,7 @@ document.getElementById('metroStart').addEventListener('click',startMetronome);d
 renderPulseFigures();renderSubdivisionButtons();renderTempoPresets();setMeter(4,4);setBpm(120);renderAccentProgram();renderRhythmExercise();updateMetroTrainerStatus();
 
 
-/* ---------------- V14.52 • LEITURA & NOTAÇÃO ---------------- */
+/* ---------------- V14.53 • LEITURA & NOTAÇÃO ---------------- */
 const GT_NOTATION_LETTERS=['C','D','E','F','G','A','B'];
 const GT_NOTATION_SEMIS={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
 const GT_NOTATION_NATURAL=['E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5'];
@@ -4883,6 +4890,25 @@ function jamApplyMix(){if(jamWebNode){const v=(Number(document.getElementById('j
 async function jamPlayAll(){if(!jamAllReady())return;if(!window.Tone){document.getElementById('jamStatus').innerHTML='<strong>MOTOR DE ÁUDIO NÃO CARREGOU.</strong> Verifique sua conexão e reabra a app.';return}try{await Tone.start();jamApplyTransform(false);jamApplyMix();const startAt=Tone.now()+0.12;const maxOffset=Math.max(0,jamSourceDuration-.05);const offset=Math.max(0,Math.min(jamPositionSource,maxOffset));if(jamWebNode){const n=jamWebNode,dur=n.player.buffer.duration||0;n.player.loop=document.getElementById('jamLoop').checked;n.player.loopStart=0;n.player.loopEnd=dur||0;n.player.start(startAt,Math.min(offset,Math.max(0,dur-.05)))}else{Object.values(jamNodes).forEach(n=>{if(n){const dur=n.player.buffer.duration||0;if(offset>=Math.max(0,dur-.05))return;const loopRequested=document.getElementById('jamLoop').checked;const sameLength=Math.abs(dur-jamSourceDuration)<0.35;n.player.loop=loopRequested&&sameLength;n.player.loopStart=Math.min(jamContentStart,Math.max(0,dur-.05));n.player.loopEnd=dur||0;n.player.start(startAt,offset)}})}jamStartToneTime=startAt;jamRunning=true;document.getElementById('jamStart').textContent='❚❚ PAUSAR JAM';document.getElementById('jamStatus').innerHTML='<strong>TOCANDO.</strong> '+(jamRole==='solo'?'Você toca o SOLO; a guitarra solo gravada está fora da banda.':'Você toca a BASE; a guitarra base gravada está fora da banda.')+` • ${jamPack().knownKey===false?'TOM ORIGINAL':JAM_NOTE_NAMES[Number(document.getElementById('jamTargetKey').value)]+' '+jamPack().modeLabel} • ${jamTargetBpm()} BPM`;jamStartTimer()}catch(err){console.error(err);jamRunning=false;document.getElementById('jamStart').textContent='▶ INICIAR JAM';document.getElementById('jamStatus').innerHTML='<strong>ERRO AO INICIAR.</strong> '+(err&&err.message?err.message:'Não foi possível iniciar a backtrack.')}}
 function jamPause(){jamPositionSource=jamCurrentSourcePos();jamStopPlayers();jamRunning=false;jamStopTimer();document.getElementById('jamStart').textContent='▶ CONTINUAR JAM';document.getElementById('jamStatus').innerHTML='<strong>PAUSADO.</strong> Toque CONTINUAR JAM para seguir do mesmo ponto.';jamUpdateTransport()}
 function jamStop(){jamStopPlayers();jamRunning=false;jamPositionSource=jamContentStart;jamStopTimer();const b=document.getElementById('jamStart');if(b)b.textContent='▶ INICIAR JAM';jamUpdateTransport();const st=document.getElementById('jamStatus');if(st)st.innerHTML='<strong>PARADO.</strong> Jam no início.'}
+/* V14.53 • segurança global: a Jam nunca continua tocando fora da tela */
+const jamScreenGuard=document.getElementById('jam');
+if(jamScreenGuard&&typeof MutationObserver!=='undefined'){
+  new MutationObserver(()=>{
+    if(!jamScreenGuard.classList.contains('active')&&jamRunning){
+      try{jamStop()}catch(e){console.warn('Jam: falha no guard de tela',e)}
+    }
+  }).observe(jamScreenGuard,{attributes:true,attributeFilter:['class']});
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden&&jamRunning){
+    try{jamStop()}catch(e){console.warn('Jam: falha ao ir para segundo plano',e)}
+  }
+});
+window.addEventListener('pagehide',()=>{
+  if(jamRunning){
+    try{jamStop()}catch(e){}
+  }
+});
 function jamStartTimer(){jamStopTimer();jamUiTimer=setInterval(()=>{jamUpdateTransport();if(!document.getElementById('jamLoop').checked&&jamSourceDuration>0&&jamCurrentSourcePos()>=jamSourceDuration-.04)jamStop()},100)}
 function jamStopTimer(){if(jamUiTimer){clearInterval(jamUiTimer);jamUiTimer=null}}
 function jamUpdateTransport(){const src=jamCurrentSourcePos(),rate=jamPlaybackRate||jamRate()||1,dur=jamSourceDuration||0,usable=Math.max(0,dur-jamContentStart),rel=Math.max(0,src-jamContentStart),curReal=rel/rate,durReal=usable/rate;document.getElementById('jamCurrentTime').textContent=jamFmtTime(curReal);document.getElementById('jamDuration').textContent=jamFmtTime(durReal);document.getElementById('jamStemProgress').style.width=usable?Math.min(100,(rel/usable)*100)+'%':'0%'}
