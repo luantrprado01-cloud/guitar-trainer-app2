@@ -609,7 +609,7 @@ html,body{min-height:100%;}
 </style>
 
 <style id="v1552-guided-upgrade">
-/* V15.5.2 • MISSÕES GUIADAS + Técnica 2.1 */
+/* V15.5.3 • CORREÇÕES DE CAMPO + MISSÕES GUIADAS */
 .v1552-mission{margin:8px 0 12px;background:linear-gradient(145deg,#fff8e7,#ecd8ad);border:2px solid #9b742f;border-radius:15px;padding:11px;color:#281b10;box-shadow:0 5px 16px rgba(0,0,0,.16)}
 .v1552-mission h3{margin:0 0 5px;color:#81191b;font-family:Georgia,serif}.v1552-mission .kicker{font-size:.59rem;font-weight:1000;letter-spacing:.08em;color:#755522}.v1552-mission-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:8px 0}.v1552-mission-grid div{background:#21160f;color:#f3deb0;border-radius:9px;padding:7px;text-align:center}.v1552-mission-grid b{display:block;color:#e8c56b;font-size:.83rem}.v1552-mission-grid span{font-size:.55rem}.v1552-mission-task{background:rgba(255,255,255,.52);border-left:4px solid #8c1719;border-radius:0 9px 9px 0;padding:8px;margin:7px 0;font-size:.69rem;line-height:1.46}.v1552-tab{white-space:pre;overflow-x:auto;background:#17100b;color:#f3dfae;border:1px solid #6d522d;border-radius:10px;padding:8px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.65rem;line-height:1.35}.v1552-mission.done{border-color:#416e49;background:linear-gradient(145deg,#e7f1e4,#cfe1cd)}
 .v1552-path-status{font-size:.56rem;font-weight:1000;border-radius:999px;padding:3px 6px;background:#ead9b2;color:#5d431f}.v1552-path-status.done{background:#315f3e;color:#fff}.v1552-path-status.now{background:#8c1719;color:#fff}.v1552-session-step.current{outline:2px solid #c44c3d}.v1552-session-step.done{opacity:.7}.v1552-session-step .v1552-how{display:block;margin-top:4px;color:#d9c390;font-size:.59rem;line-height:1.32}
@@ -691,7 +691,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.5.2 • MISSÕES GUIADAS</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.5.3 • CORREÇÕES DE CAMPO</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -5772,6 +5772,135 @@ function v1552Init(){v1552EnsureState();v1552InjectTechniqueUI();v1552InjectGear
 }
 setTimeout(v1552Init,20);
 /* ================= /V15.5.2 ================= */
+
+/* ================= V15.5.3 • CORREÇÕES DA SEGUNDA CHECAGEM ================= */
+function v1553StopMissionMetronome(){
+  try{if(typeof metroRunning!=='undefined'&&metroRunning)stopMetronome()}catch(e){}
+}
+function v1553MissionHasEmbeddedMetro(m){return !!(m&&m.bpm&&['scales','arpeggios','chords'].includes(m.screen))}
+function v1553MetroLabel(){return (typeof metroRunning!=='undefined'&&metroRunning)?'■ PARAR METRÔNOMO':'▶ INICIAR METRÔNOMO'}
+function v1553ToggleMissionMetro(m){
+  if(!m)return;try{setBpm(m.bpm||70);setSubdivision(m.sub||1)}catch(e){}
+  if(typeof metroRunning!=='undefined'&&metroRunning)stopMetronome();else startMetronome();
+  const b=document.getElementById('v1553MissionMetroToggle');if(b)b.textContent=v1553MetroLabel();
+}
+
+// Missões: parar o clique ao concluir/voltar/avançar e oferecer metrônomo dentro de Escalas/Pentatônica.
+const v1553BaseMissionBanner=v1552RenderMissionBanner;
+v1552RenderMissionBanner=function(screenId){
+  v1553BaseMissionBanner(screenId);
+  const m=v1552CurrentMission(),banner=document.getElementById('v1552MissionBanner');if(!banner||!m)return;
+  if(v1553MissionHasEmbeddedMetro(m)){
+    const task=banner.querySelector('.v1552-mission-task');
+    if(task&&!document.getElementById('v1553MissionMetro')){
+      const metro=document.createElement('div');metro.id='v1553MissionMetro';metro.className='v1552-source-ref';
+      metro.innerHTML=`<b>METRÔNOMO DA MISSÃO • ${m.bpm} BPM</b><p>Use o clique enquanto executa a escala/pentatônica indicada acima. O metrônomo para automaticamente ao concluir, voltar ou avançar.</p><div class="v15-actions"><button id="v1553MissionMetroToggle" class="v15-primary" type="button">${v1553MetroLabel()}</button></div>`;
+      task.insertAdjacentElement('afterend',metro);document.getElementById('v1553MissionMetroToggle').onclick=()=>v1553ToggleMissionMetro(m);
+    }
+  }
+  const back=document.getElementById('v1552MissionBack');if(back)back.onclick=()=>{v1553StopMissionMetronome();clearInterval(v1552MissionTimer);v1552MissionVisible=false;show('guitarist-map');v15RenderPlan()};
+};
+const v1553BaseStartMission=v1552StartMissionModule;
+v1552StartMissionModule=function(m){v1553BaseStartMission(m);if(v1553MissionHasEmbeddedMetro(m)&&!(typeof metroRunning!=='undefined'&&metroRunning))v1553ToggleMissionMetro(m)};
+const v1553BaseCompleteMission=v1552CompleteMission;
+v1552CompleteMission=function(fromTechnique=false){v1553StopMissionMetronome();v1553BaseCompleteMission(fromTechnique)};
+const v1553BaseGoNext=v1552GoNextMission;
+v1552GoNextMission=function(){v1553StopMissionMetronome();v1553BaseGoNext()};
+const v1553BaseBeforeScreen=v15BeforeScreenChange;
+v15BeforeScreenChange=function(id){
+  const leavingGuided=!!(v1552MissionVisible&&v1552MissionLaunchScreen&&id!==v1552MissionLaunchScreen);
+  if(leavingGuided)v1553StopMissionMetronome();
+  try{v1553BaseBeforeScreen(id)}catch(e){}
+};
+
+// Técnica: resultado em cents permanece visível e o alvo muda claramente após acerto.
+function v1553PitchLastHtml(kind){
+  const r=kind==='bend'?v15State.technique.lastBendResult:v15State.technique.lastPitchResult;if(!r)return '';
+  const c=Number(r.cents);return `<div class="v15-result ${r.ok?'good':'warn'}"><b>${r.ok?'✓ ACERTOU':'AJUSTE E TENTE DE NOVO'}</b><br>Diferença: <b>${c>=0?'+':''}${Math.round(c)} cents</b> • tolerância ±${r.tolerance} cents${r.ok&&r.next?`<br>Próximo alvo: <b>${r.next}</b>`:''}</div>`;
+}
+function v1553RunPitch(){
+  const i=Math.min(V155_PITCH_TARGETS.length-1,Number(v15State.technique.pitchTarget)||0),t=V155_PITCH_TARGETS[i];
+  v155MeasureStable(t.m,'pitch','v155PitchLive','v155PitchResult',r=>{
+    v15State.technique.pitchTests.unshift({...r,target:t.text,date:new Date().toISOString()});
+    let next='';if(r.ok){v15State.technique.pitchFails=0;v15State.technique.pitchTarget=(i+1)%V155_PITCH_TARGETS.length;next=V155_PITCH_TARGETS[v15State.technique.pitchTarget].text;v15UpdateExecution('technique',95)}else v15State.technique.pitchFails=(v15State.technique.pitchFails||0)+1;
+    v15State.technique.lastPitchResult={ok:r.ok,cents:r.median,tolerance:10,target:t.text,next};v15SaveState();v155RenderTechniqueAssessment();
+  });
+}
+function v1553RunBend(){
+  const i=Math.min(V155_BEND_TARGETS.length-1,Number(v15State.technique.bendTarget)||0),t=V155_BEND_TARGETS[i];
+  v155MeasureStable(t.target,'bend','v155BendLive','v155BendResult',r=>{
+    v15State.technique.bendTests.unshift({...r,target:t.text,date:new Date().toISOString()});
+    let next='';if(r.ok){v15State.technique.bendFails=0;v15State.technique.bendTarget=(i+1)%V155_BEND_TARGETS.length;next=V155_BEND_TARGETS[v15State.technique.bendTarget].text;v15UpdateExecution('technique',95);v15UpdateExecution('improv',80)}else v15State.technique.bendFails=(v15State.technique.bendFails||0)+1;
+    v15State.technique.lastBendResult={ok:r.ok,cents:r.median,tolerance:r.tolerance,target:t.text,next};v15SaveState();v155RenderTechniqueAssessment();
+  });
+}
+v155RunPitch=v1553RunPitch;v155RunBend=v1553RunBend;
+const v1553BaseAssessment=v155RenderTechniqueAssessment;
+v155RenderTechniqueAssessment=function(){
+  v1553BaseAssessment();
+  const key=v15State.technique.selected||'alternate',test=V155_TECH[key]?.test||'series';
+  // Substitui o cartão de afinação por uma versão simples: somente TESTAR NOTA, com cents e avanço explícito.
+  const pIdx=Number(v15State.technique.pitchTarget)||0,p=V155_PITCH_TARGETS[pIdx%V155_PITCH_TARGETS.length];
+  const pitchBtn=document.getElementById('v155PitchTest');if(pitchBtn){
+    pitchBtn.textContent='🎙 TESTAR NOTA';pitchBtn.onclick=null;const clone=pitchBtn.cloneNode(true);pitchBtn.replaceWith(clone);clone.addEventListener('click',v1553RunPitch);
+    document.getElementById('v155SkipPitch')?.remove();
+    const card=clone.closest('.v15-practical');if(card){const para=card.querySelector('p');if(para)para.innerHTML=`<b id="v1553PitchTarget">${p.text}</b>. Toque e sustente a nota. <b>Até ±10 cents = acerto</b>; ao acertar, a app passa automaticamente para o próximo alvo.`;const old=card.querySelector('#v155PitchResult');if(old)old.outerHTML=`<div id="v155PitchResult">${v1553PitchLastHtml('pitch')||'<div class="v15-result">Ainda não medido • tolerância ±10 cents.</div>'}</div>`}
+  }
+  const bIdx=Number(v15State.technique.bendTarget)||0,b=V155_BEND_TARGETS[bIdx%V155_BEND_TARGETS.length],bendBtn=document.getElementById('v155BendTest');if(bendBtn){
+    const clone=bendBtn.cloneNode(true);bendBtn.replaceWith(clone);clone.addEventListener('click',v1553RunBend);const card=clone.closest('.v15-practical');if(card){const para=card.querySelector('p');if(para)para.innerHTML=`<b>${b.text}</b>. Faça o bend e segure o alvo. A app mostra a diferença em cents e só muda de alvo quando você acertar.`;const old=card.querySelector('#v155BendResult');if(old)old.outerHTML=`<div id="v155BendResult">${v1553PitchLastHtml('bend')||`<div class="v15-result">Ainda não medido • tolerância atual ±${v155TechniqueTolerance('bend')} cents.</div>`}</div>`}
+  }
+  // Recria o teste de timing após as alterações do cartão.
+  const timing=document.getElementById('v1552TimingStart');if(timing){const c=timing.cloneNode(true);timing.replaceWith(c);c.addEventListener('click',v1552StartTimingMic)}
+  document.querySelectorAll('[data-timing-d]').forEach(b=>b.onclick=()=>{const e=document.getElementById('v1552TimingBpm');if(e)e.value=v15Clamp(Number(e.value)+Number(b.dataset.timingD),40,220)});
+  document.getElementById('v1552TimingAuto')?.addEventListener('change',e=>{v15State.technique.timingAuto=e.target.checked});
+};
+
+// Leitura sem pressão: força o modo correto e exige estabilidade maior antes de aceitar a nota certa.
+const v1553BaseStartLearn=v155StartLearnReading;
+v155StartLearnReading=function(){v15State.reading.mode='learn';v15SaveState();v1553BaseStartLearn()};
+v155StartReadingMic=async function(){
+  v155StopReadingMic();v155ReadingRunning=true;v155PitchArmed=true;v155LastPitchMidi=null;v155Stable={m:null,since:0};let lastAccept=0;
+  const learn=v15State.reading.mode==='learn',stableNeed=learn?260:({1:145,2:125,3:105,4:90,5:80}[Number(v15State.reading.level)]||110);
+  const onFreq=f=>{f=Number(f);if(!(f>60&&f<1400))return;const m=v155NearestMidi(f),now=performance.now();if(v155Stable.m!==m){v155Stable={m,since:now};return}if(now-v155Stable.since<stableNeed)return;if(!v155PitchArmed){if(v155LastPitchMidi!==m)v155PitchArmed=true;else return}if(now-lastAccept<(learn?180:90))return;v155PitchArmed=false;v155LastPitchMidi=m;lastAccept=now;v155HandleReadingNote(m)};
+  const onNo=()=>{v155PitchArmed=true;v155Stable={m:null,since:0}};
+  if(window.NativeTuner?.start){v155ReadingCapture={native:true,oldPitch:window.onNativeTunerPitch,oldNo:window.onNativeTunerNoPitch,oldStatus:window.onNativeTunerStatus};window.onNativeTunerPitch=onFreq;window.onNativeTunerNoPitch=onNo;window.onNativeTunerStatus=()=>{};try{window.NativeTuner.start();return}catch(e){v155StopReadingMic()}}
+  if(!navigator.mediaDevices?.getUserMedia){document.getElementById('v15ReadingMicResult').textContent='Microfone não disponível.';return}
+  try{const stream=await navigator.mediaDevices.getUserMedia({audio:true}),C=window.AudioContext||window.webkitAudioContext,ctx=new C();await ctx.resume();const src=ctx.createMediaStreamSource(stream),an=ctx.createAnalyser();an.fftSize=2048;src.connect(an);const buf=new Float32Array(an.fftSize);v155ReadingCapture={stream,ctx,loop:null,native:false};const loop=()=>{if(!v155ReadingCapture)return;an.getFloatTimeDomainData(buf);const f=v15AutoCorrelate(buf,ctx.sampleRate);if(f>0)onFreq(f);else onNo();v155ReadingCapture.loop=setTimeout(loop,learn?48:34)};loop()}catch(e){document.getElementById('v15ReadingMicResult').textContent='Não foi possível acessar o microfone.'}
+};
+
+// Tone Builder / Guitarrista: resultado antigo some assim que o usuário muda de caminho.
+function v1553TonePending(text){const r=document.getElementById('v15ToneResult');if(r)r.innerHTML=`<b>${text}</b><br>Gere um novo resultado para evitar misturar configurações diferentes.`}
+function v1553BindToneCleaning(){
+  ['v155ToneStyle','v155ToneRole','v15ToneGain'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>v1553TonePending('TONE BUILDER ALTERADO')));
+  ['v155GearArtistStyle','v155GearArtist'].forEach(id=>document.getElementById(id)?.addEventListener('change',()=>v1553TonePending('GUITARRISTA ALTERADO')));
+  const tb=document.getElementById('v15ToneBuild');if(tb)tb.addEventListener('click',()=>{const r=document.getElementById('v15ToneResult');if(r)r.innerHTML='Calculando novo timbre…'},true);
+  const ar=document.getElementById('v155RecreateRig');if(ar)ar.addEventListener('click',()=>{const r=document.getElementById('v15ToneResult');if(r)r.innerHTML='Recalculando com o guitarrista selecionado…'},true);
+}
+
+// Guitarristas: remover treino guiado; manter dicas + ampliar referências. Perguntas de guitarristas e estilos viram um único quiz misto.
+function v1553ArtistLinks(key,a){
+  const ref=v1552ArtistRef(key,a),q=x=>`https://www.youtube.com/results?search_query=${encodeURIComponent(x)}`;
+  return `<div class="v1552-source-ref"><b>REFERÊNCIAS PARA OBSERVAR</b><p>${ref.focus}</p><div class="v15-actions"><a href="${ref.url}" target="_blank" rel="noopener">▶ PERFORMANCE / MÚSICA</a><a href="${q(a.name+' live guitar')}" target="_blank" rel="noopener">▶ AO VIVO</a><a href="${q(a.name+' guitar technique interview')}" target="_blank" rel="noopener">▶ ENTREVISTA / TÉCNICA</a><a href="${q(a.name+' style guitar lesson')}" target="_blank" rel="noopener">▶ AULAS SOBRE O ESTILO</a></div></div>`
+}
+const v1553BaseRenderArtists=v15RenderArtists;
+v15RenderArtists=function(){
+  v1553BaseRenderArtists();const key=v15State.styles.artist,a=V155_ARTISTS[key],plan=document.getElementById('v15ArtistPlan');if(!a||!plan)return;
+  plan.innerHTML=`<h3>COMO TREINAR ${a.name.toUpperCase()}</h3>${v1553ArtistLinks(key,a)}<h4>DICAS DE ESTUDO</h4><div class="v15-practice-plan"><div><b>TÉCNICA:</b> ${a.techniques}</div><div><b>RITMO:</b> ${a.rhythm}</div><div><b>ESCALAS / MATERIAL:</b> ${a.scales}</div><div><b>DINÂMICA:</b> ${a.dynamics}</div><div><b>SOLOS:</b> ${a.solo}</div></div><h4>EXERCÍCIO ORIGINAL DA APP</h4><div class="v1552-tab">${v1552ArtistOriginalTab(a)}</div><p class="v15-muted">Use os links para observar a linguagem do guitarrista. O exercício abaixo é original da app e serve apenas para praticar características gerais.</p>`;
+};
+function v1553NewMixedQuiz(){
+  const artistMode=Math.random()<0.5,prompt=document.getElementById('v15ArtistQuizPrompt'),box=document.getElementById('v15ArtistQuizOptions'),fb=document.getElementById('v15ArtistQuizFeedback');if(!prompt||!box||!fb)return;
+  if(artistMode){const pool=Object.keys(V155_ARTISTS),answer=notationPick(pool),a=V155_ARTISTS[answer],trait=notationPick(a.traits);let candidates=notationShuffle(pool.filter(k=>k!==answer&&V155_ARTISTS[k].styles.some(s=>a.styles.includes(s)))).slice(0,3);if(candidates.length<3)candidates=[...candidates,...notationShuffle(pool.filter(k=>k!==answer&&!candidates.includes(k))).slice(0,3-candidates.length)];const opts=notationShuffle([answer,...candidates]);prompt.innerHTML=`<small>GUITARRISTA</small><br>Quem é mais associado a: “${trait}” • ${a.styles[0]}?`;box.innerHTML=opts.map(k=>`<button type="button" data-answer="${k}">${V155_ARTISTS[k].name}</button>`).join('');box.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=b.dataset.answer===answer;[...box.children].forEach(x=>{x.disabled=true;if(x.dataset.answer===answer)x.classList.add('correct')});b.classList.add(ok?'correct':'wrong');v15State.styles.artistTotal++;if(ok)v15State.styles.artistCorrect++;fb.innerHTML=ok?'<b>✓ Correto.</b>':`<b>Resposta: ${a.name}.</b>`;v15SaveState()})}
+  else{const styles=v155ArtistStyles(),answer=notationPick(styles),opts=notationShuffle([answer,...notationShuffle(styles.filter(x=>x!==answer)).slice(0,3)]);prompt.innerHTML=`<small>ESTILO</small><br>Qual estilo combina melhor com: ${V155_STYLE_CLUES[answer]}?`;box.innerHTML=opts.map(x=>`<button type="button" data-answer="${x}">${x}</button>`).join('');box.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=b.dataset.answer===answer;[...box.children].forEach(x=>{x.disabled=true;if(x.dataset.answer===answer)x.classList.add('correct')});b.classList.add(ok?'correct':'wrong');v15State.styles.styleTotal++;if(ok)v15State.styles.styleCorrect++;fb.innerHTML=ok?'<b>✓ Correto.</b>':`<b>Resposta: ${answer}.</b>`;v15SaveState()})}fb.textContent='Perguntas de guitarristas e estilos aparecem misturadas.';
+}
+v15NewArtistQuiz=v1553NewMixedQuiz;
+function v1553MergeQuizzes(){
+  const firstTitle=document.getElementById('v15ArtistQuizPrompt')?.closest('.v15-card')?.previousElementSibling;if(firstTitle)firstTitle.textContent='PERGUNTAS • GUITARRISTAS & ESTILOS';
+  const secondCard=document.getElementById('v15StyleQuizPrompt')?.closest('.v15-card'),secondTitle=secondCard?.previousElementSibling;if(secondCard)secondCard.style.display='none';if(secondTitle)secondTitle.style.display='none';
+  const next=document.getElementById('v15ArtistQuizNext');if(next)next.textContent='NOVA PERGUNTA';v1553NewMixedQuiz();
+}
+setTimeout(()=>{v1553BindToneCleaning();v1553MergeQuizzes();v15RenderArtists();v155RenderTechniqueAssessment()},40);
+/* ================= /V15.5.3 ================= */
+
 
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
