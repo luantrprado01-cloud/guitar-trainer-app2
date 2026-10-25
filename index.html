@@ -259,6 +259,18 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 .home-resume-actions .secondary{background:#17110d;color:#e1c98f;border:1px solid #674d27}
 @media(max-width:520px){.home-resume{padding:11px}.home-resume-grid{gap:5px}.home-resume-actions{grid-template-columns:1fr}.home-resume-actions .secondary{display:none}}
 
+
+/* V15.5.5 • Links por guitarrista */
+.v1555-links-btn{width:100%;margin-top:10px;background:#8c1719!important;color:#fff!important;border-color:#d7aa49!important;font-weight:900}
+.v1555-links-panel{margin-top:9px;border:1px solid #7a6038;border-radius:12px;padding:10px;background:#17120e;color:#fff}
+.v1555-links-panel[hidden]{display:none}
+.v1555-link-counter{font-size:.68rem;color:#e4c474;font-weight:900;letter-spacing:.06em}
+.v1555-link-card{margin-top:7px;padding:10px;border:1px solid #654f31;border-radius:10px;background:#21170f}
+.v1555-link-card h4{margin:0 0 5px;color:#f2cf77}
+.v1555-link-card p{margin:5px 0;color:#e8ddc1;font-size:.78rem;line-height:1.45}
+.v1555-link-source{display:inline-block;margin-top:4px;padding:3px 7px;border-radius:999px;background:#5e451e;color:#fff1c8;font-size:.62rem;font-weight:900}
+.v1555-links-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.v1555-links-actions button{min-height:42px;font-weight:900}
 </style>
 
 <style id="mobile-fit-v2">
@@ -691,7 +703,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.5.3 • CORREÇÕES DE CAMPO</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.5.4 • PROGRESSÃO & NAVEGAÇÃO</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -784,7 +796,7 @@ html,body{min-height:100%;}
     <div class="home-section-title"><span>V15 • PROFESSOR PESSOAL</span><i></i></div>
   <div class="tutorial-grid">
     <button class="tutorial-card" type="button" data-open="guitarist-map"><b>🧭 MAPA DO GUITARRISTA</b><span>Nivelamento, mapa de competências, objetivos e caminho recomendado.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-open="technique"><b>🎸 TÉCNICA &amp; AVALIAÇÃO</b><span>Rotina técnica, cronômetro e testes práticos de afinação, bend e timing.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-open="technique"><b>🎸 TÉCNICA &amp; AVALIAÇÃO</b><span>Rotina técnica, cronômetro e testes práticos de bend, regularidade e timing.</span><span class="arrow-mini">›</span></button>
     <button class="tutorial-card" type="button" data-open="reading-lab"><b>🎼 LEITURA 2.0</b><span>Frases progressivas e validação de notas tocadas pelo microfone.</span><span class="arrow-mini">›</span></button>
     <button class="tutorial-card" type="button" data-open="gear-tone"><b>⚙ EQUIPAMENTO &amp; TIMBRE</b><span>Cadastre seu rig, organize o sinal e monte timbres coerentes.</span><span class="arrow-mini">›</span></button>
     <button class="tutorial-card" type="button" data-open="styles-artists"><b>⚡ GUITARRISTAS &amp; ESTILOS</b><span>Entenda vocabulário, técnica e timbre sem copiar músicas ou solos.</span><span class="arrow-mini">›</span></button>
@@ -2246,11 +2258,11 @@ html,body{min-height:100%;}
 
 <section id="technique" class="screen">
   <div class="rowgap"><button class="ghost" type="button" data-home>← VOLTAR</button><div class="brand" style="font-size:21px">TÉCNICA &amp; AVALIAÇÃO</div><div style="width:82px"></div></div>
-  <div class="v15-hero"><h2>V15.2 • TÉCNICA 2.1</h2><p>Primeiro entenda <b>o que é, como executar e como deve soar</b>. Depois pratique, grave sua execução e use apenas testes que façam sentido para a técnica escolhida.</p></div>
+  <div class="v15-hero"><h2>V15.2 • TÉCNICA 2.2</h2><p>Primeiro entenda <b>o que é, como executar e como deve soar</b>. Depois pratique, grave sua execução e use apenas testes que façam sentido para a técnica escolhida.</p></div>
   <div class="v15-section-title">BIBLIOTECA DE TÉCNICAS</div><div id="v15TechniqueList" class="v15-tech-list"></div>
   <div class="v15-tech-detail"><div class="v15-card" id="v15TechniqueDetail"></div><div class="v15-practice-box"><b>SÉRIE GUIADA 2.1 • CLIQUE + GRAVAÇÃO + ANÁLISE</b><div class="v15-bpm-row" style="margin-top:7px"><label>BPM <input id="v15TechBpm" type="number" min="40" max="240" value="70"></label><label>DURAÇÃO <select id="v15TechSeconds" class="v15-select"><option value="60">60s</option><option value="120">120s</option><option value="180">180s</option></select></label></div><div id="v15TechTimer" class="v15-tech-timer">01:00</div><div class="v15-actions"><button id="v15TechTimerStart" type="button" class="v15-primary">🎙 INICIAR &amp; GRAVAR</button><button id="v155TechStop" type="button">■ ENCERRAR</button></div><div id="v155TechReview" style="display:none"><div class="v15-actions"><button id="v155TechListen" type="button">▶ OUVIR MINHA EXECUÇÃO</button><button id="v155TechRepeat" type="button">↻ REPETIR SÉRIE</button><button id="v15TechComplete" type="button" class="v15-primary">✓ APROVAR SÉRIE</button></div></div><audio id="v155TechAudio" controls style="display:none;width:100%;margin-top:8px"></audio><p id="v15TechSeriesStatus">A série ainda não começou. O clique soará no BPM escolhido. <b>Para uma gravação mais limpa, prefira fones de ouvido</b>, pois o clique do alto-falante pode ser captado pelo microfone.</p></div></div>
   <div class="v15-section-title">AVALIAÇÃO PRÁTICA • ADAPTADA À TÉCNICA</div><div id="v155TechniqueAssessment"></div>
-  <div class="v15-disclaimer">A análise automática é educativa. A app mede apenas o que consegue medir com segurança (como afinação e timing); limpeza, ruídos e qualidade musical continuam sendo avaliados também pela sua gravação e audição.</div>
+  <div class="v15-disclaimer">A análise automática é educativa. A app mede apenas o que consegue medir com segurança (como afinação de bends e timing); limpeza, ruídos e qualidade musical continuam sendo avaliados também pela sua gravação e audição.</div>
 </section>
 
 <section id="reading-lab" class="screen">
@@ -5459,7 +5471,7 @@ pulloff:{what:'Pull-off é o movimento descendente do legato. A segunda nota já
 slide:{what:'Slide liga duas alturas deslizando o mesmo dedo pela corda sem interromper o sustain.',hands:'Ataque a primeira nota, mantenha pressão suficiente e deslize até parar exatamente atrás do traste de destino.',example:'3ª corda: casa 5 → slide → casa 7',sound:'Deve parecer uma ligação contínua, sem parada no meio e sem ultrapassar a casa-alvo.',test:'series'},
 legato:{what:'Legato combina hammer-ons, pull-offs e, às vezes, slides para criar linhas com menos ataques de palheta.',hands:'A mão esquerda precisa gerar volume próprio. Use os dedos perto dos trastes e evite levantar demais cada dedo.',example:'1ª corda: 5h7h8 → 8p7p5 • palhete apenas o início de cada grupo',sound:'As notas devem ter volume equilibrado e formar uma linha contínua.',test:'series'},
 bend:{what:'Bend aumenta a altura da nota ao empurrar ou puxar a corda. O importante não é apenas dobrar a corda: é chegar exatamente a uma nota-alvo.',hands:'Use mais de um dedo como apoio e gire o punho; não tente fazer toda a força apenas com a ponta de um dedo. Antes do bend, ouça a nota-alvo normal.',example:'2ª corda, casa 8 (Sol) → bend de 1 tom → Lá',sound:'A nota deve chegar ao alvo e estabilizar, sem parar abaixo nem ultrapassar.',test:'bend'},
-vibrato:{what:'Vibrato é uma oscilação controlada ao redor de uma nota sustentada. Ele dá vida à nota sem transformar cada movimento num bend aleatório.',hands:'Apoie a mão e use uma pequena rotação do punho. Repita oscilações com largura e velocidade parecidas.',example:'2ª corda, casa 8 • segure a nota e faça oscilações regulares',sound:'O centro da nota continua reconhecível e as oscilações parecem regulares.',test:'pitch'},
+vibrato:{what:'Vibrato é uma oscilação controlada ao redor de uma nota sustentada. Ele dá vida à nota sem transformar cada movimento num bend aleatório.',hands:'Apoie a mão e use uma pequena rotação do punho. Repita oscilações com largura e velocidade parecidas.',example:'2ª corda, casa 8 • segure a nota e faça oscilações regulares',sound:'O centro da nota continua reconhecível e as oscilações parecem regulares.',test:'series'},
 palm:{what:'Palm mute reduz o sustain e deixa o ataque mais seco apoiando a lateral da mão direita perto da ponte.',hands:'Encoste a região abaixo do dedo mínimo sobre as cordas exatamente onde elas saem da ponte. Mova milímetros até encontrar equilíbrio entre altura e abafamento.',example:'6ª corda solta: 4 ataques abertos → 4 palm-muted',sound:'A nota continua identificável, mas fica curta, firme e percussiva.',test:'timing'},
 skip:{what:'String skipping é saltar uma ou mais cordas sem tocar acidentalmente nas cordas intermediárias.',hands:'Mantenha o movimento da palheta pequeno e use referências visuais/táteis. A mão esquerda não deve liberar ruído das cordas não usadas.',example:'6ª corda casa 5 ↔ 4ª corda casa 7 • alternando',sound:'Somente as duas cordas planejadas devem aparecer, com ritmo regular.',test:'timing'},
 hybrid:{what:'Hybrid picking combina palheta com dedos da mão direita. É útil para saltos de corda, acordes quebrados e ataques diferentes.',hands:'Segure a palheta normalmente entre polegar/indicador e use principalmente médio/anelar para as cordas agudas.',example:'Palheta na 5ª corda + dedo médio na 2ª corda, alternando',sound:'Palheta e dedo devem ter volume próximo e ritmo estável.',test:'timing'},
@@ -5489,7 +5501,7 @@ function v155RunPitch(){const i=Math.min(V155_PITCH_TARGETS.length-1,Number(v15S
 function v155RunBend(){const i=Math.min(V155_BEND_TARGETS.length-1,Number(v15State.technique.bendTarget)||0),t=V155_BEND_TARGETS[i];v155MeasureStable(t.target,'bend','v155BendLive','v155BendResult',r=>{v15State.technique.bendTests.unshift({...r,target:t.text,date:new Date().toISOString()});if(r.ok){v15State.technique.bendFails=0;v15State.technique.bendTarget=(i+1)%V155_BEND_TARGETS.length;v15UpdateExecution('technique',95);v15UpdateExecution('improv',80)}else v15State.technique.bendFails=(v15State.technique.bendFails||0)+1;v15SaveState();v155RenderTechniqueAssessment()})}
 function v155SkipTarget(kind){if(kind==='pitch'){v15State.technique.pitchTarget=((v15State.technique.pitchTarget||0)+1)%V155_PITCH_TARGETS.length;v15State.technique.pitchFails=0}else{v15State.technique.bendTarget=((v15State.technique.bendTarget||0)+1)%V155_BEND_TARGETS.length;v15State.technique.bendFails=0}v15SaveState();v155RenderTechniqueAssessment()}
 function v155TimingCard(){return `<div class="v15-practical"><h4>REGULARIDADE / TIMING</h4><p>Use 8 pulsos a 70 BPM. O objetivo é manter ataques regulares; este teste não tenta adivinhar “limpeza” da técnica.</p><button id="v15TimingStart" type="button">▶ INICIAR CLIQUE</button><button id="v15TimingTap" class="v15-tap-pad v15-primary" type="button" disabled>TOCAR / TAP</button><div id="v15TimingResult" class="v15-result">Ainda não medido.</div></div>`}
-function v155RenderTechniqueAssessment(){const host=document.getElementById('v155TechniqueAssessment');if(!host)return;const key=v15State.technique.selected||'alternate',test=V155_TECH[key]?.test||'series',pi=Number(v15State.technique.pitchTarget)||0,bi=Number(v15State.technique.bendTarget)||0,p=V155_PITCH_TARGETS[pi%V155_PITCH_TARGETS.length],b=V155_BEND_TARGETS[bi%V155_BEND_TARGETS.length];let html='<div class="v15-practical-grid">';if(test==='bend')html+=`<div class="v15-practical"><h4>BEND • ALVO ATUAL</h4><p><b>${b.text}</b>. Toque a nota inicial e faça o bend; depois segure o alvo para a app medir a parte estabilizada.</p><div id="v155BendLive" class="v15-mic-live">—</div><button id="v155BendTest" class="v15-primary" type="button">🎙 MEDIR BEND</button>${(v15State.technique.bendFails||0)>=3?'<button id="v155SkipBend" type="button">PULAR ALVO</button>':''}<div id="v155BendResult" class="v15-result">Acertou → novo alvo. Errou → o mesmo alvo permanece.</div></div>`;else if(test==='pitch')html+=`<div class="v15-practical"><h4>PRECISÃO / ESTABILIDADE</h4><p><b>${p.text}</b>. A app ignora o ataque inicial e avalia a nota estabilizada.</p><div id="v155PitchLive" class="v15-mic-live">—</div><button id="v155PitchTest" class="v15-primary" type="button">🎙 MEDIR NOTA</button>${(v15State.technique.pitchFails||0)>=3?'<button id="v155SkipPitch" type="button">PULAR ALVO</button>':''}<div id="v155PitchResult" class="v15-result">Tolerância: ±10 cents.</div></div>`;else html+=`<div class="v15-practical"><h4>AVALIAÇÃO PRINCIPAL</h4><p>Para <b>${V15_TECHNIQUES[key].name}</b>, não exibimos um teste de bend sem relação. Use a <b>Série Guiada 2.0</b>, ouça sua gravação e aprove apenas quando a execução estiver controlada.</p><div class="v15-result good">✓ Avaliação coerente com a técnica selecionada.</div></div>`;if(test==='timing'||['alternate','sync','palm','skip','hybrid','tapping','sweep'].includes(key))html+=v155TimingCard();if(key==='bend')html+=`<div class="v15-practical"><h4>AFINAÇÃO DE NOTA • COMPLEMENTAR</h4><p><b>${p.text}</b>. Este teste trabalha precisão de nota sem parecer um afinador contínuo.</p><div id="v155PitchLive" class="v15-mic-live">—</div><button id="v155PitchTest" class="v15-primary" type="button">🎙 TESTAR NOTA</button>${(v15State.technique.pitchFails||0)>=3?'<button id="v155SkipPitch" type="button">PULAR ALVO</button>':''}<div id="v155PitchResult" class="v15-result">Acertou → novo alvo.</div></div>`;html+='</div>';host.innerHTML=html;document.getElementById('v155PitchTest')?.addEventListener('click',v155RunPitch);document.getElementById('v155BendTest')?.addEventListener('click',v155RunBend);document.getElementById('v155SkipPitch')?.addEventListener('click',()=>v155SkipTarget('pitch'));document.getElementById('v155SkipBend')?.addEventListener('click',()=>v155SkipTarget('bend'));document.getElementById('v15TimingStart')?.addEventListener('click',v15StartTiming);document.getElementById('v15TimingTap')?.addEventListener('click',v15TimingTap)}
+function v155RenderTechniqueAssessment(){const host=document.getElementById('v155TechniqueAssessment');if(!host)return;const key=v15State.technique.selected||'alternate',test=V155_TECH[key]?.test||'series',pi=Number(v15State.technique.pitchTarget)||0,bi=Number(v15State.technique.bendTarget)||0,p=V155_PITCH_TARGETS[pi%V155_PITCH_TARGETS.length],b=V155_BEND_TARGETS[bi%V155_BEND_TARGETS.length];let html='<div class="v15-practical-grid">';if(test==='bend')html+=`<div class="v15-practical"><h4>BEND • ALVO ATUAL</h4><p><b>${b.text}</b>. Toque a nota inicial e faça o bend; depois segure o alvo para a app medir a parte estabilizada.</p><div id="v155BendLive" class="v15-mic-live">—</div><button id="v155BendTest" class="v15-primary" type="button">🎙 MEDIR BEND</button>${(v15State.technique.bendFails||0)>=3?'<button id="v155SkipBend" type="button">PULAR ALVO</button>':''}<div id="v155BendResult" class="v15-result">Acertou → novo alvo. Errou → o mesmo alvo permanece.</div></div>`;else if(test==='pitch')html+=`<div class="v15-practical"><h4>AVALIAÇÃO PRINCIPAL</h4><p>Use a <b>Série Guiada</b> para avaliar regularidade, controle e execução desta técnica.</p><div class="v15-result good">✓ Afinação de nota fica exclusivamente no Afinador.</div></div>`;else html+=`<div class="v15-practical"><h4>AVALIAÇÃO PRINCIPAL</h4><p>Para <b>${V15_TECHNIQUES[key].name}</b>, não exibimos um teste de bend sem relação. Use a <b>Série Guiada 2.0</b>, ouça sua gravação e aprove apenas quando a execução estiver controlada.</p><div class="v15-result good">✓ Avaliação coerente com a técnica selecionada.</div></div>`;if(test==='timing'||['alternate','sync','palm','skip','hybrid','tapping','sweep'].includes(key))html+=v155TimingCard();html+='</div>';host.innerHTML=html;document.getElementById('v155BendTest')?.addEventListener('click',v155RunBend);document.getElementById('v155SkipBend')?.addEventListener('click',()=>v155SkipTarget('bend'));document.getElementById('v15TimingStart')?.addEventListener('click',v15StartTiming);document.getElementById('v15TimingTap')?.addEventListener('click',v15TimingTap)}
 
 let v155Recorder=null,v155RecordedUrl=null,v155SeriesEnded=false,v155SeriesActive=false;
 async function v155StartTechniqueSeries(){v15StopTechniqueTimer();v155SeriesEnded=false;v155SeriesActive=true;document.getElementById('v155TechReview').style.display='none';document.getElementById('v155TechAudio').style.display='none';if(v155RecordedUrl){URL.revokeObjectURL(v155RecordedUrl);v155RecordedUrl=null}try{if(navigator.mediaDevices?.getUserMedia&&window.MediaRecorder){const stream=await navigator.mediaDevices.getUserMedia({audio:true}),rec=new MediaRecorder(stream),chunks=[];rec.ondataavailable=e=>{if(e.data?.size)chunks.push(e.data)};rec.onstop=()=>{stream.getTracks().forEach(t=>t.stop());if(chunks.length){const blob=new Blob(chunks,{type:rec.mimeType||'audio/webm'});v155RecordedUrl=URL.createObjectURL(blob);const a=document.getElementById('v155TechAudio');a.src=v155RecordedUrl;document.getElementById('v155TechListen').disabled=false}};rec.start();v155Recorder=rec}else{document.getElementById('v155TechListen').disabled=true}}catch(e){document.getElementById('v155TechListen').disabled=true}v15TechRemaining=Number(document.getElementById('v15TechSeconds').value)||60;const out=document.getElementById('v15TechTimer');document.getElementById('v15TechSeriesStatus').textContent='Série em andamento • grave, mantenha o controle e não persiga velocidade.';const tick=()=>{const m=Math.floor(v15TechRemaining/60),sec=v15TechRemaining%60;out.textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');if(v15TechRemaining<=0)return v155EndTechniqueSeries();v15TechRemaining--};tick();v15TechTimerId=setInterval(tick,1000)}
@@ -5902,6 +5914,197 @@ setTimeout(()=>{v1553BindToneCleaning();v1553MergeQuizzes();v15RenderArtists();v
 /* ================= /V15.5.3 ================= */
 
 
+
+
+/* ================= V15.5.4 • PROGRESSÃO, ESCALAS, TÉCNICA E NAVEGAÇÃO ================= */
+function v1554EnsureState(){
+  v1552EnsureState();
+  v15State.guided.bpmMemory=v15State.guided.bpmMemory||{};
+  if(typeof v15State.guided.autoBpm==='undefined')v15State.guided.autoBpm=true;
+  v15State.guided.pentaIndex=Number(v15State.guided.pentaIndex)||0;
+}
+function v1554MissionKey(m){return `${v15State.goal||'auto'}::${String(m?.title||'missao').toLowerCase()}`}
+function v1554SubName(m){if(m?.sub===2)return'COLCHEIAS';if(m?.sub===3)return String(m.title||'').toLowerCase().includes('shuffle')?'SHUFFLE / TERCINA':'TERCINAS';if(m?.sub===4)return'SEMICOLCHEIAS';return'PULSO'}
+const V1554_PENTA_VARIANTS=[
+  {scaleKey:'pentaMin',root:9,rootName:'Lá',shape:'E',label:'Lá menor • forma E'},
+  {scaleKey:'pentaMin',root:9,rootName:'Lá',shape:'D',label:'Lá menor • forma D'},
+  {scaleKey:'pentaMin',root:9,rootName:'Lá',shape:'C',label:'Lá menor • forma C'},
+  {scaleKey:'pentaMin',root:9,rootName:'Lá',shape:'A',label:'Lá menor • forma A'},
+  {scaleKey:'pentaMin',root:9,rootName:'Lá',shape:'G',label:'Lá menor • forma G'},
+  {scaleKey:'pentaMaj',root:0,rootName:'Dó',shape:'C',label:'Dó maior • forma C'},
+  {scaleKey:'pentaMaj',root:0,rootName:'Dó',shape:'A',label:'Dó maior • forma A'},
+  {scaleKey:'pentaMaj',root:0,rootName:'Dó',shape:'G',label:'Dó maior • forma G'},
+  {scaleKey:'pentaMaj',root:0,rootName:'Dó',shape:'E',label:'Dó maior • forma E'},
+  {scaleKey:'pentaMaj',root:0,rootName:'Dó',shape:'D',label:'Dó maior • forma D'}
+];
+const v1554BaseMissionFromStep=v1552MissionFromStep;
+v1552MissionFromStep=function(step,idx=0){
+  v1554EnsureState();
+  const m=v1554BaseMissionFromStep(step,idx),key=v1554MissionKey(m),saved=Number(v15State.guided.bpmMemory[key]);
+  if(m.bpm&&saved>=30)m.bpm=saved;
+  if(String(m.title||'').toLowerCase().includes('pentat')){
+    const p=V1554_PENTA_VARIANTS[v15State.guided.pentaIndex%V1554_PENTA_VARIANTS.length];
+    m.screen='scale-root';m.kind='pentatonic';m.scaleKey=p.scaleKey;m.scaleRoot=p.root;m.scaleRootName=p.rootName;m.scaleShape=p.shape;m.pentaLabel=p.label;m.sub=1;
+    m.task=`Hoje pratique <b>${p.label}</b>. O desenho já abre preparado no braço. Suba e desça uma nota por clique, fale a tônica quando ela aparecer e depois crie 3 frases curtas terminando na tônica.`;
+    m.goal='Memorizar uma região por vez e, ao reencontrar esta missão, avançar para outro desenho da pentatônica.';
+    m.tab='O MAPA DO BRAÇO ABAIXO JÁ ESTÁ CONFIGURADO PARA ESTE DESENHO.';
+  }
+  return m;
+};
+function v1554ApplyMetroMission(m){
+  if(!m||m.screen!=='metronome')return;
+  try{
+    setBpm(m.bpm||70);setSubdivision(m.sub||1);
+    const cb=document.getElementById('rhythmExerciseEnabled');
+    if(m.sub===2){if(cb)cb.checked=true;chooseRhythmExercise({name:'Colcheias guiadas',subdivision:2,pattern:[2,1],hint:'Duas colcheias iguais por pulso: 1-& / 2-& / 3-& / 4-&.'})}
+    else if(m.sub===3){if(cb)cb.checked=true;chooseRhythmExercise(String(m.title||'').toLowerCase().includes('shuffle')?{name:'Shuffle guiado',subdivision:3,pattern:[2,0,1],hint:'Ataque no 1º e no 3º terço da tercina.'}:{name:'Tercinas guiadas',subdivision:3,pattern:[2,1,1],hint:'Três partes iguais por pulso.'})}
+    else {if(cb)cb.checked=false;setSubdivision(m.sub||1);updateMetroTrainerStatus?.()}
+  }catch(e){}
+}
+const v1554BaseConfigure=v1552ConfigureMissionModule;
+v1552ConfigureMissionModule=function(m){
+  try{v1554BaseConfigure(m)}catch(e){}
+  if(m?.screen==='metronome'){v1554ApplyMetroMission(m);setTimeout(()=>v1554ApplyMetroMission(m),0)}
+  if(m?.screen==='scale-root'&&m.scaleKey){
+    try{
+      activeScaleKey=m.scaleKey;activeScaleRoot=m.scaleRoot;scaleViewMode='shapes';scaleShape=m.scaleShape;scaleConnectNext=false;
+      scaleRegionStart=scaleDefaultRegion(m.scaleShape)?.start??null;
+      const ttl=document.getElementById('scaleRootTitle');if(ttl)ttl.textContent=`${SCALE_DATA[m.scaleKey].title} — ${SCALE_NAMES[m.scaleRoot]} • forma ${m.scaleShape}`;
+      syncScaleShapeControls();renderScaleBoard();
+    }catch(e){}
+  }
+};
+v1553MissionHasEmbeddedMetro=function(m){return !!(m&&m.bpm&&['scales','scale-root','arpeggios','chords'].includes(m.screen))};
+function v1554SetMissionBpm(m,delta){
+  if(!m?.bpm)return;m.bpm=v15Clamp(Number(m.bpm)+Number(delta),30,240);v15State.guided.bpmMemory[v1554MissionKey(m)]=m.bpm;
+  try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+  if(m.screen==='metronome')v1554ApplyMetroMission(m);else if(v1553MissionHasEmbeddedMetro?.(m)){try{setBpm(m.bpm)}catch(e){}}
+  v1552RenderMissionBanner(m.screen);
+}
+const v1554BaseMissionBanner=v1552RenderMissionBanner;
+v1552RenderMissionBanner=function(screenId){
+  v1554BaseMissionBanner(screenId);v1554EnsureState();
+  const m=v1552CurrentMission(),b=document.getElementById('v1552MissionBanner');if(!b||!m)return;
+  const cells=b.querySelectorAll('.v1552-mission-grid div');if(cells[2])cells[2].innerHTML=`<b>${v1554SubName(m)}</b><span>SUBDIVISÃO</span>`;
+  if(m.bpm&&!document.getElementById('v1554MissionBpmTools')){
+    const task=b.querySelector('.v1552-mission-task'),tools=document.createElement('div');tools.id='v1554MissionBpmTools';tools.className='v1552-source-ref';
+    tools.innerHTML=`<b>VELOCIDADE DA MISSÃO • ${m.bpm} BPM</b><p>A app lembra seu andamento. Se <b>AUTO</b> estiver ligado, concluir a missão prepara +2 BPM para a próxima vez. Você também pode ajustar agora.</p><div class="v1552-bpm-tools"><button type="button" data-mission-bpm="-5">−5</button><button type="button" data-mission-bpm="-2">−2</button><button type="button" data-mission-bpm="2">+2</button><button type="button" data-mission-bpm="5">+5</button><label style="display:flex;align-items:center;gap:5px"><input id="v1554MissionAutoBpm" type="checkbox" ${v15State.guided.autoBpm?'checked':''}> AUTO +2 AO CONCLUIR</label></div>`;
+    task?.insertAdjacentElement('afterend',tools);tools.querySelectorAll('[data-mission-bpm]').forEach(x=>x.onclick=()=>v1554SetMissionBpm(m,Number(x.dataset.missionBpm)));
+    document.getElementById('v1554MissionAutoBpm')?.addEventListener('change',e=>{v15State.guided.autoBpm=e.target.checked;try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(_){} });
+  }
+  if(m.kind==='pentatonic'){
+    const task=b.querySelector('.v1552-mission-task');if(task&&!document.getElementById('v1554PentaInfo')){const d=document.createElement('div');d.id='v1554PentaInfo';d.className='v15-result good';d.innerHTML=`<b>DESENHO ATUAL: ${m.pentaLabel}</b><br>Ao concluir esta missão, a próxima ocorrência de Pentatônica usará outro desenho/região.`;task.insertAdjacentElement('afterend',d)}
+  }
+};
+const v1554BaseComplete=v1552CompleteMission;
+v1552CompleteMission=function(fromTechnique=false){
+  v1554EnsureState();const m=v1552CurrentMission();
+  if(m?.bpm){const k=v1554MissionKey(m);v15State.guided.bpmMemory[k]=v15State.guided.autoBpm?v15Clamp(Number(m.bpm)+2,30,240):Number(m.bpm)}
+  if(m?.kind==='pentatonic')v15State.guided.pentaIndex=(Number(v15State.guided.pentaIndex)||0)+1;
+  try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+  v1554BaseComplete(fromTechnique);
+};
+// Reaplica a configuração depois que a tela já ficou visível: evita abrir o Metrônomo com o estado anterior.
+const v1554BaseOpenMission=v1552OpenMission;
+v1552OpenMission=function(index=v15State.guided.index||0){v1554BaseOpenMission(index);const m=v1552CurrentMission();if(m)setTimeout(()=>{v1552ConfigureMissionModule(m);v1552RenderMissionBanner(m.screen)},0)};
+
+// Técnica 2.2: Afinação de Nota sai daqui; Bend continua mostrando cents porque afinação é parte da técnica.
+if(V155_TECH?.vibrato)V155_TECH.vibrato.test='series';
+const v1554BaseAssessment=v155RenderTechniqueAssessment;
+v155RenderTechniqueAssessment=function(){
+  v1554BaseAssessment();
+  document.querySelectorAll('#v155PitchTest,#v155PitchLive,#v155PitchResult,#v155SkipPitch').forEach(el=>{const card=el.closest?.('.v15-practical');if(card)card.remove();else el.remove()});
+};
+// Timing: exige amostra mais completa e penaliza ataques extras/faltantes.
+v1552FinishTimingMic=function(run){
+  if(v1552TimingRun!==run)return;clearTimeout(run.clickTimer);clearTimeout(run.loop);try{run.stream?.getTracks().forEach(t=>t.stop())}catch(e){}try{run.ctx?.close()}catch(e){}v1552TimingRun=null;
+  const res=document.getElementById('v15TimingResult'),n=run.errors.length;
+  if(n<6){if(res){res.className='v15-result warn';res.innerHTML='<b>AMOSTRA INCOMPLETA.</b><br>Foram necessários pelo menos 6 ataques reconhecidos em 8 pulsos. Toque uma nota curta por clique e, se possível, use fones.'}return}
+  const mean=run.errors.reduce((a,b)=>a+b,0)/n,sorted=[...run.errors].sort((a,b)=>a-b),median=sorted[Math.floor(sorted.length/2)],countPenalty=Math.min(30,Math.abs(n-8)*6),score=Math.round(v15Clamp(100-mean/2-countPenalty,0,100)),label=score>=90?'EXCELENTE':score>=78?'MUITO BOM':score>=65?'BOM':'REPETIR';
+  if(res){res.className='v15-result '+(score>=65?'good':'warn');res.innerHTML=`<b>${label} • ${score}%</b><br>Erro médio: ${Math.round(mean)} ms • mediana ${Math.round(median)} ms • ataques ${n}/8${countPenalty?` • penalização de contagem ${countPenalty} pts`:''}.`}
+  v15State.technique.timingTests=(v15State.technique.timingTests||[]).concat([{date:new Date().toISOString(),bpm:run.bpm,score,error:Math.round(mean),attacks:n}]).slice(-30);
+  if(v15State.technique.timingAuto){const next=v15Clamp(run.bpm+(score>=90?5:score>=78?2:score<55?-2:0),40,220);v15State.technique.timingBpm=next;const el=document.getElementById('v1552TimingBpm');if(el)el.value=next;if(res&&next!==run.bpm)res.innerHTML+=`<br>Próximo teste automático: <b>${next} BPM</b>.`}
+  v15UpdateExecution('technique',score);try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+};
+
+// Estudar este estilo → Mapa → Voltar retorna ao guitarrista escolhido, não ao menu inicial.
+let v1554MapReturn=null;
+const v1554BaseRenderArtists=v15RenderArtists;
+v15RenderArtists=function(){
+  v1554BaseRenderArtists();const b=document.getElementById('v155StudyArtist'),a=V155_ARTISTS[v15State.styles.artist];if(b&&a)b.onclick=()=>{const g=v155GoalForArtist(a);v15State.goal=g;v15State.studyMode='goal';v1554MapReturn='styles-artists';try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){};show('guitarist-map');v15RenderPlan()};
+};
+function v1554BindMapReturn(){
+  document.querySelectorAll('[data-open="guitarist-map"]').forEach(b=>b.addEventListener('click',()=>{v1554MapReturn=null},true));
+  const back=document.querySelector('#guitarist-map [data-home]');if(back&&!back.dataset.v1554Bound){back.dataset.v1554Bound='1';back.addEventListener('click',e=>{if(!v1554MapReturn)return;e.preventDefault();e.stopImmediatePropagation();const target=v1554MapReturn;v1554MapReturn=null;show(target);v15RenderArtists()},true)}
+}
+setTimeout(()=>{v1554EnsureState();v1554BindMapReturn();v15RenderArtists();v155RenderTechniqueAssessment()},60);
+/* ================= /V15.5.4 ================= */
+
+
+/* ================= V15.5.5 • LINKS E TÉCNICA SEM AFINAÇÃO DUPLICADA ================= */
+// A afinação de nota pertence ao Afinador. Em Técnica, só o Bend conserva cents porque isso faz parte da própria técnica.
+Object.keys(V155_TECH||{}).forEach(k=>{if(V155_TECH[k]?.test==='pitch')V155_TECH[k].test='series'});
+
+const v1555LinkIndex={};
+function v1555OpenExternal(url){
+  if(!url)return;
+  const opened=window.open(url,'_blank','noopener');
+  if(!opened){window.location.href=url}
+}
+function v1555ArtistLinks(key,a){
+  const ref=V1552_ARTIST_REFS[key]||null;
+  const song=ref?.[0]||'';
+  const focus=ref?.[1]||`Observe articulação, ritmo, dinâmica e as técnicas associadas a ${a.name}.`;
+  const enc=encodeURIComponent;
+  const yt=q=>`https://www.youtube.com/results?search_query=${enc(q)}`;
+  const st=q=>`https://www.songsterr.com/?pattern=${enc(q)}`;
+  const ug=q=>`https://www.ultimate-guitar.com/search.php?search_type=title&value=${enc(q)}`;
+  const spotify=q=>`https://open.spotify.com/search/${enc(q)}`;
+  const base=a.name;
+  const songQ=song?`${base} ${song}`:base;
+  return [
+    {title:song?`${song} • referência principal`:`${base} • performance de referência`,source:'YouTube',focus,url:yt(`${songQ} official guitar`)},
+    {title:song?`${song} • ao vivo`:`${base} • solo ao vivo`,source:'YouTube',focus:'Compare a execução ao vivo: ataque, tempo, dinâmica e improvisação.',url:yt(`${songQ} live guitar`)},
+    {title:song?`${song} • solo / guitarra`:`${base} • solos famosos`,source:'YouTube',focus:'Foque apenas nas frases de guitarra e na maneira como elas começam e terminam.',url:yt(`${songQ} guitar solo`)},
+    {title:`${base} • riffs marcantes`,source:'YouTube',focus:'Procure padrões rítmicos, articulação, palm mute, pausas e acentos.',url:yt(`${base} famous riffs guitar`)},
+    {title:`${base} • licks e frases`,source:'YouTube',focus:'Observe pequenos vocabulários de fraseado e como são ligados entre si.',url:yt(`${base} guitar licks lesson`)},
+    {title:`${base} • guitarra isolada`,source:'YouTube',focus:'Quando houver faixa isolada, ouça ruídos, ataque, dinâmica e duração real das notas.',url:yt(`${base} isolated guitar track`)},
+    {title:`${base} • lead guitar`,source:'YouTube',focus:'Foque em bends, vibrato, slides, legato e resolução das frases.',url:yt(`${base} lead guitar lesson style`)},
+    {title:`${base} • rhythm guitar`,source:'YouTube',focus:'Foque em groove, subdivisão, acentos, abafamentos e sincronização.',url:yt(`${base} rhythm guitar lesson style`)},
+    {title:`${base} • técnica explicada`,source:'YouTube',focus:'Procure aulas que expliquem mecanicamente as técnicas mais associadas ao guitarrista.',url:yt(`${base} guitar technique breakdown`)},
+    {title:`${base} • entrevista sobre tocar`,source:'YouTube',focus:'Priorize entrevistas em que o próprio guitarrista ou seu técnico explique abordagem e execução.',url:yt(`${base} guitar technique interview`)},
+    {title:song?`${song} • tablatura interativa`:`${base} • tablaturas interativas`,source:'Songsterr',focus:'Use a tablatura no site de origem para acompanhar visualmente e ouvir a reprodução quando disponível.',url:st(songQ)},
+    {title:`${base} • catálogo de tablaturas`,source:'Songsterr',focus:'Explore outras músicas do guitarrista no catálogo sem copiar a tablatura para dentro da app.',url:st(base)},
+    {title:song?`${song} • tabs / acordes`:`${base} • tabs / acordes`,source:'Ultimate Guitar',focus:'Abra a transcrição no serviço de origem e escolha a versão mais bem avaliada.',url:ug(songQ)},
+    {title:`${base} • mais tabs`,source:'Ultimate Guitar',focus:'Pesquise outras músicas e compare versões de tablatura disponíveis.',url:ug(base)},
+    {title:`${base} • repertório para ouvir`,source:'Spotify',focus:'Ouça várias fases do guitarrista e compare como linguagem e timbre mudam entre músicas e épocas.',url:spotify(base)}
+  ];
+}
+function v1555RenderCurrentLink(key,a){
+  const panel=document.getElementById('v1555ArtistLinksPanel');if(!panel)return;
+  const links=v1555ArtistLinks(key,a);let i=Number(v1555LinkIndex[key]||0);if(i<0||i>=links.length)i=0;v1555LinkIndex[key]=i;const l=links[i];
+  panel.innerHTML=`<div class="v1555-link-counter">REFERÊNCIA ${i+1} DE ${links.length}</div><div class="v1555-link-card"><h4>${l.title}</h4><span class="v1555-link-source">${l.source}</span><p>${l.focus}</p></div><div class="v1555-links-actions"><button id="v1555ListenLink" class="v15-primary" type="button">▶ OUVIR</button><button id="v1555NextLink" type="button">PRÓXIMO →</button></div><p class="v15-muted">As músicas e tablaturas permanecem no serviço de origem. A app usa essas referências para observação; o exercício mostrado aqui é original.</p>`;
+  document.getElementById('v1555ListenLink')?.addEventListener('click',()=>v1555OpenExternal(l.url));
+  document.getElementById('v1555NextLink')?.addEventListener('click',()=>{v1555LinkIndex[key]=(i+1)%links.length;v1555RenderCurrentLink(key,a)});
+}
+const v1555BaseRenderArtists=v15RenderArtists;
+v15RenderArtists=function(){
+  v1555BaseRenderArtists();
+  const key=v15State.styles.artist,a=V155_ARTISTS[key],plan=document.getElementById('v15ArtistPlan');if(!a||!plan)return;
+  const tab=plan.querySelector('.v1552-tab');
+  if(tab&&!document.getElementById('v1555ArtistLinksBtn')){
+    tab.insertAdjacentHTML('afterend',`<button id="v1555ArtistLinksBtn" class="v1555-links-btn" type="button">🔗 LINKS</button><div id="v1555ArtistLinksPanel" class="v1555-links-panel" hidden></div>`);
+    document.getElementById('v1555ArtistLinksBtn')?.addEventListener('click',()=>{const p=document.getElementById('v1555ArtistLinksPanel');if(!p)return;p.hidden=!p.hidden;if(!p.hidden)v1555RenderCurrentLink(key,a)});
+  }
+};
+// Segurança adicional: se algum HTML antigo de Afinação de Nota sobreviver, retire o cartão inteiro após renderização.
+const v1555BaseAssessment=v155RenderTechniqueAssessment;
+v155RenderTechniqueAssessment=function(){
+  v1555BaseAssessment();
+  document.querySelectorAll('#v155TechniqueAssessment .v15-practical').forEach(card=>{if(/AFINAÇÃO DE NOTA|PRECISÃO \/ ESTABILIDADE/i.test(card.textContent||''))card.remove()});
+};
+setTimeout(()=>{v15RenderArtists();v155RenderTechniqueAssessment()},80);
+/* ================= /V15.5.5 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
