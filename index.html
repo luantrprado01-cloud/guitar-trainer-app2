@@ -6106,6 +6106,67 @@ v155RenderTechniqueAssessment=function(){
 setTimeout(()=>{v15RenderArtists();v155RenderTechniqueAssessment()},80);
 /* ================= /V15.5.5 ================= */
 
+/* ================= V15.5.6 • TABS + YOUTUBE SEPARADOS ================= */
+// LINKS agora navega apenas por tablaturas. YouTube fica como referência auditiva separada.
+function v1556ArtistTabs(key,a){
+  const ref=V1552_ARTIST_REFS[key]||null;
+  const song=ref?.[0]||'';
+  const enc=encodeURIComponent;
+  const st=q=>`https://www.songsterr.com/?pattern=${enc(q)}`;
+  const ug=q=>`https://www.ultimate-guitar.com/search.php?search_type=title&value=${enc(q)}`;
+  const base=a.name;
+  const songQ=song?`${base} ${song}`:base;
+  const defs=[
+    [song?`${song} • TAB principal`:`${base} • TAB principal`,'Songsterr',songQ,'Acompanhe a tablatura e identifique a parte de guitarra principal.'],
+    [song?`${song} • outras versões`:`${base} • outras versões`,'Ultimate Guitar',songQ,'Compare versões e escolha uma transcrição bem avaliada.'],
+    [`${base} • solos`,'Songsterr',`${base} guitar solo`,'Procure transcrições de solos e observe bends, vibrato e articulação.'],
+    [`${base} • solos • versões`,'Ultimate Guitar',`${base} guitar solo`,'Compare versões de solos e diferentes níveis de detalhe.'],
+    [`${base} • riffs`,'Songsterr',`${base} guitar riff`,'Procure riffs marcantes e foque ritmo, pausas e acentos.'],
+    [`${base} • riffs • versões`,'Ultimate Guitar',`${base} guitar riff`,'Compare diferentes transcrições de riffs.'],
+    [`${base} • licks`,'Songsterr',`${base} guitar licks`,'Use pequenos licks para estudar vocabulário de fraseado.'],
+    [`${base} • licks • versões`,'Ultimate Guitar',`${base} guitar licks`,'Procure licks/transcrições curtas associadas ao guitarrista.'],
+    [`${base} • lead guitar`,'Songsterr',`${base} lead guitar`,'Foque nas linhas de solo e na articulação.'],
+    [`${base} • lead guitar • versões`,'Ultimate Guitar',`${base} lead guitar`,'Compare transcrições de lead e solos.'],
+    [`${base} • rhythm guitar`,'Songsterr',`${base} rhythm guitar`,'Foque em groove, abafamentos e divisão rítmica.'],
+    [`${base} • rhythm guitar • versões`,'Ultimate Guitar',`${base} rhythm guitar`,'Compare transcrições de base e riffs.'],
+    [`${base} • Guitar Pro / tab completa`,'Songsterr',`${base} guitar tab`,'Procure tabs completas com reprodução quando disponível.'],
+    [`${base} • tab completa • versões`,'Ultimate Guitar',`${base} guitar tab`,'Escolha entre tab, Guitar Pro ou versão oficial quando disponível.'],
+    [`${base} • técnica / frases`,'Songsterr',`${base} technique guitar tab`,'Procure trechos que exponham as técnicas características.'],
+    [`${base} • técnica / frases • versões`,'Ultimate Guitar',`${base} technique guitar tab`,'Use as versões disponíveis como referência visual, sem copiar para a app.']
+  ];
+  return defs.map(([title,source,q,focus])=>({title,source,focus,query:q,url:source==='Songsterr'?st(q):ug(q)}));
+}
+function v1556YoutubeUrl(tab,a){
+  const q=encodeURIComponent(`${tab.query||a.name} guitar lesson live`);
+  return `https://www.youtube.com/results?search_query=${q}`;
+}
+v1555RenderCurrentLink=function(key,a){
+  const panel=document.getElementById('v1555ArtistLinksPanel');if(!panel)return;
+  const links=v1556ArtistTabs(key,a);
+  let i=Number(v1555LinkIndex[key]||0);if(i<0||i>=links.length)i=0;v1555LinkIndex[key]=i;
+  const l=links[i];
+  panel.innerHTML=`<div class="v1555-link-counter">TAB ${i+1} DE ${links.length}</div>
+    <div class="v1555-link-card"><h4>${l.title}</h4><span class="v1555-link-source">${l.source}</span><p>${l.focus}</p></div>
+    <div class="v1555-links-actions">
+      <button id="v1556OpenTab" class="v15-primary" type="button">🎼 ABRIR TAB</button>
+      <button id="v1556Youtube" type="button">▶ YOUTUBE</button>
+      <button id="v1555NextLink" type="button">PRÓXIMO →</button>
+    </div>
+    <p class="v15-muted">A tablatura abre no serviço de origem. A app não copia a transcrição da música; ela apenas direciona para a referência externa.</p>`;
+  document.getElementById('v1556OpenTab')?.addEventListener('click',()=>v1555OpenExternal(l.url));
+  document.getElementById('v1556Youtube')?.addEventListener('click',()=>v1555OpenExternal(v1556YoutubeUrl(l,a)));
+  document.getElementById('v1555NextLink')?.addEventListener('click',()=>{v1555LinkIndex[key]=(i+1)%links.length;v1555RenderCurrentLink(key,a)});
+};
+// Renomeia a apresentação do botão sem mudar o fluxo já existente.
+const v1556BaseRenderArtists=v15RenderArtists;
+v15RenderArtists=function(){
+  v1556BaseRenderArtists();
+  const b=document.getElementById('v1555ArtistLinksBtn');
+  if(b)b.innerHTML='🔗 LINKS • TABS';
+};
+setTimeout(()=>v15RenderArtists(),90);
+/* ================= /V15.5.6 ================= */
+
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
 drawNote();
