@@ -271,6 +271,32 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 .v1555-link-source{display:inline-block;margin-top:4px;padding:3px 7px;border-radius:999px;background:#5e451e;color:#fff1c8;font-size:.62rem;font-weight:900}
 .v1555-links-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
 .v1555-links-actions button{min-height:42px;font-weight:900}
+
+/* V15.5.10 • TELA EXCLUSIVA DE ESTUDOS */
+#artist-links-study{padding-bottom:24px}
+#v15510StudyHost{margin-top:12px}
+.v15510-portrait{
+  display:flex;min-height:320px;align-items:center;justify-content:center;text-align:center;
+  border:1px solid rgba(215,173,85,.35);border-radius:18px;padding:28px;background:rgba(255,255,255,.025)
+}
+.v15510-portrait b{display:block;color:var(--gold);font-size:24px;margin-bottom:10px}
+.v15510-landscape{display:none}
+.v15510-study-count{font-weight:900;color:var(--gold);letter-spacing:.05em;margin:6px 0 10px}
+.v15510-study-card{border:1px solid rgba(215,173,85,.3);border-radius:16px;padding:14px;background:rgba(255,255,255,.025)}
+.v15510-study-card h3{margin:0 0 8px;color:var(--cream)}
+.v15510-meta{font-size:13px;color:var(--muted);margin:6px 0}
+.v15510-tab{
+  overflow-x:auto;white-space:pre;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:clamp(14px,2.25vw,22px);line-height:1.45;background:#090705;border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:14px;margin:12px 0
+}
+.v15510-nav,.v15510-youtube-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.v15510-youtube{margin-top:16px;border-top:1px solid rgba(215,173,85,.24);padding-top:14px}
+@media (orientation:landscape){
+  .v15510-portrait{display:none}
+  .v15510-landscape{display:block}
+}
+
 </style>
 
 <style id="mobile-fit-v2">
@@ -1224,6 +1250,16 @@ html,body{min-height:100%;}
   </div>
 </section>
 
+
+
+<section id="artist-links-study" class="screen">
+  <div class="rowgap">
+    <button class="ghost" type="button" id="v15510BackArtist">← GUITARRISTA</button>
+    <div id="v15510StudyTitle" class="brand" style="font-size:20px">ESTUDOS</div>
+    <div style="width:82px"></div>
+  </div>
+  <div id="v15510StudyHost"></div>
+</section>
 
 <section id="intervals" class="screen">
   <div class="rowgap">
@@ -6410,6 +6446,106 @@ v1557RenderMicroTab=function(key,a){
 };
 setTimeout(()=>v15RenderArtists(),110);
 /* ================= /V15.5.9 ================= */
+
+
+/* ================= V15.5.10 • TELA EXCLUSIVA DE ESTUDOS ================= */
+let v15510ArtistKey=null;
+
+function v15510RenderStudyScreen(){
+  const key=v15510ArtistKey||v15State.styles.artist;
+  const a=V155_ARTISTS[key],host=document.getElementById('v15510StudyHost'),ttl=document.getElementById('v15510StudyTitle');
+  if(!a||!host)return;
+  if(ttl)ttl.textContent='ESTUDOS • '+a.name.toUpperCase();
+
+  const tabs=v1557MicroTabs(key,a);
+  let i=Number(v1557TabIndex[key]||0);
+  if(i<0||i>=tabs.length)i=0;
+  v1557TabIndex[key]=i;
+  const t=tabs[i];
+
+  const song=v1559SongForTab(key,i,a),pri=v1559Priority(key,a);
+  const yts=v1558YoutubeRefs(key,a);
+  let yi=Number(v1558YoutubeIndex[key]||0);
+  if(yi<0||yi>=yts.length)yi=0;
+  v1558YoutubeIndex[key]=yi;
+  const y=yts[yi];
+
+  host.innerHTML=`
+    <div class="v15510-portrait">
+      <div><b>↻ GIRE O TELEMÓVEL</b><span>A tablatura abre em tamanho maior na horizontal.</span></div>
+    </div>
+    <div class="v15510-landscape">
+      <div class="v15510-study-count">ESTUDO ${i+1} DE ${tabs.length}</div>
+      <div class="v15510-study-card">
+        <h3>${t.title}</h3>
+        <div class="v15510-meta"><b>ASSINATURA PESQUISADA:</b> ${pri.slice(0,6).join(' • ')}</div>
+        <div class="v15510-meta">Referência de linguagem: <b>${song}</b></div>
+        <pre class="v15510-tab">${t.tab}</pre>
+        <p><b>O que observar:</b> ${t.focus}</p>
+        <p><b>Por que está aqui:</b> este estudo foi escolhido pelas técnicas, ritmo, fraseado e características associadas a ${a.name}.</p>
+        <p class="v15-muted">Estudo autoral inspirado na linguagem do guitarrista; não é uma transcrição do riff/solo original.</p>
+      </div>
+      <div class="v15510-nav">
+        <button id="v15510PrevTab" type="button">← ANTERIOR</button>
+        <button id="v15510NextTab" class="v15-primary" type="button">PRÓXIMO →</button>
+      </div>
+
+      <div class="v15510-youtube">
+        <div class="v15510-study-count">YOUTUBE ${yi+1} DE ${yts.length}</div>
+        <h3>${y.title}</h3>
+        <p>${y.focus}</p>
+        <div class="v15510-youtube-actions">
+          <button id="v15510YoutubeOpen" class="v15-primary" type="button">▶ YOUTUBE</button>
+          <button id="v15510YoutubeNext" type="button">PRÓXIMO →</button>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('v15510PrevTab')?.addEventListener('click',()=>{
+    v1557TabIndex[key]=(i-1+tabs.length)%tabs.length;
+    v15510RenderStudyScreen();
+  });
+  document.getElementById('v15510NextTab')?.addEventListener('click',()=>{
+    v1557TabIndex[key]=(i+1)%tabs.length;
+    v15510RenderStudyScreen();
+  });
+  document.getElementById('v15510YoutubeOpen')?.addEventListener('click',()=>v1555OpenExternal(y.url));
+  document.getElementById('v15510YoutubeNext')?.addEventListener('click',()=>{
+    v1558YoutubeIndex[key]=(yi+1)%yts.length;
+    v15510RenderStudyScreen();
+  });
+}
+
+const v15510BaseRenderArtists=v15RenderArtists;
+v15RenderArtists=function(){
+  v15510BaseRenderArtists();
+  const key=v15State.styles.artist,a=V155_ARTISTS[key];
+  const btn=document.getElementById('v1555ArtistLinksBtn');
+  const oldPanel=document.getElementById('v1555ArtistLinksPanel');
+
+  if(oldPanel){
+    oldPanel.hidden=true;
+    oldPanel.innerHTML='';
+  }
+  if(!a||!btn)return;
+
+  const clean=btn.cloneNode(true);
+  btn.replaceWith(clean);
+  clean.textContent='🔗 LINKS';
+  clean.addEventListener('click',()=>{
+    v15510ArtistKey=key;
+    show('artist-links-study');
+    v15510RenderStudyScreen();
+  });
+};
+
+document.getElementById('v15510BackArtist')?.addEventListener('click',()=>{
+  show('styles-artists');
+  v15RenderArtists();
+});
+
+setTimeout(()=>v15RenderArtists(),130);
+/* ================= /V15.5.10 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
