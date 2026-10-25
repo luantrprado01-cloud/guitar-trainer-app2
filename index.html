@@ -630,6 +630,12 @@ html,body{min-height:100%;}
 @media(max-width:760px){.v1552-mission-grid{grid-template-columns:repeat(2,1fr)}.v1552-pickup-grid{grid-template-columns:1fr}.v1552-mission .v15-actions button{min-width:115px}}
 </style>
 
+<style id="v1557Style">
+.v1557-microtab-card{margin-top:8px;padding:11px;border:1px solid #6f5836;border-radius:12px;background:#100d0a}
+.v1557-microtab-card h4{margin:0 0 7px;color:#f0cb72}
+.v1557-microtab{white-space:pre;overflow-x:auto;margin:10px 0;padding:12px;border-radius:10px;background:#080706;color:#f4e7c3;font:700 14px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;-webkit-overflow-scrolling:touch}
+.v1557-next-wrap{margin-top:10px}.v1557-next-wrap button{width:100%;min-height:44px;font-weight:900}
+</style>
 </head>
 <body>
 <div class="app" id="app2">
@@ -6166,6 +6172,52 @@ v15RenderArtists=function(){
 };
 setTimeout(()=>v15RenderArtists(),90);
 /* ================= /V15.5.6 ================= */
+
+
+
+
+/* ================= V15.5.7 • MICRO-TABS GUIADAS DENTRO DA APP ================= */
+const V1557_MICROTAB_LIBRARY=[
+  {title:'Bend + resolução',tags:['bend','blues','classic rock','hard rock'],focus:'Suba o bend até a nota-alvo, segure e resolva sem correr.',tab:`e|-------------------------|\nB|--5--8b10~~--8--5-------|\nG|------------------7--5---|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Vibrato sustentado',tags:['vibrato','blues','classic rock','hard rock'],focus:'Segure a nota e faça um vibrato regular; não aumente a largura sem controle.',tab:`e|-------------------------|\nB|--5-----8~~~~----5-------|\nG|-----7-----------7--5----|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Pergunta e resposta',tags:['blues','fraseado','solo','call'],focus:'Toque a primeira frase como pergunta, deixe espaço e responda mudando o final.',tab:`e|-------------------------|\nB|--5--8--5------5---------|\nG|----------7------7--5----|\nD|----------------------7--|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Double-stops expressivos',tags:['double','hendrix','blues','funk','soul'],focus:'Mantenha as duas notas claras e use dinâmica, não força excessiva.',tab:`e|--5----5----5------------|\nB|--5h8--5----5------------|\nG|----------7----7--5------|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Slide melódico',tags:['slide','blues','classic rock','country'],focus:'O slide deve chegar exatamente na casa-alvo e manter o pulso.',tab:`e|-------------------------|\nB|--5/7--7/9--7--5---------|\nG|------------------7--5---|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Legato curto',tags:['legato','hammer','pull','shred','modern','fusion'],focus:'Palhete só o início do grupo e tente manter o volume das notas parecido.',tab:`e|--5h7h8--8p7p5-----------|\nB|---------------8--5------|\nG|--------------------7----|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Alternate picking',tags:['alternate','shred','metal','neoclássico','fusion'],focus:'↓↑ contínuo. Comece devagar e não mude a direção da palheta no meio.',tab:`e|--5-7-8-7-5-7-8-10------|\nB|-------------------------|\nG|-------------------------|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Palm mute + acentos',tags:['palm','metal','hard rock','riff'],focus:'Abafe perto da ponte e deixe os acentos respirarem mais do que as notas abafadas.',tab:`e|-------------------------|\nB|-------------------------|\nG|-------------------------|\nD|-------------------------|\nA|--2-2-2---5--2-2---7--5--|\nE|--0-0-0---3--0-0---5--3--|\n    PM---      PM-`},
+  {title:'Arpejo melódico',tags:['arpej','melod','classic rock','fusion','jazz'],focus:'Deixe cada nota soar o suficiente para ouvir a harmonia, sem embolar.',tab:`e|---------5--8--5---------|\nB|-------5---------5-------|\nG|-----5-------------5-----|\nD|---7-----------------7---|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Groove com abafamentos',tags:['funk','soul','muting','rhythm'],focus:'Os “x” são percussivos. O objetivo é manter a semicolcheia constante.',tab:`e|--x-x-5-x-x-7-x-5-x-----|\nB|--x-x-5-x-x-7-x-5-x-----|\nG|-------------------------|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Country / hybrid picking',tags:['country','hybrid','chicken'],focus:'Misture palheta e dedos, buscando ataque claro e notas curtas.',tab:`e|------5------7p5---------|\nB|--5h7---7--------7--5----|\nG|----------------------6--|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Tapping simples',tags:['tapping','modern','metal','shred'],focus:'Mantenha o tapping no tempo e retire o dedo sem puxar a corda para o lado.',tab:`e|--5h8t12p8p5--5h8t12----|\nB|-------------------------|\nG|-------------------------|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Frase com pausas',tags:['gilmour','blues','classic rock','melod','space'],focus:'As pausas fazem parte da frase. Não preencha todos os espaços.',tab:`e|-------------------------|\nB|--5----8~~------5--------|\nG|-----------7-------7--5--|\nD|-------------------------|\nA|-------------------------|\nE|-------------------------|`},
+  {title:'Sequência neoclássica',tags:['neoclássico','shred','harmonic minor','malmsteen'],focus:'Toque em grupos iguais, mantendo o acento do pulso mesmo quando a sequência muda de corda.',tab:`e|--5-7-8-7-5-------------|\nB|----------8-6-5----------|\nG|--------------7-5-------|\nD|------------------7-----|\nA|------------------------|\nE|------------------------|`},
+  {title:'Riff sincopado',tags:['riff','metal','hard rock','alternative','progressive'],focus:'Conte o pulso em voz baixa e deixe as pausas exatamente no lugar.',tab:`e|-------------------------|\nB|-------------------------|\nG|-------------------------|\nD|--2---2-5---2-----7--5---|\nA|--2---2-5---2-----7--5---|\nE|--0---0-3---0-----5--3---|`}
+];
+const v1557TabIndex={};
+function v1557MicroTabs(key,a){
+  const hay=(a.styles.join(' ')+' '+a.traits.join(' ')+' '+a.techniques+' '+a.rhythm+' '+a.solo).toLowerCase();
+  const scored=V1557_MICROTAB_LIBRARY.map((x,i)=>({x,i,score:x.tags.reduce((n,t)=>n+(hay.includes(String(t).toLowerCase())?3:0),0)})).sort((p,q)=>q.score-p.score||p.i-q.i);
+  return scored.slice(0,10).map((o,n)=>({...o.x,num:n+1}));
+}
+function v1557RenderMicroTab(key,a){
+  const panel=document.getElementById('v1555ArtistLinksPanel');if(!panel)return;
+  const tabs=v1557MicroTabs(key,a);let i=Number(v1557TabIndex[key]||0);if(i<0||i>=tabs.length)i=0;v1557TabIndex[key]=i;const t=tabs[i];
+  const song=V1552_ARTIST_REFS[key]?.[0]||a.name;
+  panel.innerHTML=`<div class="v1555-link-counter">TAB ${i+1} DE ${tabs.length}</div>
+    <div class="v1557-microtab-card"><h4>${t.title}</h4><p><b>Referência de linguagem:</b> ${song}</p><pre class="v1557-microtab">${t.tab}</pre><p><b>O que observar:</b> ${t.focus}</p><p class="v15-muted">Exercício autoral inspirado nas características de ${a.name}; não é uma transcrição da música original.</p></div>
+    <div class="v1557-next-wrap"><button id="v1557NextTab" class="v15-primary" type="button">PRÓXIMO →</button></div>`;
+  document.getElementById('v1557NextTab')?.addEventListener('click',()=>{v1557TabIndex[key]=(i+1)%tabs.length;v1557RenderMicroTab(key,a)});
+}
+const v1557BaseRenderArtists=v15RenderArtists;
+v15RenderArtists=function(){
+  v1557BaseRenderArtists();
+  const key=v15State.styles.artist,a=V155_ARTISTS[key],btn=document.getElementById('v1555ArtistLinksBtn'),panel=document.getElementById('v1555ArtistLinksPanel');if(!a||!btn||!panel)return;
+  const clean=btn.cloneNode(true);btn.replaceWith(clean);clean.textContent='🔗 LINKS';panel.hidden=true;panel.innerHTML='';
+  clean.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!panel.hidden)v1557RenderMicroTab(key,a)});
+};
+setTimeout(()=>v15RenderArtists(),90);
+/* ================= /V15.5.7 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
