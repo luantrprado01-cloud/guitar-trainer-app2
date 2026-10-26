@@ -789,7 +789,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.2 • NAVEGAÇÃO GUIADA</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.3 • CONTEXTO DE MISSÃO</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -7003,6 +7003,95 @@ function v1562ReturnGuidedMissionToMap(e){
 // Captura antes do antigo [data-home], que normalmente envia direto ao menu inicial.
 document.addEventListener('click',v1562ReturnGuidedMissionToMap,true);
 /* ================= /V15.6.2 ================= */
+
+
+/* ================= V15.6.3 • CONTEXTO DE MISSÃO NAS SUBTELAS ================= */
+const v1563GuidedContext={active:false,root:null,index:0};
+
+function v1563MissionFamily(root){
+  const families={
+    scales:['scales','scale-detail','scale-root'],
+    chords:['chords','caged'],
+    theory:['theory'],
+    arpeggios:['arpeggios'],
+    intervals:['intervals'],
+    metronome:['metronome'],
+    technique:['technique'],
+    'ear-training':['ear-training'],
+    jam:['jam'],
+    'reading-lab':['reading-lab'],
+    notation:['notation'],
+    'training-mode':['training-mode']
+  };
+  return families[root]||[root];
+}
+
+function v1563IsInsideMissionFamily(screenId){
+  if(!v1563GuidedContext.active||!screenId)return false;
+  return v1563MissionFamily(v1563GuidedContext.root).includes(screenId);
+}
+
+function v1563IsExitBackButton(btn){
+  if(!btn)return false;
+  if(btn.hasAttribute('data-home'))return true;
+  if(['backScales','backScaleDetail'].includes(btn.id))return true;
+  const txt=(btn.textContent||'').replace(/\s+/g,' ').trim().toUpperCase();
+  return /^←\s*(VOLTAR|ESCALAS|ACORDES|TEORIA)$/.test(txt);
+}
+
+function v1563ExitMissionToMap(e){
+  const btn=e.target?.closest?.('button');
+  if(!btn||!v1563IsExitBackButton(btn))return;
+  const active=document.querySelector('#app2 .screen.active');
+  const activeId=active?.id||'';
+  if(!v1563IsInsideMissionFamily(activeId))return;
+
+  e.preventDefault();
+  e.stopPropagation();
+  e.stopImmediatePropagation();
+
+  try{v1562StopGuidedModuleAudio()}catch(err){}
+  try{if(typeof v1553StopMissionMetronome==='function')v1553StopMissionMetronome()}catch(err){}
+  try{if(typeof v1552MissionTimer!=='undefined')clearInterval(v1552MissionTimer)}catch(err){}
+
+  v1552MissionVisible=false;
+  v1563GuidedContext.active=false;
+
+  show('guitarist-map');
+  try{v15RenderPlan()}catch(err){}
+  try{if(typeof v156RenderTeacher==='function')v156RenderTeacher()}catch(err){}
+}
+
+document.addEventListener('click',v1563ExitMissionToMap,true);
+
+// Toda vez que uma missão abre, guardamos a "família" a que ela pertence.
+// Isso continua válido mesmo quando a missão entra em subtelas internas.
+const v1563BaseOpenMission=v1552OpenMission;
+v1552OpenMission=function(index=v15State.guided?.index||0){
+  const result=v1563BaseOpenMission(index);
+  const m=v1552CurrentMission?.();
+  if(m){
+    v1563GuidedContext.active=true;
+    v1563GuidedContext.root=m.screen;
+    v1563GuidedContext.index=Number(v15State.guided?.index)||0;
+  }
+  return result;
+};
+
+// Se a navegação sair do contexto guiado para mapa/home, encerra apenas o contexto
+// de navegação — a sessão e o progresso da missão continuam salvos.
+const v1563BaseBeforeScreenChange=v15BeforeScreenChange;
+v15BeforeScreenChange=function(id){
+  if(id==='home'||id==='guitarist-map'){
+    v1563GuidedContext.active=false;
+  }else if(v1563GuidedContext.active&&!v1563MissionFamily(v1563GuidedContext.root).includes(id)){
+    // Uma saída manual para uma área sem relação com a missão não deve "contaminar"
+    // futuras aberturas manuais do mesmo módulo.
+    v1563GuidedContext.active=false;
+  }
+  try{return v1563BaseBeforeScreenChange(id)}catch(e){}
+};
+/* ================= /V15.6.3 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
