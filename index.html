@@ -329,6 +329,26 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
   .v156-diagnosis-grid{grid-template-columns:1fr}
 }
 
+
+/* V15.6.4 • PROFESSOR EXPLICA ERROS */
+.v1564-insight{
+  margin-top:11px;padding:11px;border:1px solid rgba(216,175,85,.26);
+  border-radius:12px;background:rgba(0,0,0,.15)
+}
+.v1564-insight-head{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.v1564-insight-head span{color:#d5b56b;font-size:.62rem;font-weight:950;letter-spacing:.06em}
+.v1564-insight-head b{color:#fff3cb;font-size:.77rem}
+.v1564-insight p{margin:8px 0;color:#dfd2b4;font-size:.73rem;line-height:1.48}
+.v1564-adjust{display:grid;gap:3px;padding-top:8px;border-top:1px solid rgba(216,175,85,.18)}
+.v1564-adjust b{color:#d5b56b;font-size:.6rem;letter-spacing:.05em}
+.v1564-adjust span{color:#fff;font-size:.72rem;line-height:1.42}
+.v1564-module-advice{
+  margin-top:8px;padding:9px 10px;border-left:3px solid #d7ad55;border-radius:0 9px 9px 0;
+  background:rgba(215,173,85,.08);font-size:.72rem;line-height:1.45
+}
+.v1564-module-advice b{color:#7a5417}
+.v15-card.dark .v1564-module-advice b,.v15-practical .v1564-module-advice b{color:#f0c96e}
+
 </style>
 
 <style id="mobile-fit-v2">
@@ -789,7 +809,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.3 • CONTEXTO DE MISSÃO</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.4 • PROFESSOR EXPLICA ERROS</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -2345,7 +2365,7 @@ html,body{min-height:100%;}
   <div class="v15-hero"><h2>V15.1 • PROFESSOR PESSOAL</h2><p>A app cruza <b>o que você sabe</b>, <b>o que já consegue executar</b> e, se quiser, <b>o que deseja aprender</b>. Depois disso, você informa apenas o tempo disponível e a app escolhe o caminho.</p><div class="v15-chip-row"><span class="v15-chip" id="v15MapOverall">NÍVEL • CALCULANDO</span><span class="v15-chip" id="v15MapGoalChip">MODO • —</span><span class="v15-chip" id="v15MapNextChip">PRÓXIMO • —</span></div></div>
   <div id="v15SkillMap" class="v15-map"></div>
 
-  <div class="v15-section-title">V15.6.1 • LEITURA DO PROFESSOR</div>
+  <div class="v15-section-title">V15.6.4 • LEITURA DO PROFESSOR</div>
   <div id="v156TeacherCard" class="v156-teacher-card">
     <div class="v156-teacher-head">
       <div>
@@ -2361,6 +2381,15 @@ html,body{min-height:100%;}
       <div><small>PRÓXIMA META</small><b id="v156TeacherTarget">—</b><span id="v156TeacherTargetCopy">—</span></div>
     </div>
     <div id="v156TeacherReason" class="v156-reason">A app está cruzando seus resultados.</div>
+    <div id="v1564TeacherInsight" class="v1564-insight">
+      <div class="v1564-insight-head">
+        <span>🔎 O PROFESSOR PERCEBEU</span>
+        <b id="v1564InsightLabel">Ainda sem um padrão de erro confirmado</b>
+      </div>
+      <p id="v1564InsightExplain">Conclua alguns testes de técnica, leitura ou ouvido para a app explicar o que está limitando seu resultado.</p>
+      <div class="v1564-adjust"><b>AJUSTE DO PRÓXIMO TREINO</b><span id="v1564InsightAdjust">O treino continua baseado no diagnóstico geral.</span></div>
+    </div>
+
     <div class="v15-actions">
       <button id="v156TeacherWhyBtn" type="button">COMO O PROFESSOR DECIDIU?</button>
     </div>
@@ -7092,6 +7121,484 @@ v15BeforeScreenChange=function(id){
   try{return v1563BaseBeforeScreenChange(id)}catch(e){}
 };
 /* ================= /V15.6.3 ================= */
+
+
+/* ================= V15.6.4 • PROFESSOR EXPLICA OS ERROS ================= */
+function v1564EnsureState(){
+  v156EnsureTeacherState();
+  if(!Array.isArray(v15State.teacher.observations))v15State.teacher.observations=[];
+  if(!v15State.teacher.lastInsight)v15State.teacher.lastInsight=null;
+}
+function v1564SaveQuiet(){
+  try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+}
+function v1564RecordObservation(obs){
+  v1564EnsureState();
+  const row={date:new Date().toISOString(),...obs};
+  v15State.teacher.observations.push(row);
+  v15State.teacher.observations=v15State.teacher.observations.slice(-40);
+  if(row.label||row.explain||row.adjust){
+    v15State.teacher.lastInsight={
+      date:row.date,
+      kind:row.kind||'geral',
+      skill:row.skill||null,
+      label:row.label||'Resultado analisado',
+      explain:row.explain||'',
+      adjust:row.adjust||''
+    };
+  }
+  v1564SaveQuiet();
+  return row;
+}
+function v1564RecentObs(kind,limit=6){
+  v1564EnsureState();
+  return v15State.teacher.observations.filter(x=>x?.kind===kind).slice(-limit);
+}
+function v1564Avg(a){
+  const x=a.map(Number).filter(Number.isFinite);
+  return x.length?x.reduce((p,q)=>p+q,0)/x.length:null;
+}
+function v1564AppendAdvice(id,label,explain,adjust){
+  const host=document.getElementById(id);if(!host)return;
+  host.querySelector('.v1564-module-advice')?.remove();
+  const d=document.createElement('div');d.className='v1564-module-advice';
+  d.innerHTML=`<b>🎓 PROFESSOR • ${label}</b><br>${explain}${adjust?`<br><b>PRÓXIMO:</b> ${adjust}`:''}`;
+  host.appendChild(d);
+}
+function v1564TimingAdvice(t){
+  const score=Number(t?.score)||0,error=Number(t?.error)||0,att=Number(t?.attacks)||8,bpm=Number(t?.bpm)||0;
+  if(att!==8){
+    return{
+      label:'CONTAGEM / REGULARIDADE',
+      explain:`Foram reconhecidos ${att} ataques para 8 pulsos. Além da distância ao clique, a contagem de ataques ainda não está estável.`,
+      adjust:`Mantenha ${bpm||'o mesmo'} BPM e repita com uma nota curta por clique antes de aumentar a velocidade.`,
+      severity:score<65?20:14
+    };
+  }
+  if(score<55)return{
+    label:'TIMING AINDA INSTÁVEL',
+    explain:`O erro médio ficou em cerca de ${Math.round(error)} ms. A prioridade agora é aproximar cada ataque do clique, não tocar mais rápido.`,
+    adjust:`Reduza ${bpm?Math.max(40,bpm-5)+' BPM':'um pouco o BPM'} e repita até ficar acima de 65%.`,
+    severity:22
+  };
+  if(score<78)return{
+    label:'TIMING EM CONSOLIDAÇÃO',
+    explain:`A execução já acompanha o pulso, mas ainda há variação suficiente para perder precisão quando a dificuldade subir.`,
+    adjust:`Mantenha ${bpm||'o mesmo'} BPM até repetir um resultado Bom/Muito Bom com consistência.`,
+    severity:14
+  };
+  if(score<90)return{
+    label:'TIMING MUITO BOM',
+    explain:`Você está suficientemente perto do clique para consolidar esse andamento.`,
+    adjust:`Repita mais uma série neste BPM; se mantiver o resultado, aumente +2 BPM.`,
+    severity:5
+  };
+  return{
+    label:'PRONTO PARA SUBIR O BPM',
+    explain:`A precisão de timing está excelente neste teste (${score}%).`,
+    adjust:`Suba +2 BPM; +5 BPM apenas se o próximo resultado continuar Excelente.`,
+    severity:0
+  };
+}
+function v1564BendAdvice(r){
+  const cents=Number(r?.median),stab=Number(r?.stability),tol=Number(r?.tolerance)||10,ok=!!r?.ok;
+  if(!Number.isFinite(cents))return null;
+  if(ok&&Number.isFinite(stab)&&stab>18)return{
+    label:'ALVO CERTO, MAS A NOTA OSCILOU',
+    explain:`O bend chegou ao alvo, porém a estabilidade variou cerca de ±${Math.round(stab)} cents.`,
+    adjust:'Segure a nota-alvo por mais tempo antes de iniciar qualquer vibrato.',
+    severity:8
+  };
+  if(ok)return{
+    label:'BEND AFINADO',
+    explain:`Você chegou dentro da tolerância de ±${tol} cents.`,
+    adjust:'Mantenha o mesmo alvo em outra região; depois teste uma tolerância menor quando disponível.',
+    severity:0
+  };
+  if(cents<0)return{
+    label:'BEND ABAIXO DO ALVO',
+    explain:`O bend estabilizou aproximadamente ${Math.abs(Math.round(cents))} cents abaixo da nota-alvo.`,
+    adjust:'Toque primeiro a nota-alvo, memorize-a e empurre um pouco mais antes de segurar o bend.',
+    severity:20
+  };
+  return{
+    label:'BEND PASSOU DO ALVO',
+    explain:`O bend estabilizou aproximadamente ${Math.abs(Math.round(cents))} cents acima da nota-alvo.`,
+    adjust:'Reduza a força no final do movimento e pare assim que a altura coincidir com a nota de referência.',
+    severity:20
+  };
+}
+function v1564ReadingAdvice(mode,stats,failed=false){
+  const attempts=Number(stats?.attempts)||0,correct=Number(stats?.correct)||0,acc=Math.round(correct/Math.max(1,attempts)*100);
+  const errs=Object.entries(stats?.errors||{}).sort((a,b)=>b[1]-a[1]);
+  const top=errs.slice(0,2).map(([n,c])=>`${notationNamePt(n)}${notationParseName(n)?.oct||''} (${c}×)`);
+  if(failed)return{
+    label:'LEITURA AINDA NÃO SUSTENTA O TEMPO',
+    explain:`O round terminou antes da frase. A precisão ficou em ${acc}%${top.length?` e os erros mais repetidos foram ${top.join(' e ')}`:''}.`,
+    adjust:'Volte ao Sem Pressão nessas notas/posições e só depois repita o mesmo nível sob pressão.',
+    severity:20,accuracy:acc,topErrors:top
+  };
+  if(acc<65)return{
+    label:'RECONHECIMENTO AINDA INSTÁVEL',
+    explain:`A precisão ficou em ${acc}%${top.length?`. Os erros se concentraram em ${top.join(' e ')}`:''}.`,
+    adjust:'Mantenha o nível atual e pratique primeiro as notas que mais se repetiram nos erros.',
+    severity:20,accuracy:acc,topErrors:top
+  };
+  if(acc<85)return{
+    label:'LEITURA EM CONSOLIDAÇÃO',
+    explain:`A precisão ficou em ${acc}%${top.length?`. Ainda aparecem erros recorrentes em ${top.join(' e ')}`:''}.`,
+    adjust:'Repita o nível atual com uma nova frase antes de aumentar pressão ou dificuldade.',
+    severity:11,accuracy:acc,topErrors:top
+  };
+  return{
+    label:'LEITURA CONSISTENTE',
+    explain:`A precisão ficou em ${acc}% com poucos erros recorrentes.`,
+    adjust:mode==='pressure'?'Pode testar mais um round ou o próximo nível mantendo o pulso.':'Faça uma nova frase sem Mostrar Nomes; depois experimente o modo Com Pressão.',
+    severity:0,accuracy:acc,topErrors:top
+  };
+}
+function v1564EarLabel(mode){
+  return({note:'notas',interval:'intervalos',majorMinor:'maior × menor',triad:'tríades',seventh:'tétrades',function:'função harmônica'})[mode]||mode;
+}
+function v1564EarStats(){
+  const rows=Object.entries(persistentProgress?.ear||{}).map(([mode,x])=>{
+    const attempts=Number(x?.attempts)||0,correct=Number(x?.correct)||0;
+    return{mode,attempts,correct,accuracy:attempts?correct/attempts:null};
+  }).filter(x=>x.attempts>0);
+  return rows.sort((a,b)=>(a.accuracy??1)-(b.accuracy??1)||b.attempts-a.attempts);
+}
+function v1564EarAdvice(mode){
+  const x=persistentProgress?.ear?.[mode]||{},attempts=Number(x.attempts)||0,correct=Number(x.correct)||0,acc=attempts?Math.round(correct/attempts*100):0;
+  if(attempts<4)return{
+    label:'AMOSTRA DE OUVIDO AINDA PEQUENA',
+    explain:`Há ${attempts} tentativa${attempts===1?'':'s'} em ${v1564EarLabel(mode)}. Ainda é cedo para chamar isso de fraqueza.`,
+    adjust:'Faça pelo menos mais algumas questões desta modalidade para o Professor confirmar o padrão.',
+    severity:4,accuracy:acc
+  };
+  if(acc<60)return{
+    label:`OUVIDO • ${v1564EarLabel(mode).toUpperCase()}`,
+    explain:`Nesta modalidade, a precisão está em ${acc}% após ${attempts} tentativas. É hoje um padrão de erro confiável.`,
+    adjust:'O próximo treino de ouvido dará prioridade a esta modalidade antes de misturar outros tipos de pergunta.',
+    severity:18,accuracy:acc
+  };
+  if(acc<80)return{
+    label:`OUVIDO EM CONSOLIDAÇÃO • ${v1564EarLabel(mode).toUpperCase()}`,
+    explain:`A precisão está em ${acc}% após ${attempts} tentativas.`,
+    adjust:'Mantenha a mesma modalidade e tente chegar a 80% antes de aumentar o nível.',
+    severity:10,accuracy:acc
+  };
+  return{
+    label:`OUVIDO CONSISTENTE • ${v1564EarLabel(mode).toUpperCase()}`,
+    explain:`A precisão está em ${acc}% após ${attempts} tentativas.`,
+    adjust:'Pode misturar esta modalidade com a próxima área mais fraca do ouvido.',
+    severity:0,accuracy:acc
+  };
+}
+function v1564ComputeSignals(){
+  v1564EnsureState();
+  const sig=[];
+
+  const timing=(v15State.technique?.timingTests||[]).slice(-5);
+  if(timing.length){
+    const avgScore=v1564Avg(timing.map(x=>x.score));
+    const avgErr=v1564Avg(timing.map(x=>x.error));
+    const last=timing[timing.length-1];
+    const adv=v1564TimingAdvice({...last,score:avgScore,error:avgErr});
+    if(adv?.severity>0)sig.push({
+      kind:'timing',skill:'technique',secondary:'rhythm',bonus:adv.severity,
+      label:adv.label,explain:adv.explain,adjust:adv.adjust,
+      data:{avgScore,avgErr,lastBpm:last?.bpm}
+    });
+  }
+
+  const bends=(v15State.technique?.bendTests||[]).slice(0,5);
+  if(bends.length){
+    const fail=bends.filter(x=>!x.ok),avgAbs=v1564Avg(bends.map(x=>Math.abs(Number(x.median)||0)));
+    const latest=bends[0],adv=v1564BendAdvice(latest);
+    const sev=(fail.length>=Math.ceil(bends.length/2)?20:avgAbs>12?12:0);
+    if(sev>0&&adv)sig.push({
+      kind:'bend',skill:'technique',secondary:'improv',bonus:Math.max(sev,adv.severity||0),
+      label:adv.label,explain:adv.explain,adjust:adv.adjust,data:{avgAbs,failRate:fail.length/bends.length}
+    });
+  }
+
+  const reading=v1564RecentObs('reading',5);
+  if(reading.length){
+    const avg=v1564Avg(reading.map(x=>x.accuracy));
+    const failed=reading.filter(x=>x.failed).length;
+    const last=reading[reading.length-1];
+    if((avg??100)<82||failed){
+      sig.push({
+        kind:'reading',skill:'reading',secondary:failed?'rhythm':'fretboard',
+        bonus:(avg??100)<65?20:(avg??100)<82?12:10,
+        label:last.label||'LEITURA EM CONSOLIDAÇÃO',
+        explain:last.explain||`Precisão média recente de ${Math.round(avg||0)}%.`,
+        adjust:last.adjust||'Mantenha o nível atual antes de aumentar a dificuldade.',
+        data:{avgAccuracy:avg,failed}
+      });
+    }
+  }
+
+  const ears=v1564EarStats().filter(x=>x.attempts>=4);
+  if(ears.length){
+    const w=ears[0],adv=v1564EarAdvice(w.mode);
+    if(adv.severity>0)sig.push({
+      kind:'ear',skill:'ear',
+      secondary:['triad','seventh','function','majorMinor'].includes(w.mode)?'harmony':'fretboard',
+      bonus:adv.severity,label:adv.label,explain:adv.explain,adjust:adv.adjust,
+      earMode:w.mode,data:{accuracy:w.accuracy,attempts:w.attempts}
+    });
+  }
+
+  const series=v1564RecentObs('technique_series',4);
+  if(series.length){
+    const avg=v1564Avg(series.map(x=>x.score).filter(x=>Number(x)>0));
+    if(avg!==null&&avg<70){
+      const last=series[series.length-1];
+      sig.push({
+        kind:'technique_series',skill:'technique',secondary:'rhythm',bonus:12,
+        label:last.label||'TÉCNICA AINDA INSTÁVEL',
+        explain:last.explain||`Precisão média recente de ${Math.round(avg)}%.`,
+        adjust:last.adjust||'Reduza o BPM e repita antes de subir a velocidade.',
+        data:{avgScore:avg}
+      });
+    }
+  }
+
+  return sig.sort((a,b)=>b.bonus-a.bonus);
+}
+function v1564TopSignal(){return v1564ComputeSignals()[0]||null}
+
+const v1564BaseSkillSnapshot=v156SkillSnapshot;
+v156SkillSnapshot=function(){
+  const rows=v1564BaseSkillSnapshot();
+  const sigs=v1564ComputeSignals();
+  rows.forEach(r=>{
+    let bonus=0;
+    sigs.forEach(s=>{
+      if(s.skill===r.skill)bonus+=s.bonus;
+      if(s.secondary===r.skill)bonus+=Math.round(s.bonus*.35);
+    });
+    r.signalBonus=Math.min(28,bonus);
+    r.priority+=r.signalBonus;
+  });
+  return rows.sort((a,b)=>b.priority-a.priority);
+};
+
+const v1564BaseDiagnosis=v156TeacherDiagnosis;
+v156TeacherDiagnosis=function(){
+  const d=v1564BaseDiagnosis(),sig=v1564TopSignal();
+  d.signal=sig;
+  if(sig&&d.priority?.skill===sig.skill){
+    d.reason=`${sig.explain} Por isso, o Professor elevou ${V15_SKILLS[sig.skill]} na prioridade do treino.`;
+  }
+  return d;
+};
+
+const v1564BaseTechniqueFocus=v156TechniqueFocus;
+v156TechniqueFocus=function(){
+  const sig=v1564TopSignal();
+  if(sig?.kind==='bend')return'bend';
+  if(sig?.kind==='timing'||sig?.kind==='technique_series')return'sync';
+  return v1564BaseTechniqueFocus();
+};
+
+const v1564BaseTeacherMission=v156TeacherMission;
+v156TeacherMission=function(skill,role,minutes,diagnosis){
+  const m=v1564BaseTeacherMission(skill,role,minutes,diagnosis),sig=v1564TopSignal();
+  if(role!=='primary'||!sig||sig.skill!==skill)return m;
+
+  if(sig.kind==='timing'||sig.kind==='technique_series'){
+    const recent=(v15State.technique?.timingTests||[]).slice(-1)[0];
+    const bpm=Math.max(40,(Number(recent?.bpm)||65)-((Number(recent?.score)||0)<55?5:0));
+    m.title='Sincronização & timing';
+    m.screen='technique';
+    m._teacher={...(m._teacher||{}),source:'professor',techniqueKey:'sync',bpm,sub:2,
+      task:'Abra Sincronização na Técnica 2.2. Toque uma nota por subdivisão com movimento curto e regular. Pare se a mão esquerda e a palheta deixarem de chegar juntas.',
+      goal:'Reduzir a distância ao clique e estabilizar a contagem antes de aumentar BPM.'};
+  }else if(sig.kind==='bend'){
+    m.title='Bend afinado';
+    m.screen='technique';
+    m._teacher={...(m._teacher||{}),source:'professor',techniqueKey:'bend',bpm:60,sub:1,
+      task:'Abra Bends. Toque primeiro a nota-alvo sem bend, memorize a altura e faça o bend até coincidir. Segure o alvo antes de relaxar.',
+      goal:'Corrigir a direção do erro em cents e estabilizar a nota-alvo.'};
+  }else if(sig.kind==='reading'){
+    const last=v1564RecentObs('reading',1)[0],err=(last?.topErrors||[]).join(' e ');
+    m.title='Leitura dirigida pelos erros';
+    m.screen='reading-lab';
+    m._teacher={...(m._teacher||{}),source:'professor',bpm:0,sub:1,
+      task:`Use Sem Pressão e gere uma nova frase. ${err?`Dê atenção especial a ${err}. `:''}Leia o nome mentalmente, encontre a posição e só então toque.`,
+      goal:'Eliminar os erros recorrentes antes de voltar à pressão.'};
+  }else if(sig.kind==='ear'){
+    m.title='Ouvido • '+v1564EarLabel(sig.earMode);
+    m.screen='ear-training';
+    m._teacher={...(m._teacher||{}),source:'professor',bpm:0,sub:1,earMode:sig.earMode,
+      task:`Treine somente ${v1564EarLabel(sig.earMode)} neste bloco. Antes de responder, tente cantar ou imaginar a resposta e depois compare novamente se errar.`,
+      goal:'Levar a modalidade mais fraca do ouvido para pelo menos 80% de precisão.'};
+  }
+  return m;
+};
+
+const v1564BaseOpenMission=v1552OpenMission;
+v1552OpenMission=function(index=v15State.guided?.index||0){
+  const m=v15State.guided?.session?.[Math.max(0,Math.min(index,(v15State.guided?.session?.length||1)-1))];
+  if(m?.earMode&&typeof earMode!=='undefined'){
+    earMode=m.earMode;
+    document.querySelectorAll('[data-ear-mode]').forEach(b=>b.classList.toggle('active',b.dataset.earMode===earMode));
+    try{renderEarQuestion(false)}catch(e){}
+  }
+  return v1564BaseOpenMission(index);
+};
+
+function v1564RenderInsight(){
+  const sig=v1564TopSignal(),last=v15State.teacher?.lastInsight;
+  const chosen=sig||last;
+  const label=document.getElementById('v1564InsightLabel'),
+        explain=document.getElementById('v1564InsightExplain'),
+        adjust=document.getElementById('v1564InsightAdjust');
+  if(!label||!explain||!adjust)return;
+  if(!chosen){
+    label.textContent='Ainda sem um padrão de erro confirmado';
+    explain.textContent='Conclua alguns testes de técnica, leitura ou ouvido para a app explicar o que está limitando seu resultado.';
+    adjust.textContent='O treino continua baseado no diagnóstico geral.';
+    return;
+  }
+  label.textContent=chosen.label||'Padrão identificado';
+  explain.textContent=chosen.explain||'O Professor encontrou um padrão recente.';
+  adjust.textContent=chosen.adjust||'A próxima sessão será ajustada a esse resultado.';
+}
+const v1564BaseRenderTeacher=v156RenderTeacher;
+v156RenderTeacher=function(){
+  v1564BaseRenderTeacher();
+  v1564RenderInsight();
+};
+
+/* Técnica • série guiada */
+const v1564BaseEndTechniqueSeries=v155EndTechniqueSeries;
+v155EndTechniqueSeries=function(){
+  const shouldRecord=!!(v155SeriesActive&&!v155SeriesEnded);
+  const key=v15State.technique?.selected||'alternate';
+  v1564BaseEndTechniqueSeries();
+  if(!shouldRecord)return;
+  const r=v1552SeriesAnalysis?.result;
+  if(!r||!Number(r.score))return;
+  const bpm=Number(document.getElementById('v15TechBpm')?.value)||0;
+  const adv=v1564TimingAdvice({score:r.score,error:v1564Avg(v1552SeriesAnalysis?.errors||[]),attacks:(v1552SeriesAnalysis?.attacks||[]).length,bpm});
+  v1564RecordObservation({
+    kind:'technique_series',skill:'technique',technique:key,score:r.score,bpm,
+    label:adv.label,explain:adv.explain,adjust:adv.adjust
+  });
+  v1564AppendAdvice('v1552SeriesGrade',adv.label,adv.explain,adv.adjust);
+};
+
+/* Técnica • teste de timing */
+const v1564BaseFinishTiming=v1552FinishTimingMic;
+v1552FinishTimingMic=function(run){
+  const before=(v15State.technique?.timingTests||[]).length;
+  v1564BaseFinishTiming(run);
+  const arr=v15State.technique?.timingTests||[];
+  if(arr.length<=before)return;
+  const t=arr[arr.length-1],adv=v1564TimingAdvice(t);
+  v1564RecordObservation({
+    kind:'timing',skill:'technique',score:t.score,error:t.error,attacks:t.attacks,bpm:t.bpm,
+    label:adv.label,explain:adv.explain,adjust:adv.adjust
+  });
+  v1564AppendAdvice('v15TimingResult',adv.label,adv.explain,adv.adjust);
+};
+
+/* Bend • usa cents com sinal, portanto pode explicar abaixo/acima */
+const v1564BaseMeasureStable=v155MeasureStable;
+v155MeasureStable=function(targetMidi,kind,liveId,resultId,done){
+  return v1564BaseMeasureStable(targetMidi,kind,liveId,resultId,r=>{
+    if(done)done(r);
+    if(kind!=='bend')return;
+    const adv=v1564BendAdvice(r);if(!adv)return;
+    v1564RecordObservation({
+      kind:'bend',skill:'technique',cents:r.median,stability:r.stability,tolerance:r.tolerance,ok:r.ok,
+      label:adv.label,explain:adv.explain,adjust:adv.adjust
+    });
+    setTimeout(()=>v1564AppendAdvice('v155BendResult',adv.label,adv.explain,adv.adjust),0);
+  });
+};
+
+/* Leitura • sem pressão */
+const v1564BaseFinishReadingRound=v155FinishReadingRound;
+v155FinishReadingRound=function(){
+  const mode=v15State.reading?.mode,stats=v155ReadingStats?JSON.parse(JSON.stringify(v155ReadingStats)):null;
+  const isLearn=mode==='learn';
+  const r=v1564BaseFinishReadingRound();
+  if(isLearn&&stats){
+    const adv=v1564ReadingAdvice('learn',stats,false);
+    v1564RecordObservation({
+      kind:'reading',skill:'reading',mode:'learn',accuracy:adv.accuracy,topErrors:adv.topErrors,failed:false,
+      label:adv.label,explain:adv.explain,adjust:adv.adjust
+    });
+    v1564AppendAdvice('v15ReadingMicResult',adv.label,adv.explain,adv.adjust);
+  }
+  return r;
+};
+
+/* Leitura • round sob pressão que falha por tempo */
+const v1564BaseFailPressure=v155FailPressureRound;
+v155FailPressureRound=function(){
+  const stats=v155ReadingStats?JSON.parse(JSON.stringify(v155ReadingStats)):null;
+  const r=v1564BaseFailPressure();
+  if(stats){
+    const adv=v1564ReadingAdvice('pressure',stats,true);
+    v1564RecordObservation({
+      kind:'reading',skill:'reading',mode:'pressure',accuracy:adv.accuracy,topErrors:adv.topErrors,failed:true,
+      label:adv.label,explain:adv.explain,adjust:adv.adjust
+    });
+    v1564AppendAdvice('v15ReadingMicResult',adv.label,adv.explain,adv.adjust);
+  }
+  return r;
+};
+
+/* Leitura • sessão sob pressão concluída */
+const v1564BaseFinishPressure=v155FinishPressureSession;
+v155FinishPressureSession=function(){
+  const stats=v155ReadingStats?JSON.parse(JSON.stringify(v155ReadingStats)):null;
+  const r=v1564BaseFinishPressure();
+  if(stats){
+    const adv=v1564ReadingAdvice('pressure',stats,false);
+    v1564RecordObservation({
+      kind:'reading',skill:'reading',mode:'pressure',accuracy:adv.accuracy,topErrors:adv.topErrors,failed:false,
+      label:adv.label,explain:adv.explain,adjust:adv.adjust
+    });
+    v1564AppendAdvice('v15ReadingMicResult',adv.label,adv.explain,adv.adjust);
+  }
+  return r;
+};
+
+/* Ouvido • explica o submodo, mas só chama de fraqueza depois de amostra suficiente */
+const v1564BaseAnswerEar=answerEar;
+answerEar=function(choice,button){
+  const mode=earMode,ok=choice===earQuestion?.answer;
+  const r=v1564BaseAnswerEar(choice,button);
+  const adv=v1564EarAdvice(mode);
+  if(!ok||Number(persistentProgress?.ear?.[mode]?.attempts)>=4){
+    v15State.teacher.lastInsight={
+      date:new Date().toISOString(),kind:'ear',skill:'ear',
+      label:adv.label,explain:adv.explain,adjust:adv.adjust
+    };
+    v1564SaveQuiet();
+    const host=document.getElementById('earFeedback');
+    if(host){
+      host.querySelector('.v1564-module-advice')?.remove();
+      const d=document.createElement('div');d.className='v1564-module-advice';
+      d.innerHTML=`<b>🎓 PROFESSOR • ${adv.label}</b><br>${adv.explain}<br><b>PRÓXIMO:</b> ${adv.adjust}`;
+      host.appendChild(d);
+    }
+  }
+  return r;
+};
+
+setTimeout(()=>{
+  v1564EnsureState();
+  try{v156RenderTeacher()}catch(e){}
+  try{v15RenderPlan()}catch(e){}
+},180);
+/* ================= /V15.6.4 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
