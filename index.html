@@ -297,6 +297,38 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
   .v15510-landscape{display:block}
 }
 
+
+/* V15.6.1 • PROFESSOR OFFLINE */
+.v156-teacher-card{
+  margin:10px 0 14px;padding:14px;border:1px solid rgba(215,173,85,.42);
+  border-radius:16px;background:linear-gradient(180deg,rgba(48,34,22,.98),rgba(23,17,13,.98));
+  color:#fff
+}
+.v156-teacher-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.v156-kicker{display:block;color:#e8c66e;font-size:.66rem;font-weight:900;letter-spacing:.08em}
+.v156-teacher-head h3{margin:4px 0 0;color:#fff1c8;font-size:1.05rem}
+.v156-confidence{padding:5px 9px;border-radius:999px;border:1px solid #7a6038;color:#f0d28a;font-size:.66rem;font-weight:900}
+.v156-diagnosis-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.v156-diagnosis-grid>div{min-width:0;border:1px solid rgba(215,173,85,.22);border-radius:12px;padding:10px;background:rgba(255,255,255,.035)}
+.v156-diagnosis-grid small{display:block;color:#ad9a72;font-size:.58rem;font-weight:900;letter-spacing:.05em}
+.v156-diagnosis-grid b{display:block;margin-top:5px;color:#fff;font-size:.84rem;overflow-wrap:anywhere}
+.v156-diagnosis-grid span{display:block;margin-top:4px;color:#dcc89d;font-size:.67rem;line-height:1.35}
+.v156-reason{margin-top:11px;padding:10px;border-left:3px solid #d7ad55;background:rgba(215,173,85,.07);border-radius:0 10px 10px 0;color:#eee0bf;font-size:.77rem;line-height:1.5}
+.v156-why{margin-top:9px;border-top:1px solid rgba(215,173,85,.22);padding-top:9px}
+.v156-why-table{display:grid;gap:5px}
+.v156-why-row{display:grid;grid-template-columns:minmax(82px,1.2fr) repeat(4,minmax(48px,.7fr));gap:5px;align-items:center;padding:6px 7px;border-radius:8px;background:rgba(255,255,255,.025);font-size:.67rem}
+.v156-why-row.head{color:#bda981;font-weight:900;background:transparent}
+.v156-why-row strong{color:#f4dfad}
+.v156-why-row .prio{color:#f0c665;font-weight:900}
+.v156-data-note{margin-top:8px;color:#b9a783;font-size:.68rem;line-height:1.4}
+@media(max-width:650px){
+  .v156-diagnosis-grid{grid-template-columns:repeat(2,1fr)}
+  .v156-why-row{grid-template-columns:minmax(74px,1.25fr) repeat(4,minmax(40px,.62fr));font-size:.61rem}
+}
+@media(max-width:370px){
+  .v156-diagnosis-grid{grid-template-columns:1fr}
+}
+
 </style>
 
 <style id="mobile-fit-v2">
@@ -757,7 +789,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.5.4 • PROGRESSÃO & NAVEGAÇÃO</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.1 • PROFESSOR OFFLINE</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -827,11 +859,11 @@ html,body{min-height:100%;}
     <div class="home-grid v9-grid v15-home-grid">
       <button class="mode" type="button" data-open="guitarist-map">
         <div class="mode-title">🧭 MAPA DO GUITARRISTA</div>
-        <div class="mode-copy">Nivelamento, Conhecimento × Execução, objetivo e caminho recomendado.</div>
+        <div class="mode-copy">Professor offline, diagnóstico, Conhecimento × Execução e treino diário adaptativo.</div>
       </button>
       <button class="mode" type="button" data-open="technique">
         <div class="mode-title">🎸 TÉCNICA &amp; AVALIAÇÃO</div>
-        <div class="mode-copy">Técnicas essenciais, séries guiadas, precisão de nota, bend e timing.</div>
+        <div class="mode-copy">Técnicas essenciais, séries guiadas, gravação, bends e precisão de timing.</div>
       </button>
       <button class="mode" type="button" data-open="reading-lab">
         <div class="mode-title">🎼 LEITURA 2.0</div>
@@ -2312,6 +2344,29 @@ html,body{min-height:100%;}
   <div class="rowgap"><button class="ghost" type="button" data-home>← VOLTAR</button><div class="brand" style="font-size:21px">MAPA DO GUITARRISTA</div><div style="width:82px"></div></div>
   <div class="v15-hero"><h2>V15.1 • PROFESSOR PESSOAL</h2><p>A app cruza <b>o que você sabe</b>, <b>o que já consegue executar</b> e, se quiser, <b>o que deseja aprender</b>. Depois disso, você informa apenas o tempo disponível e a app escolhe o caminho.</p><div class="v15-chip-row"><span class="v15-chip" id="v15MapOverall">NÍVEL • CALCULANDO</span><span class="v15-chip" id="v15MapGoalChip">MODO • —</span><span class="v15-chip" id="v15MapNextChip">PRÓXIMO • —</span></div></div>
   <div id="v15SkillMap" class="v15-map"></div>
+
+  <div class="v15-section-title">V15.6.1 • LEITURA DO PROFESSOR</div>
+  <div id="v156TeacherCard" class="v156-teacher-card">
+    <div class="v156-teacher-head">
+      <div>
+        <span class="v156-kicker">PROFESSOR OFFLINE</span>
+        <h3 id="v156TeacherHeadline">Analisando seu histórico…</h3>
+      </div>
+      <span id="v156TeacherConfidence" class="v156-confidence">CONFIANÇA • —</span>
+    </div>
+    <div class="v156-diagnosis-grid">
+      <div><small>MAIOR FORÇA</small><b id="v156TeacherStrength">—</b><span id="v156TeacherStrengthScore">—</span></div>
+      <div><small>PRIORIDADE</small><b id="v156TeacherPriority">—</b><span id="v156TeacherPriorityScore">—</span></div>
+      <div><small>GARGALO</small><b id="v156TeacherBottleneck">—</b><span id="v156TeacherBottleneckCopy">—</span></div>
+      <div><small>PRÓXIMA META</small><b id="v156TeacherTarget">—</b><span id="v156TeacherTargetCopy">—</span></div>
+    </div>
+    <div id="v156TeacherReason" class="v156-reason">A app está cruzando seus resultados.</div>
+    <div class="v15-actions">
+      <button id="v156TeacherWhyBtn" type="button">COMO O PROFESSOR DECIDIU?</button>
+    </div>
+    <div id="v156TeacherWhy" class="v156-why" hidden></div>
+  </div>
+
   <div class="v15-section-title">1 • DESCOBRIR SEU PONTO ATUAL</div>
   <div class="v15-card" id="v15LevelingCard"><h3>TESTE DE NIVELAMENTO</h3><p>São 12 questões diagnósticas. O resultado complementa seu histórico e ajuda a app a decidir o que vem antes e o que pode esperar.</p><div id="v15LevelingIdle" class="v15-actions"><button id="v15LevelingStart" type="button" class="v15-primary">INICIAR NIVELAMENTO</button></div><div id="v15LevelingQuiz" class="v15-quiz-box" style="display:none"><div id="v15LevelingProgress" class="v15-quiz-progress"></div><div id="v15LevelingQuestion" class="v15-question"></div><div id="v15LevelingAnswers" class="v15-answer-grid"></div><div id="v15LevelingFeedback" class="v15-feedback"></div></div><div id="v15LevelingResult" style="display:none"></div></div>
   <div class="v15-section-title">2 • COMO VOCÊ QUER SER GUIADO?</div>
@@ -6546,6 +6601,363 @@ document.getElementById('v15510BackArtist')?.addEventListener('click',()=>{
 
 setTimeout(()=>v15RenderArtists(),130);
 /* ================= /V15.5.10 ================= */
+
+
+/* ================= V15.6.1 • CÉREBRO DO PROFESSOR OFFLINE ================= */
+function v156EnsureTeacherState(){
+  v15State.teacher=v15State.teacher||{};
+  v15State.teacher.sessions=Number(v15State.teacher.sessions)||0;
+  v15State.teacher.lastPriority=v15State.teacher.lastPriority||null;
+  v15State.teacher.lastBuiltAt=v15State.teacher.lastBuiltAt||null;
+}
+
+function v156CatAttempts(k){
+  try{return Number(persistentProgress?.categories?.[k]?.attempts)||0}catch(e){return 0}
+}
+function v156EarAttempts(){
+  try{return Object.values(persistentProgress?.ear||{}).reduce((n,x)=>n+(Number(x?.attempts)||0),0)}catch(e){return 0}
+}
+function v156TechniqueEvidence(){
+  const done=Object.values(v15State.technique?.completed||{}).reduce((n,x)=>n+(Number(x?.count)||0),0);
+  return done+
+    (Array.isArray(v15State.technique?.timingTests)?v15State.technique.timingTests.length:0)+
+    (Array.isArray(v15State.technique?.bendTests)?v15State.technique.bendTests.length:0);
+}
+function v156Evidence(skill){
+  const ex=Number(v15State.execution?.[skill]?.samples)||0;
+  const quiz=Number(v15State.leveling?.bySkill?.[skill]?.total)||0;
+  let hist=0;
+  if(skill==='rhythm')hist=v156CatAttempts('notation')+(Array.isArray(v15State.technique?.timingTests)?v15State.technique.timingTests.length:0);
+  else if(skill==='ear')hist=v156EarAttempts();
+  else if(skill==='fretboard')hist=v156CatAttempts('notes')+v156CatAttempts('intervals');
+  else if(skill==='chords')hist=v156CatAttempts('chords');
+  else if(skill==='scales')hist=v156CatAttempts('scales');
+  else if(skill==='improv')hist=v156CatAttempts('scales')+v156CatAttempts('arpeggios')+v156CatAttempts('harmony');
+  else if(skill==='harmony')hist=v156CatAttempts('harmony')+v156CatAttempts('arpeggios');
+  else if(skill==='technique')hist=v156TechniqueEvidence();
+  else if(skill==='reading')hist=v156CatAttempts('notation')+(Number(v15State.reading?.micTotal)||0);
+  return Math.max(0,ex+quiz+hist);
+}
+function v156ConfidenceFromEvidence(e){return Math.min(1,Math.max(0,Number(e)||0)/16)}
+function v156SkillSnapshot(){
+  const foundation={rhythm:8,ear:4,fretboard:6,chords:4,scales:3,improv:2,harmony:3,technique:6,reading:2};
+  return Object.keys(V15_SKILLS).map(skill=>{
+    const kn=v15Clamp(v15KnowledgeScore(skill)),ex=v15Clamp(v15ExecutionScore(skill));
+    const avg=Math.round((kn+ex)/2),evidence=v156Evidence(skill),confidence=v156ConfidenceFromEvidence(evidence);
+    // Sem dados, não tratamos 0% como fraqueza confirmada: puxamos o valor efetivo para o neutro.
+    const effective=Math.round(avg*confidence+50*(1-confidence));
+    const gap=kn-ex;
+    let bottleneck='consolidacao';
+    if(confidence<.20)bottleneck='dados';
+    else if(gap>=15)bottleneck='execucao';
+    else if(gap<=-15)bottleneck='conhecimento';
+    else if(avg<42)bottleneck='base';
+    else if(avg<65)bottleneck='consolidacao';
+    else bottleneck='avanco';
+    let priority=(100-effective)+(foundation[skill]||0);
+    if(bottleneck==='execucao'||bottleneck==='conhecimento')priority+=8;
+    if(bottleneck==='base')priority+=7;
+    if(bottleneck==='dados')priority+=4;
+    return{skill,kn,ex,avg,evidence,confidence,effective,gap,bottleneck,priority:Math.round(priority)};
+  }).sort((a,b)=>b.priority-a.priority);
+}
+function v156TeacherDiagnosis(){
+  v156EnsureTeacherState();
+  const ranked=v156SkillSnapshot(),priority=ranked[0];
+  const confirmed=ranked.filter(x=>x.confidence>=.20);
+  const strength=[...confirmed].sort((a,b)=>b.avg-a.avg)[0]||[...ranked].sort((a,b)=>b.effective-a.effective)[0];
+  const coverage=ranked.filter(x=>x.confidence>=.20).length/ranked.length;
+  const meanConf=ranked.reduce((n,x)=>n+x.confidence,0)/ranked.length;
+  const confidence=meanConf*.6+coverage*.4;
+  const confLabel=confidence<.30?'BAIXA':confidence<.62?'MÉDIA':'ALTA';
+  const bottleneckLabels={
+    dados:'POUCOS DADOS',execucao:'EXECUÇÃO',conhecimento:'CONHECIMENTO',
+    base:'BASE',consolidacao:'CONSISTÊNCIA',avanco:'PRÓXIMO NÍVEL'
+  };
+  let reason='';
+  if(priority.bottleneck==='dados'){
+    reason=`Ainda há poucas amostras confiáveis em ${V15_SKILLS[priority.skill]}. O professor trata essa prioridade como provisória e usa o treino de hoje também para conhecer melhor seu nível real.`;
+  }else if(priority.bottleneck==='execucao'){
+    reason=`Em ${V15_SKILLS[priority.skill]}, seu conhecimento medido (${priority.kn}) está acima da execução (${priority.ex}). Hoje a app prioriza transformar o que você já entende em execução estável.`;
+  }else if(priority.bottleneck==='conhecimento'){
+    reason=`Em ${V15_SKILLS[priority.skill]}, sua execução (${priority.ex}) está acima do conhecimento medido (${priority.kn}). O professor vai consolidar o “porquê” para você tocar com mais consciência e transferir melhor para outras situações.`;
+  }else if(priority.bottleneck==='base'){
+    reason=`Conhecimento e execução em ${V15_SKILLS[priority.skill]} ainda estão baixos juntos. O professor vai reconstruir a base antes de aumentar velocidade ou complexidade.`;
+  }else if(priority.bottleneck==='consolidacao'){
+    reason=`${V15_SKILLS[priority.skill]} já tem alguma base, mas ainda não está estável. O foco de hoje é repetição correta e aplicação, não adicionar dificuldade por adicionar.`;
+  }else{
+    reason=`${V15_SKILLS[priority.skill]} já está em bom nível. O professor escolheu essa área porque ela é a melhor alavanca disponível agora para avançar sem criar um buraco no caminho.`;
+  }
+  const target=priority.avg<35?55:priority.avg<55?70:priority.avg<75?82:90;
+  return{ranked,priority,strength,confidence,confLabel,bottleneckLabel:bottleneckLabels[priority.bottleneck],reason,target};
+}
+
+function v156TechniqueFocus(){
+  const tests=Array.isArray(v15State.technique?.bendTests)?v15State.technique.bendTests.slice(-4):[];
+  const bendScores=tests.map(x=>Number(x?.score)).filter(Number.isFinite);
+  if(bendScores.length&&bendScores.reduce((a,b)=>a+b,0)/bendScores.length<72)return'bend';
+  const timing=Array.isArray(v15State.technique?.timingTests)?v15State.technique.timingTests.slice(-4):[];
+  const timingScores=timing.map(x=>Number(x?.score)).filter(Number.isFinite);
+  if(timingScores.length&&timingScores.reduce((a,b)=>a+b,0)/timingScores.length<72)return'sync';
+  const candidates=['alternate','sync','bend','vibrato','legato'];
+  return candidates.sort((a,b)=>{
+    const ca=Number(v15State.technique?.completed?.[a]?.count)||0;
+    const cb=Number(v15State.technique?.completed?.[b]?.count)||0;
+    return ca-cb;
+  })[0]||'alternate';
+}
+
+function v156TeacherMission(skill,role,minutes,diagnosis){
+  const b=diagnosis.ranked.find(x=>x.skill===skill)||diagnosis.priority;
+  const why=b.bottleneck==='execucao'?'transformar conhecimento em execução':
+            b.bottleneck==='conhecimento'?'ligar execução à compreensão':
+            b.bottleneck==='dados'?'criar uma amostra real do seu nível':
+            b.bottleneck==='base'?'reconstruir a base com controle':
+            b.bottleneck==='consolidacao'?'ganhar consistência':'subir dificuldade sem perder qualidade';
+  const common={skill,minutes,copy:`Professor: ${why}.`,_teacher:{source:'professor'}};
+
+  const table={
+    rhythm:{
+      primary:{title:'Pulso & subdivisão',screen:'metronome',bpm:70,sub:2,
+        task:'Toque uma nota abafada em colcheias por 4 compassos. Depois faça 1 compasso sem tocar e volte exatamente no pulso. Repita o ciclo sem acelerar.',
+        goal:'Manter subdivisão e retorno ao clique estáveis.'},
+      support:{title:'Ouvido rítmico',screen:'ear-training',bpm:70,sub:1,
+        task:'Faça o treino de ouvido rítmico e conte 1-&-2-& em voz baixa antes de responder. Se errar, identifique se perdeu pulso, acento ou subdivisão.',
+        goal:'Reconhecer o ritmo antes de reproduzi-lo.'},
+      apply:{title:'Aplicação rítmica em Jam',screen:'jam',bpm:70,sub:1,
+        task:'Na Jam, toque frases/base de 2 compassos e deixe 2 compassos de espaço. Mantenha o corpo marcando o pulso mesmo durante o silêncio.',
+        goal:'Levar o pulso para uma situação musical.'}
+    },
+    ear:{
+      primary:{title:'Ouvido aplicado',screen:'ear-training',bpm:0,sub:1,
+        task:'Antes de tocar ou responder, cante mentalmente a resposta. Faça o bloco indicado sem procurar primeiro no braço.',
+        goal:'Ouvir antes de procurar visualmente.'},
+      support:{title:'Ouvido → braço',screen:'scales',bpm:60,sub:1,
+        task:'Escolha uma tônica, toque-a, cante uma segunda nota e só depois procure essa nota no braço. Faça 8 tentativas lentas.',
+        goal:'Transformar som imaginado em localização no instrumento.'},
+      apply:{title:'Call & response',screen:'jam',bpm:70,sub:1,
+        task:'Crie uma frase curta de 2 compassos, deixe espaço e responda tentando primeiro imaginar o final antes de tocar.',
+        goal:'Usar o ouvido para dirigir o fraseado.'}
+    },
+    fretboard:{
+      primary:{title:'Pentatônica & braço',screen:'scales',bpm:65,sub:1,
+        task:'Abra uma região da pentatônica. Localize todas as tônicas antes de tocar; depois suba e desça dizendo “tônica” sempre que passar por ela.',
+        goal:'Parar de enxergar apenas desenho e localizar função.'},
+      support:{title:'Intervalos no braço',screen:'intervals',bpm:0,sub:1,
+        task:'Escolha uma tônica e localize 3ª, 5ª e 7ª em pelo menos duas regiões diferentes. Diga o intervalo antes de tocar.',
+        goal:'Usar intervalos como mapa, não casas decoradas.'},
+      apply:{title:'Braço aplicado em Jam',screen:'jam',bpm:70,sub:1,
+        task:'Na Jam, limite-se a duas regiões vizinhas. Faça uma frase em uma região e responda na outra, terminando na tônica.',
+        goal:'Mover-se pelo braço sem perder referência tonal.'}
+    },
+    chords:{
+      primary:{title:'Chord tones & acordes',screen:'chords',bpm:60,sub:1,
+        task:'Escolha um acorde, identifique tônica, 3ª e 5ª e toque cada nota separadamente antes de tocar o acorde completo.',
+        goal:'Relacionar forma, notas e função do acorde.'},
+      support:{title:'Trocas no tempo',screen:'metronome',bpm:70,sub:1,
+        task:'Faça quatro pulsos por acorde em uma progressão simples. Troque somente no primeiro pulso do compasso e não pare a mão direita.',
+        goal:'Trocar acordes sem interromper o tempo.'},
+      apply:{title:'Acordes em contexto',screen:'jam',bpm:70,sub:1,
+        task:'Na Jam, toque base simples e destaque conscientemente a mudança de acorde. Evite preencher todos os espaços.',
+        goal:'Ouvir e sentir a progressão enquanto acompanha.'}
+    },
+    scales:{
+      primary:{title:'Pentatônica & braço',screen:'scales',bpm:65,sub:1,
+        task:'Toque a escala indicada devagar, fale os graus 1, 3/♭3, 5 e 7/♭7 e pare em cada tônica. Depois crie 3 frases de no máximo 5 notas.',
+        goal:'Entender a escala como graus e pontos de resolução.'},
+      support:{title:'Escala → intervalos',screen:'intervals',bpm:0,sub:1,
+        task:'Escolha a mesma tônica e encontre no braço os graus mais importantes da escala. Compare visualmente as distâncias.',
+        goal:'Ligar desenho de escala a intervalos.'},
+      apply:{title:'Escala aplicada em Jam',screen:'jam',bpm:70,sub:1,
+        task:'Improvisa usando no máximo 5 notas da escala. Cada frase deve terminar numa nota escolhida antes de começar.',
+        goal:'Usar escala para criar frases, não para subir e descer.'}
+    },
+    improv:{
+      primary:{title:'Fraseado & resolução',screen:'jam',bpm:70,sub:1,
+        task:'Toque frases de 3 a 5 notas. Antes de começar cada frase, escolha uma nota-alvo do acorde e termine nela.',
+        goal:'Construir intenção e resolução.'},
+      support:{title:'Ouvir antes de tocar',screen:'ear-training',bpm:0,sub:1,
+        task:'Faça um bloco curto de ouvido e cante mentalmente cada resposta. Depois reproduza a ideia na guitarra.',
+        goal:'Diminuir a distância entre ouvido e mão.'},
+      apply:{title:'Arpejos & chord tones',screen:'arpeggios',bpm:60,sub:1,
+        task:'Toque lentamente as notas de um acorde e crie duas frases que terminem em 3ª ou 7ª.',
+        goal:'Improvisar acompanhando a harmonia.'}
+    },
+    harmony:{
+      primary:{title:'Arpejos & chord tones',screen:'arpeggios',bpm:60,sub:1,
+        task:'Escolha uma tríade ou tétrade, identifique 1–3–5–7 e toque as notas separadamente. Em seguida resolva uma frase na 3ª.',
+        goal:'Ouvir a função das notas do acorde.'},
+      support:{title:'Acordes & função',screen:'chords',bpm:0,sub:1,
+        task:'Monte uma progressão I–IV–V ou I–V–vi–IV e diga a função de cada acorde antes de tocar.',
+        goal:'Relacionar cifra, grau e função harmônica.'},
+      apply:{title:'Harmonia aplicada em Jam',screen:'jam',bpm:70,sub:1,
+        task:'Na Jam, altere a nota de chegada quando o acorde mudar. Priorize 3ªs e tônicas nos tempos fortes.',
+        goal:'Fazer o fraseado acompanhar a progressão.'}
+    },
+    reading:{
+      primary:{title:'Leitura 2.0',screen:'reading-lab',bpm:0,sub:1,
+        task:'Use Sem Pressão. Leia a nota, diga o nome mentalmente, encontre a posição recomendada e toque. Não use Mostrar Nomes na primeira tentativa.',
+        goal:'Fazer pauta → nota → posição → som sem adivinhar.'},
+      support:{title:'Ritmo escrito',screen:'notation',bpm:0,sub:1,
+        task:'Revise figuras rítmicas e conte em voz alta um exemplo antes de tocar. Bata o pulso com o pé.',
+        goal:'Separar leitura de altura e leitura rítmica.'},
+      apply:{title:'Leitura com pulso',screen:'reading-lab',bpm:0,sub:1,
+        task:'Gere uma nova frase e toque mantendo pulso contínuo. Se errar, continue conforme o modo escolhido em vez de parar para corrigir fora de tempo.',
+        goal:'Aproximar leitura da execução real.'}
+    }
+  };
+
+  if(skill==='technique'){
+    const k=v156TechniqueFocus(),names={
+      alternate:'Alternate Picking',sync:'Sincronização',bend:'Bends',
+      vibrato:'Vibrato',legato:'Legato'
+    };
+    if(role==='primary')return{...common,title:names[k]||'Técnica fundamental',screen:'technique',_teacher:{source:'professor',techniqueKey:k,bpm:Number(v15State.technique?.completed?.[k]?.bpm)||V15_TECHNIQUES?.[k]?.start||65,sub:2,
+      task:`Abra ${names[k]||'a técnica indicada'} na Técnica 2.2 e faça o exercício mostrado pela app. Priorize limpeza e regularidade; só aumente BPM depois de uma série Boa/Excelente.`,
+      goal:'Executar a técnica com controle mensurável.'}};
+    if(role==='support')return{...common,title:'Pulso & precisão técnica',screen:'metronome',_teacher:{source:'professor',bpm:65,sub:2,
+      task:'Toque um padrão técnico simples em colcheias, usando movimento mínimo. O objetivo não é velocidade: cada ataque deve cair no clique/subdivisão.',
+      goal:'Estabilizar a técnica dentro do tempo.'}};
+    return{...common,title:'Técnica aplicada em Jam',screen:'jam',_teacher:{source:'professor',bpm:70,sub:1,
+      task:`Na Jam, use ${names[k]||'a técnica estudada'} apenas uma vez por frase. Se a frase perder o tempo ou ficar suja, simplifique imediatamente.`,
+      goal:'Usar técnica como recurso musical, não como fim.'}};
+  }
+
+  const chosen=(table[skill]||table.rhythm)[role]||(table[skill]||table.rhythm).primary;
+  return{...common,title:chosen.title,screen:chosen.screen,_teacher:{source:'professor',bpm:chosen.bpm,sub:chosen.sub,task:chosen.task,goal:chosen.goal}};
+}
+
+function v156BuildTodaySteps(){
+  const d=v156TeacherDiagnosis(),mins=Number(v15State.availableMinutes)||20;
+  const p=d.priority.skill;
+  const second=(d.ranked.find(x=>x.skill!==p&&x.confidence>=.12)||d.ranked.find(x=>x.skill!==p)||d.priority).skill;
+  const count=mins<=10?2:mins<=20?3:mins<=30?4:5;
+  const allocations=mins<=10?[6,4]:mins<=20?[8,6,6]:mins<=30?[10,7,7,6]:[12,9,9,8,7];
+  const specs=count===2?[[p,'primary'],[p,'support']]:
+              count===3?[[p,'primary'],[p,'support'],[p,'apply']]:
+              count===4?[[p,'primary'],[second,'primary'],[p,'support'],[p,'apply']]:
+                        [[p,'primary'],[second,'primary'],[p,'support'],[second,'support'],[p,'apply']];
+  return specs.map((x,i)=>v156TeacherMission(x[0],x[1],allocations[i],d));
+}
+
+function v156RenderTeacher(){
+  const card=document.getElementById('v156TeacherCard');if(!card)return;
+  const d=v156TeacherDiagnosis(),p=d.priority,s=d.strength;
+  const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value};
+  set('v156TeacherHeadline',d.confLabel==='BAIXA'?'Diagnóstico provisório — preciso observar mais você':'Seu treino já pode ser dirigido pelo histórico');
+  set('v156TeacherConfidence','CONFIANÇA • '+d.confLabel);
+  set('v156TeacherStrength',s?V15_SKILLS[s.skill]:'Ainda sem força confirmada');
+  set('v156TeacherStrengthScore',s?`${s.avg}% • ${s.evidence} amostras`:'Faça o nivelamento e alguns treinos.');
+  set('v156TeacherPriority',V15_SKILLS[p.skill]);
+  set('v156TeacherPriorityScore',`${p.avg}% medido • prioridade ${p.priority}`);
+  set('v156TeacherBottleneck',d.bottleneckLabel);
+  set('v156TeacherBottleneckCopy',p.bottleneck==='dados'?'Amostra insuficiente':p.bottleneck==='execucao'?`Saber ${p.kn} × Fazer ${p.ex}`:p.bottleneck==='conhecimento'?`Fazer ${p.ex} × Saber ${p.kn}`:`Saber ${p.kn} × Fazer ${p.ex}`);
+  set('v156TeacherTarget',`${V15_SKILLS[p.skill]} • ${d.target}%`);
+  set('v156TeacherTargetCopy',`Meta intermediária antes de aumentar a complexidade.`);
+  const reason=document.getElementById('v156TeacherReason');if(reason)reason.innerHTML=`<b>POR QUE HOJE:</b> ${d.reason}`;
+
+  const why=document.getElementById('v156TeacherWhy');
+  if(why){
+    const rows=[...d.ranked].sort((a,b)=>b.priority-a.priority);
+    why.innerHTML=`<div class="v156-why-table">
+      <div class="v156-why-row head"><span>ÁREA</span><span>SABER</span><span>FAZER</span><span>DADOS</span><span>PRIO.</span></div>
+      ${rows.map(x=>`<div class="v156-why-row"><strong>${V15_SKILLS[x.skill]}</strong><span>${x.kn}</span><span>${x.ex}</span><span>${Math.round(x.confidence*100)}%</span><span class="prio">${x.priority}</span></div>`).join('')}
+    </div><div class="v156-data-note">“Dados” indica a confiança baseada em tentativas, testes e execuções registradas. Uma área sem amostras não é automaticamente tratada como fraqueza.</div>`;
+  }
+  const btn=document.getElementById('v156TeacherWhyBtn');
+  if(btn&&!btn.dataset.bound){
+    btn.dataset.bound='1';
+    btn.addEventListener('click',()=>{
+      const box=document.getElementById('v156TeacherWhy');if(!box)return;
+      box.hidden=!box.hidden;
+      btn.textContent=box.hidden?'COMO O PROFESSOR DECIDIU?':'OCULTAR ANÁLISE';
+    });
+  }
+}
+
+const v156LegacyMissionFromStep=v1552MissionFromStep;
+v1552MissionFromStep=function(step,idx=0){
+  const m=v156LegacyMissionFromStep(step,idx);
+  if(step?._teacher){
+    const t=step._teacher;
+    if(t.bpm!==undefined)m.bpm=t.bpm;
+    if(t.sub!==undefined)m.sub=t.sub;
+    if(t.task)m.task=t.task;
+    if(t.goal)m.goal=t.goal;
+    if(t.techniqueKey)m.techniqueKey=t.techniqueKey;
+    m.source=t.source||'professor';
+    m.skill=step.skill||m.skill;
+  }
+  return m;
+};
+
+const v156LegacyOpenMission=v1552OpenMission;
+v1552OpenMission=function(index=v15State.guided.index||0){
+  const m=v15State.guided?.session?.[Math.max(0,Math.min(index,(v15State.guided?.session?.length||1)-1))];
+  if(m?.source==='professor'&&m.techniqueKey){
+    v15State.technique.selected=m.techniqueKey;
+  }
+  return v156LegacyOpenMission(index);
+};
+
+const v156LegacySessionSteps=v155SessionSteps;
+v155SessionSteps=function(){
+  if(v15State.studyMode==='goal')return v156LegacySessionSteps();
+  return v156BuildTodaySteps();
+};
+
+const v156LegacyRenderPlan=v15RenderPlan;
+v15RenderPlan=function(){
+  v156EnsureTeacherState();
+  v156LegacyRenderPlan();
+  v156RenderTeacher();
+  if(v15State.studyMode!=='goal'){
+    const d=v156TeacherDiagnosis(),mins=Number(v15State.availableMinutes)||20;
+    const title=document.getElementById('v15PlanTitle'),copy=document.getElementById('v15PlanCopy');
+    if(title)title.textContent=`HOJE • ${mins} MIN • PROFESSOR OFFLINE`;
+    if(copy)copy.innerHTML=`<b>Prioridade: ${V15_SKILLS[d.priority.skill]}.</b> ${d.reason}`;
+    const c1=document.getElementById('v15MapGoalChip'),c2=document.getElementById('v15MapNextChip');
+    if(c1)c1.textContent='MODO • PROFESSOR OFFLINE';
+    if(c2)c2.textContent='PRIORIDADE • '+V15_SKILLS[d.priority.skill].toUpperCase();
+    const start=document.getElementById('v15StartRecommended');
+    if(start)start.textContent='▶ COMEÇAR TREINO DO PROFESSOR';
+  }
+};
+
+v155OpenRecommended=function(){
+  v156EnsureTeacherState();
+  const steps=v155SessionSteps();
+  const source=v15State.studyMode==='goal'?'map':'professor';
+  const session=v1552BuildGuidedSession(steps,source);
+  if(v15State.studyMode!=='goal'){
+    const d=v156TeacherDiagnosis();
+    v15State.teacher.lastPriority=d.priority.skill;
+    v15State.teacher.lastBuiltAt=new Date().toISOString();
+    try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+  }
+  if(session.length)v1552OpenMission(0);
+};
+
+const v156LegacyCompleteMission=v1552CompleteMission;
+v1552CompleteMission=function(fromTechnique=false){
+  const before=v1552CurrentMission();
+  const result=v156LegacyCompleteMission(fromTechnique);
+  if(before?.source==='professor'){
+    v156EnsureTeacherState();
+    const all=v15State.guided?.session||[],done=v15State.guided?.completed||{};
+    const finished=all.length>0&&all.every(m=>done[m.id]);
+    if(finished)v15State.teacher.sessions=(Number(v15State.teacher.sessions)||0)+1;
+    try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+  }
+  return result;
+};
+
+setTimeout(()=>{
+  v156EnsureTeacherState();
+  v156RenderTeacher();
+  v15RenderPlan();
+},150);
+/* ================= /V15.6.1 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
