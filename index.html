@@ -828,7 +828,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.7 • TIMING PROPORCIONAL</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.8 • FIX DEFINITIVO TIMING</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -8263,6 +8263,108 @@ v1564TimingAdvice=function(t){
   return result;
 };
 /* ================= /V15.6.7 ================= */
+
+/* ================= V15.6.8 • FIX DEFINITIVO DO TIMING ================= */
+/*
+  Motivo da correção:
+  - V15.6.4 guardou uma referência à função antiga de 8 pulsos.
+  - A função V15.6.5/V15.6.7 havia sido declarada com `function`, portanto o
+    hoisting permitia que o wrapper antigo continuasse sendo o último handler ativo.
+  - Esta atribuição FINAL acontece depois de todos os wrappers e força a rotina
+    correta: 10 pulsos, pontuação proporcional ao BPM e penalização só pela
+    diferença real entre ataques reconhecidos e pulsos esperados.
+*/
+v1552FinishTimingMic=function(run){
+  if(v1552TimingRun!==run)return;
+  const res=document.getElementById('v15TimingResult'),n=run.errors.length;
+  v1565StopTimingRun(run);
+
+  const expected=Number.isFinite(Number(run.expected))&&Number(run.expected)>0?Number(run.expected):10;
+  if(n<5){
+    if(res){
+      res.className='v15-result warn';
+      res.innerHTML=`<b>O MICROFONE NÃO CONSEGUIU MEDIR O TIMING.</b><br>Reconheceu ${n}/${expected} ataques. <b>Nenhuma nota foi atribuída.</b><br>${run.mode==='audio'?'Confirme que está usando fones; caso contrário escolha SEM FONES • VISUAL.':'Aproxime a guitarra do microfone e toque notas curtas, com pequena pausa entre elas.'}`;
+    }
+    return;
+  }
+
+  const mean=run.errors.reduce((a,b)=>a+b,0)/n;
+  const signed=run.signed.reduce((a,b)=>a+b,0)/n;
+  const countDifference=Math.abs(expected-n);
+  const countPenalty=Math.min(25,countDifference*5);
+  const beat=Number(run.beat)>0?Number(run.beat):(60000/(Number(run.bpm)||70));
+  const relativeError=beat>0?mean/beat:1;
+  const relativePct=relativeError*100;
+  const score=Math.round(v15Clamp(100-relativeError*220-countPenalty,0,100));
+  const label=score>=90?'EXCELENTE':score>=78?'MUITO BOM':score>=65?'BOM':'REPETIR';
+
+  let tendency='';
+  if(n>=7&&signed<=-30)tendency=` • tendência a antecipar ${Math.abs(Math.round(signed))} ms`;
+  else if(n>=7&&signed>=30)tendency=` • tendência a atrasar ${Math.round(signed)} ms`;
+
+  if(res){
+    res.className='v15-result '+(score>=65?'good':'warn');
+    res.innerHTML=`<b>${label} • ${score}%</b><br>Erro médio ${Math.round(mean)} ms • ${relativePct.toFixed(1)}% do pulso • ataques ${n}/${expected}${tendency}${countPenalty?` • penalização ${countPenalty} pts`:''}.`;
+  }
+
+  const row={
+    date:new Date().toISOString(),
+    bpm:Number(run.bpm)||0,
+    score,
+    error:Math.round(mean),
+    relativeErrorPct:Number(relativePct.toFixed(1)),
+    signedError:Math.round(signed),
+    attacks:n,
+    expected,
+    mode:run.mode
+  };
+
+  v15State.technique.timingTests=(v15State.technique.timingTests||[]).concat([row]).slice(-30);
+
+  if(v15State.technique.timingAuto){
+    const next=v15Clamp(row.bpm+(score>=90?2:score<45?-2:0),40,220);
+    v15State.technique.timingBpm=next;
+    const el=document.getElementById('v1552TimingBpm');if(el)el.value=next;
+    if(res&&next!==row.bpm)res.innerHTML+=`<br>Próximo teste automático: <b>${next} BPM</b>.`;
+  }
+
+  v15UpdateExecution('technique',score);
+  try{
+    const adv=v1564TimingAdvice?.(row);
+    if(adv){
+      v1564RecordObservation?.({
+        kind:'timing',skill:'technique',score:row.score,error:row.error,
+        relativeErrorPct:row.relativeErrorPct,signedError:row.signedError,
+        attacks:row.attacks,expected:row.expected,bpm:row.bpm,
+        label:adv.label,explain:adv.explain,adjust:adv.adjust
+      });
+      v1564AppendAdvice?.('v15TimingResult',adv.label,adv.explain,adv.adjust);
+    }
+  }catch(e){}
+  v1564SaveQuiet?.();
+};
+
+function v1568RepairLastTimingResult(){
+  try{
+    const arr=v15State.technique?.timingTests;
+    if(!Array.isArray(arr)||!arr.length)return;
+    // Resultados antigos sem expected pertencem ao sistema de 8 pulsos e não são
+    // reinterpretados como avaliação nova. Apenas o próximo teste usa V15.6.8.
+    const last=arr[arr.length-1];
+    if(last&&Number(last.expected)===10){
+      const adv=v1564TimingAdvice?.(last);
+      if(adv&&v15State.teacher){
+        v15State.teacher.lastInsight={
+          date:new Date().toISOString(),kind:'timing',skill:'technique',
+          label:adv.label,explain:adv.explain,adjust:adv.adjust
+        };
+      }
+    }
+    v1564SaveQuiet?.();
+  }catch(e){}
+}
+v1568RepairLastTimingResult();
+/* ================= /V15.6.8 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
