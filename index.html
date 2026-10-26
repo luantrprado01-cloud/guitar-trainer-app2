@@ -755,6 +755,50 @@ html,body{min-height:100%;}
 }
 </style>
 
+
+<style id="v1569-interface-redesign">
+/* V15.6.9/10 • Home por intenção + hubs didáticos */
+.v1569-home-question{margin:16px 2px 9px;font:900 clamp(1.45rem,5vw,2rem) Georgia,serif;color:#f4e7c3;line-height:1.12}
+.v1569-home-sub{margin:0 2px 14px;color:#cdbb94;font-size:.76rem;line-height:1.45}
+.v1569-main-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.v1569-main-card{position:relative;overflow:hidden;min-height:126px;padding:15px;text-align:left;border-radius:17px;background:linear-gradient(145deg,#24170f,#110c08);border:1px solid #806029;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}
+.v1569-main-card::after{content:'›';position:absolute;right:13px;bottom:9px;font-size:27px;color:#caa34f;opacity:.9}
+.v1569-main-card .v1569-icon{display:block;font-size:26px;margin-bottom:8px}
+.v1569-main-card b{display:block;color:#f2d17b;font-size:.98rem;letter-spacing:.02em;padding-right:18px}
+.v1569-main-card small{display:block;color:#fff;font-size:.69rem;line-height:1.38;margin-top:5px;font-weight:650;padding-right:12px}
+.v1569-main-card.map{border-color:#b78932;background:linear-gradient(145deg,#3a2811,#17100b)}
+.v1569-main-card.learn{border-color:#2e7fa7;background:linear-gradient(145deg,#10293a,#101015)}
+.v1569-main-card.train{border-color:#328452;background:linear-gradient(145deg,#132d1e,#10130f)}
+.v1569-main-card.jam{border-color:#9f3538;background:linear-gradient(145deg,#371516,#160d0d)}
+.v1569-main-card.explore{border-color:#7049a4;background:linear-gradient(145deg,#24153a,#110e16)}
+.v1569-main-card.tools{border-color:#777;background:linear-gradient(145deg,#292929,#121212)}
+.v1569-tutorial-launch{margin-top:12px;width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-align:left;padding:11px 13px;border-radius:14px;background:#18110d;border:1px solid #6f542b;color:#fff}
+.v1569-tutorial-launch b{display:block;color:#e7c468;font-size:.78rem}.v1569-tutorial-launch small{display:block;color:#cbb991;font-size:.64rem;margin-top:2px}.v1569-tutorial-launch i{font-style:normal;font-size:23px;color:#d7ad55}
+.v1569-secondary{margin-top:13px;border-top:1px solid rgba(215,173,85,.18);padding-top:11px}
+.v1569-secondary-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;color:#cdbb94;font-size:.66rem;font-weight:900;letter-spacing:.08em}
+.v1569-secondary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.v1569-secondary-grid button{min-height:48px;padding:8px 6px;font-size:.66rem;background:#17110d;border-color:#5d4729}
+.v1569-hub{max-width:900px;margin:0 auto}
+.v1569-hub-intro{margin:10px 0 12px;padding:13px 14px;border:1px solid #72552b;border-radius:15px;background:linear-gradient(145deg,#24170f,#120d09)}
+.v1569-hub-intro b{display:block;color:#e8c46b;font-size:.78rem;letter-spacing:.07em}.v1569-hub-intro h2{margin:5px 0 4px;font:900 1.5rem Georgia,serif;color:#fff}.v1569-hub-intro p{margin:0;color:#d5c29a;font-size:.73rem;line-height:1.45}
+.v1569-hub-list{display:grid;gap:8px}
+.v1569-hub-card{position:relative;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:9px;width:100%;min-height:76px;padding:10px 12px;text-align:left;border-radius:14px;background:linear-gradient(145deg,#21160f,#110c08);border:1px solid #6e5229}
+.v1569-hub-card .ico{font-size:23px;text-align:center}.v1569-hub-card b{display:block;color:#f0cf78;font-size:.86rem}.v1569-hub-card small{display:block;color:#fff;font-size:.66rem;line-height:1.35;margin-top:3px;font-weight:600}.v1569-hub-card .arr{color:#d7ad55;font-size:24px}
+.v1569-hub-note{margin:10px 0 0;padding:9px 10px;border-radius:10px;background:#17100b;border:1px dashed #654b28;color:#bfae89;font-size:.64rem;line-height:1.4}
+.v1569-resume-wrap{margin-top:12px}.v1569-resume-wrap .home-resume{margin-top:0}
+.v1569-tutorial-map{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.v1569-tutorial-map .tutorial-card{min-height:88px}
+.v1569-architecture{border:1px solid #8e6b32!important;background:linear-gradient(145deg,#392710,#18100b)!important}
+.v15610-home-label{display:inline-flex;align-items:center;gap:5px;border-radius:999px;border:1px solid #6c512b;background:#17100b;color:#d9bd7b;padding:4px 8px;font-size:.57rem;font-weight:900;letter-spacing:.07em;margin-bottom:4px}
+@media(max-width:560px){
+  .v1569-main-grid{grid-template-columns:1fr 1fr;gap:8px}.v1569-main-card{min-height:112px;padding:12px}.v1569-main-card b{font-size:.86rem}.v1569-main-card small{font-size:.62rem}.v1569-main-card .v1569-icon{font-size:22px;margin-bottom:6px}
+  .v1569-secondary-grid{grid-template-columns:repeat(3,1fr)}.v1569-secondary-grid button{font-size:.59rem}
+  .v1569-hub-card{grid-template-columns:34px 1fr auto;min-height:70px;padding:9px}.v1569-hub-card .ico{font-size:20px}.v1569-hub-card b{font-size:.79rem}.v1569-hub-card small{font-size:.61rem}
+  .v1569-tutorial-map{grid-template-columns:1fr 1fr}
+}
+@media(max-width:360px){.v1569-main-grid{grid-template-columns:1fr}.v1569-secondary-grid{grid-template-columns:1fr 1fr}.v1569-secondary-grid button:last-child{grid-column:1/-1}}
+</style>
+
 </head>
 <body>
 <div class="app" id="app2">
@@ -824,11 +868,12 @@ html,body{min-height:100%;}
   </div>
 </div>
 
+
 <section id="home" class="screen active">
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.8 • FIX DEFINITIVO TIMING</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.10 • ORGANIZAÇÃO SEM DUPLICAÇÕES</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -841,136 +886,104 @@ html,body{min-height:100%;}
       <button id="openProfiles" type="button">TROCAR PERFIL</button>
     </div>
 
-    <button class="tutorial-launch" type="button" data-open="tutorial">
-      <span class="tutorial-icon">🎓</span>
-      <span><b>MODO TUTORIAL</b><small>Aprenda a usar cada parte da aplicação.</small></span>
-      <span class="tutorial-arrow">›</span>
+    <div class="v15610-home-label">NOVA ORGANIZAÇÃO • UMA FUNÇÃO = UM LUGAR</div>
+    <div class="v1569-home-question">O que você quer fazer agora?</div>
+    <p class="v1569-home-sub">Escolha pela intenção. O Mapa decide por você; as outras áreas levam diretamente ao tipo de atividade que procura.</p>
+
+    <div class="v1569-main-grid">
+      <button id="homeMapCard" class="v1569-main-card map" type="button" data-open="guitarist-map"><span class="v1569-icon">🗺️</span><b>MAPA DO GUITARRISTA</b><small>Não sei o que treinar. Quero que o Professor escolha meu próximo passo.</small></button>
+      <button id="homeLearnCard" class="v1569-main-card learn" type="button" data-open="learn-hub"><span class="v1569-icon">🎓</span><b>APRENDER</b><small>Quero entender teoria, braço, acordes, escalas e leitura musical.</small></button>
+      <button id="homeTrainCard" class="v1569-main-card train" type="button" data-open="train-hub"><span class="v1569-icon">🏋️</span><b>TREINAR</b><small>Quero praticar ouvido, técnica, leitura prática ou fazer um treino guiado.</small></button>
+      <button id="homeJamCard" class="v1569-main-card jam" type="button" data-open="jam"><span class="v1569-icon">🎵</span><b>JAM &amp; TOCAR</b><small>Quero tocar música, escolher meu papel e praticar com uma banda.</small></button>
+      <button id="homeExploreCard" class="v1569-main-card explore" type="button" data-open="explore-hub"><span class="v1569-icon">🔎</span><b>EXPLORAR</b><small>Quero conhecer guitarristas, estilos, equipamentos e timbres.</small></button>
+      <button id="homeToolsCard" class="v1569-main-card tools" type="button" data-open="tools-hub"><span class="v1569-icon">🔧</span><b>FERRAMENTAS</b><small>Preciso de afinador, metrônomo ou configurações da app.</small></button>
+    </div>
+
+    <button class="v1569-tutorial-launch" type="button" data-open="tutorial">
+      <span style="font-size:22px">🎓</span><span><b>TUTORIAL ATUALIZADO</b><small>Veja primeiro como a nova organização funciona e depois abra tutoriais específicos.</small></span><i>›</i>
     </button>
 
-    <div class="home-resume" id="homeResumeCard">
-      <div class="home-resume-kicker">CONTINUAR TREINANDO</div>
-      <h3 id="homeResumeTitle">TREINO INTELIGENTE</h3>
-      <p id="homeResumeCopy">A app prepara uma sessão a partir do seu progresso.</p>
-      <div class="home-resume-grid">
-        <div class="home-resume-stat"><b id="homeResumeMinutes">10 min</b><span>DURAÇÃO</span></div>
-        <div class="home-resume-stat"><b id="homeResumeLevel">INTER.</b><span>NÍVEL</span></div>
-        <div class="home-resume-stat"><b id="homeResumeFocus">AUTO</b><span>FOCO</span></div>
+    <div class="v1569-secondary">
+      <div class="v1569-secondary-head"><span>MEU PROGRESSO</span><span>ÁREA SECUNDÁRIA</span></div>
+      <div class="v1569-secondary-grid">
+        <button type="button" data-open="progress">▤ PROGRESSO</button>
+        <button type="button" data-open="achievements">🏆 CONQUISTAS</button>
+        <button id="openProfilesSecondary" type="button">👤 PERFIS</button>
       </div>
-      <div class="home-resume-actions">
-        <button id="homeResumeStart" type="button" class="red">▶ COMEÇAR TREINO RECOMENDADO</button>
-        <button id="homeResumeProgress" type="button" class="secondary">VER PROGRESSO</button>
-      </div>
-    </div>
-
-    <div class="home-section-title"><span>APRENDER</span><i></i></div>
-    <div class="home-grid v9-grid v10-grid">
-      <button class="mode" type="button" data-open="notes">
-        <div class="mode-title">♫ LOCALIZAR NOTAS</div>
-        <div class="mode-copy">Memorize as notas em todo o braço.</div>
-      </button>
-      <button class="mode" type="button" data-open="chords">
-        <div class="mode-title">🎸 ACORDES &amp; CAGED</div>
-        <div class="mode-copy">Formação, inversões, notas no braço e formas CAGED.</div>
-      </button>
-      <button class="mode" type="button" data-open="scales">
-        <div class="mode-title">♬ ESCALAS</div>
-        <div class="mode-copy">Teoria, sonoridade, 5 regiões CAGED repetidas por todo o braço e ligação entre shapes.</div>
-      </button>
-      <button class="mode" type="button" data-open="intervals">
-        <div class="mode-title">↔ INTERVALOS</div>
-        <div class="mode-copy">Visualize intervalos no braço e compare distâncias entre notas em qualquer tônica.</div>
-      </button>
-      <button class="mode" type="button" data-open="arpeggios">
-        <div class="mode-title">◆ ARPEJOS</div>
-        <div class="mode-copy">Veja as notas do acorde e suas funções em todo o braço.</div>
-      </button>
-      <button class="mode" type="button" data-open="theory">
-        <div class="mode-title">◈ TEORIA &amp; HARMONIA</div>
-        <div class="mode-copy">Campos harmônicos, funções, círculo das quintas/quartas, transposição e mapa do braço.</div>
-      </button>
-      <button class="mode" type="button" data-open="notation">
-        <div class="mode-title">🎼 LEITURA &amp; NOTAÇÃO</div>
-        <div class="mode-copy">Aprenda pauta, ritmo e leitura à primeira vista ligando a partitura diretamente ao braço da guitarra.</div>
-      </button>
-    </div>
-
-    <div class="home-section-title"><span>V15 • PROFESSOR PESSOAL</span><i></i></div>
-    <div class="home-grid v9-grid v15-home-grid">
-      <button class="mode" type="button" data-open="guitarist-map">
-        <div class="mode-title">🧭 MAPA DO GUITARRISTA</div>
-        <div class="mode-copy">Professor offline, diagnóstico, Conhecimento × Execução e treino diário adaptativo.</div>
-      </button>
-      <button class="mode" type="button" data-open="technique">
-        <div class="mode-title">🎸 TÉCNICA &amp; AVALIAÇÃO</div>
-        <div class="mode-copy">Técnicas essenciais, séries guiadas, gravação, bends e precisão de timing.</div>
-      </button>
-      <button class="mode" type="button" data-open="reading-lab">
-        <div class="mode-title">🎼 LEITURA 2.0</div>
-        <div class="mode-copy">Leitura progressiva, pré-leitura e validação prática pelo microfone.</div>
-      </button>
-      <button class="mode" type="button" data-open="gear-tone">
-        <div class="mode-title">⚙ EQUIPAMENTO &amp; TIMBRE</div>
-        <div class="mode-copy">Meu equipamento, cadeia de sinal e Tone Builder usando o que você possui.</div>
-      </button>
-      <button class="mode" type="button" data-open="styles-artists">
-        <div class="mode-title">⚡ GUITARRISTAS &amp; ESTILOS</div>
-        <div class="mode-copy">Play Like, reconhecimento de linguagem e caminhos técnicos por estilo.</div>
-      </button>
-    </div>
-
-    <div class="home-section-title"><span>V15 • PROFESSOR PESSOAL</span><i></i></div>
-  <div class="tutorial-grid">
-    <button class="tutorial-card" type="button" data-open="guitarist-map"><b>🧭 MAPA DO GUITARRISTA</b><span>Nivelamento, mapa de competências, objetivos e caminho recomendado.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-open="technique"><b>🎸 TÉCNICA &amp; AVALIAÇÃO</b><span>Rotina técnica, cronômetro e testes práticos de bend, regularidade e timing.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-open="reading-lab"><b>🎼 LEITURA 2.0</b><span>Frases progressivas e validação de notas tocadas pelo microfone.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-open="gear-tone"><b>⚙ EQUIPAMENTO &amp; TIMBRE</b><span>Cadastre seu rig, organize o sinal e monte timbres coerentes.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-open="styles-artists"><b>⚡ GUITARRISTAS &amp; ESTILOS</b><span>Entenda vocabulário, técnica e timbre sem copiar músicas ou solos.</span><span class="arrow-mini">›</span></button>
-  </div>
-  <div class="home-section-title"><span>TREINAR</span><i></i></div>
-    <div class="home-grid v9-grid tools-grid">
-      <button class="mode" type="button" data-open="training-mode">
-        <div class="mode-title">▶ MODO TREINO</div>
-        <div class="mode-copy">Sessões guiadas de 10–45 min com reforço automático dos pontos fracos.</div>
-      </button>
-      <button class="mode" type="button" data-open="progress">
-        <div class="mode-title">▤ PROGRESSO</div>
-        <div class="mode-copy">Acompanhe acertos, tempo de estudo e áreas que precisam de reforço.</div>
-      </button>
-      <button class="mode" type="button" data-open="achievements">
-        <div class="mode-title">🏆 CONQUISTAS</div>
-        <div class="mode-copy">Desbloqueie marcos reais de estudo, consistência, precisão e domínio.</div>
-      </button>
-      <button class="mode" type="button" data-open="ear-training">
-        <div class="mode-title">◉ TREINO DE OUVIDO</div>
-        <div class="mode-copy">Reconheça notas, intervalos, acordes e funções pelo som.</div>
-      </button>
-      <button class="mode" type="button" data-open="challenges">
-        <div class="mode-title">★ DESAFIOS</div>
-        <div class="mode-copy">Teste notas, intervalos, acordes, escalas, arpejos e harmonia.</div>
-      </button>
-    </div>
-
-    <div class="home-section-title"><span>CRIAR</span><i></i></div>
-    <div class="home-grid v9-grid tools-grid">
-      <button class="mode" type="button" data-open="jam">
-        <div class="mode-title">♬ JAM &amp; CRIAÇÃO</div>
-        <div class="mode-copy">Progressões, blues de 12 compassos e backing tracks próprios para improvisar.</div>
-      </button>
-    </div>
-
-    <div class="home-section-title"><span>FERRAMENTAS</span><i></i></div>
-    <div class="home-grid v9-grid tools-grid">
-      <button class="mode" type="button" data-open="tuner">
-        <div class="mode-title">◉ AFINADOR</div>
-        <div class="mode-copy">Afinador cromático, cents e referência A4.</div>
-      </button>
-      <button class="mode" type="button" data-open="metronome">
-        <div class="mode-title">♩ METRÔNOMO</div>
-        <div class="mode-copy">BPM, ritmo, Speed Trainer, compassos silenciosos e acentos.</div>
-      </button>
     </div>
   </div>
 </section>
+
+<section id="learn-hub" class="screen">
+  <div class="v1569-hub">
+    <div class="rowgap"><button class="ghost" type="button" data-home>← INÍCIO</button><div class="brand" style="font-size:22px">APRENDER</div><div style="width:82px"></div></div>
+    <div class="v1569-hub-intro"><b>QUERO ENTENDER ALGO</b><h2>Aprenda antes de praticar</h2><p>Aqui ficam conceitos, mapas visuais e leitura teórica. Cada assunto tem um lugar oficial para evitar conteúdos repetidos.</p></div>
+    <div class="v1569-hub-list">
+      <button class="v1569-hub-card" type="button" data-open="notes"><span class="ico">♫</span><span><b>NOTAS NO BRAÇO</b><small>Localização das notas nas seis cordas e em todo o braço.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="intervals"><span class="ico">↔</span><span><b>INTERVALOS</b><small>Distâncias, funções e visualização no braço.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="scales"><span class="ico">♬</span><span><b>ESCALAS</b><small>Pentatônicas, maiores, menores, modos e regiões CAGED.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="chords"><span class="ico">🎸</span><span><b>ACORDES &amp; CAGED</b><small>Formação, inversões, voicings e as cinco formas CAGED. CAGED mora aqui.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="arpeggios"><span class="ico">◆</span><span><b>ARPEJOS</b><small>Notas do acorde e funções espalhadas pelo braço.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="theory"><span class="ico">◈</span><span><b>PROGRESSÕES &amp; HARMONIA</b><small>Campo harmônico, funções, círculo, transposição e progressões.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="notation"><span class="ico">🎼</span><span><b>LEITURA MUSICAL • TEORIA</b><small>Pauta, figuras rítmicas e como a partitura se liga à guitarra.</small></span><span class="arr">›</span></button>
+    </div>
+    <div class="v1569-hub-note">LEITURA sem duplicação: aqui você <b>aprende a notação</b>. Em TREINAR → LEITURA PRÁTICA você exercita a leitura no instrumento.</div>
+  </div>
+</section>
+
+<section id="train-hub" class="screen">
+  <div class="v1569-hub">
+    <div class="rowgap"><button class="ghost" type="button" data-home>← INÍCIO</button><div class="brand" style="font-size:22px">TREINAR</div><div style="width:82px"></div></div>
+    <div class="v1569-hub-intro"><b>QUERO PRATICAR ALGO</b><h2>Prática e avaliação</h2><p>Escolha uma habilidade específica ou deixe a app montar uma sessão. Progresso e conquistas não ficam aqui: eles servem para acompanhar, não para treinar.</p></div>
+    <div class="v1569-hub-list">
+      <button class="v1569-hub-card" type="button" data-open="ear-training"><span class="ico">👂</span><span><b>OUVIDO</b><small>Notas, intervalos, acordes e funções pelo som.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="reading-lab"><span class="ico">📖</span><span><b>LEITURA PRÁTICA</b><small>Leia frases na pauta e responda no instrumento, sem pressão ou sob pressão.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="technique"><span class="ico">⚡</span><span><b>TÉCNICA &amp; AVALIAÇÃO</b><small>Bend, alternate picking, legato e outras técnicas com séries e testes.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="training-mode"><span class="ico">☰</span><span><b>TREINOS GUIADOS</b><small>Sessões de 10–45 min com foco e dificuldade organizados.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="challenges"><span class="ico">🏆</span><span><b>DESAFIOS</b><small>Teste conhecimentos e cumpra missões sem misturar com o treino técnico.</small></span><span class="arr">›</span></button>
+    </div>
+    <div class="v1569-resume-wrap">
+      <div class="home-resume" id="homeResumeCard">
+        <div class="home-resume-kicker">TREINO RECOMENDADO PELO PROFESSOR</div>
+        <h3 id="homeResumeTitle">TREINO INTELIGENTE</h3>
+        <p id="homeResumeCopy">A app prepara uma sessão a partir do seu progresso.</p>
+        <div class="home-resume-grid">
+          <div class="home-resume-stat"><b id="homeResumeMinutes">10 min</b><span>DURAÇÃO</span></div>
+          <div class="home-resume-stat"><b id="homeResumeLevel">INTER.</b><span>NÍVEL</span></div>
+          <div class="home-resume-stat"><b id="homeResumeFocus">AUTO</b><span>FOCO</span></div>
+        </div>
+        <div class="home-resume-actions">
+          <button id="homeResumeStart" type="button" class="red">▶ COMEÇAR TREINO RECOMENDADO</button>
+          <button id="homeResumeProgress" type="button" class="secondary">VER PROGRESSO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="explore-hub" class="screen">
+  <div class="v1569-hub">
+    <div class="rowgap"><button class="ghost" type="button" data-home>← INÍCIO</button><div class="brand" style="font-size:22px">EXPLORAR</div><div style="width:82px"></div></div>
+    <div class="v1569-hub-intro"><b>QUERO CONHECER E ME INSPIRAR</b><h2>Estilos, guitarristas e som</h2><p>Esta área é consulta e inspiração. Ela não compete com Aprender ou Treinar.</p></div>
+    <div class="v1569-hub-list">
+      <button class="v1569-hub-card" type="button" data-open="styles-artists"><span class="ico">🎸</span><span><b>GUITARRISTAS &amp; ESTILOS</b><small>Linguagem, fraseado, técnicas, referências e características de cada estilo.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="gear-tone"><span class="ico">🎛️</span><span><b>EQUIPAMENTO &amp; TIMBRE</b><small>Seu rig, cadeia de sinal, Tone Builder e referências de equipamento.</small></span><span class="arr">›</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="tools-hub" class="screen">
+  <div class="v1569-hub">
+    <div class="rowgap"><button class="ghost" type="button" data-home>← INÍCIO</button><div class="brand" style="font-size:22px">FERRAMENTAS</div><div style="width:82px"></div></div>
+    <div class="v1569-hub-intro"><b>UTILITÁRIOS DO DIA A DIA</b><h2>Ferramentas rápidas</h2><p>Afinador e metrônomo têm um único lugar oficial. Missões podem abrir essas ferramentas diretamente sem criar outra versão delas.</p></div>
+    <div class="v1569-hub-list">
+      <button class="v1569-hub-card" type="button" data-open="tuner"><span class="ico">🎛️</span><span><b>AFINADOR</b><small>Afinação cromática, cents, referência A4 e afinações alternativas.</small></span><span class="arr">›</span></button>
+      <button class="v1569-hub-card" type="button" data-open="metronome"><span class="ico">♩</span><span><b>METRÔNOMO</b><small>BPM, subdivisões, Speed Trainer, compassos silenciosos e acentos.</small></span><span class="arr">›</span></button>
+      <button id="openToolsSettings" class="v1569-hub-card" type="button"><span class="ico">⚙</span><span><b>CONFIGURAÇÕES</b><small>Cores intervalares e preferências globais da aplicação.</small></span><span class="arr">›</span></button>
+    </div>
+  </div>
+</section>
+
 
 <section id="tutorial" class="screen">
   <div class="rowgap">
@@ -979,37 +992,57 @@ html,body{min-height:100%;}
     <div style="width:82px"></div>
   </div>
   <div class="tutorial-intro">
-    <b>APRENDA USANDO A PRÓPRIA APP</b>
-    <span>Escolha um módulo. A app abre a tela real e usa setas para apontar, passo a passo, onde tocar e o que cada parte faz.</span>
+    <b>TUTORIAL DA NOVA ORGANIZAÇÃO</b>
+    <span>Comece pelo guia geral. Depois escolha um módulo específico. A app abre a tela real e mostra onde tocar e para que serve cada parte.</span>
   </div>
+
+  <div class="home-section-title"><span>COMECE AQUI</span><i></i></div>
+  <div class="tutorial-grid">
+    <button class="tutorial-card v1569-architecture" type="button" data-tutorial="overview"><b>🧭 COMO A APP ESTÁ ORGANIZADA</b><span>Mapa, Aprender, Treinar, Jam, Explorar e Ferramentas: entenda quando usar cada área.</span><span class="arrow-mini">›</span></button>
+  </div>
+
   <div class="home-section-title"><span>APRENDER</span><i></i></div>
-  <div class="tutorial-grid">
-    <button class="tutorial-card" type="button" data-tutorial="notes"><b>♫ LOCALIZAR NOTAS</b><span>Como ler a carta, encontrar posições e usar o áudio.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="chords"><b>🎸 ACORDES &amp; CAGED</b><span>Formação, inversões, mapa do acorde e ligação ao CAGED.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="caged"><b>▦ CAGED • CARTAS</b><span>Cartas por forma CAGED, mapa das 5 formas e ligação entre acorde, arpejo, pentatônica e escala.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="scales"><b>♬ ESCALAS</b><span>Braço completo, regiões CAGED até a casa 24, incluindo finais parciais quando ainda houver notas, e pontes entre shapes.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="intervals"><b>↔ INTERVALOS</b><span>Mapa visual interativo: escolha a tônica, ligue e desligue intervalos e veja as distâncias no braço.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="arpeggios"><b>◆ ARPEJOS</b><span>Família, tonalidade, notas do acorde e funções no braço.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="theory"><b>◈ TEORIA &amp; HARMONIA</b><span>Construa acordes, harmonize tons, transponha e visualize relações.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="notation"><b>🎼 LEITURA &amp; NOTAÇÃO</b><span>Pauta, figuras rítmicas, partitura → guitarra e leitura à primeira vista.</span><span class="arrow-mini">›</span></button>
+  <div class="v1569-tutorial-map">
+    <button class="tutorial-card" type="button" data-tutorial="notes"><b>♫ NOTAS NO BRAÇO</b><span>Localização das notas e uso do braço completo.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="intervals"><b>↔ INTERVALOS</b><span>Tônica, graus e distâncias no braço.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="scales"><b>♬ ESCALAS</b><span>Escalas, tonalidades e regiões CAGED.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="chords"><b>🎸 ACORDES &amp; CAGED</b><span>Formação, inversões, mapa e CAGED no mesmo lugar.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="arpeggios"><b>◆ ARPEJOS</b><span>Famílias, notas e funções no braço.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="theory"><b>◈ HARMONIA</b><span>Campo harmônico, funções, transposição e círculo.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="notation"><b>🎼 LEITURA • TEORIA</b><span>Aprenda pauta e ritmo antes da prática.</span><span class="arrow-mini">›</span></button>
   </div>
+
   <div class="home-section-title"><span>TREINAR</span><i></i></div>
-  <div class="tutorial-grid">
-    <button class="tutorial-card" type="button" data-tutorial="training"><b>▶ MODO TREINO</b><span>Sessões de 10–45 min com estratégia Inteligente, Reforçar ou Equilibrado, reforço espaçado e foco automático nos pontos fracos.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="progress"><b>▤ PROGRESSO</b><span>XP, nível, ranking local, acertos, tempo de estudo, áreas fortes, pontos a reforçar e próximo treino recomendado.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="achievements"><b>🏆 CONQUISTAS</b><span>Marcos permanentes de prática, XP, precisão, variedade, ouvido e consistência.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="ear"><b>◉ TREINO DE OUVIDO</b><span>Notas, intervalos, acordes e funções; a nota só muda em PRÓXIMO SOM.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="challenges"><b>★ DESAFIOS</b><span>Rodadas de 10 com avanço automático após responder, missões diárias/semanais, XP, sequência de dias e Explorador por áreas.</span><span class="arrow-mini">›</span></button>
+  <div class="v1569-tutorial-map">
+    <button class="tutorial-card" type="button" data-tutorial="ear"><b>👂 OUVIDO</b><span>Reconheça notas, intervalos, acordes e funções.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="readinglab"><b>📖 LEITURA PRÁTICA</b><span>Sem pressão ou sob pressão usando a pauta.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="technique"><b>⚡ TÉCNICA &amp; AVALIAÇÃO</b><span>Séries, gravação e testes adequados a cada técnica.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="training"><b>☰ TREINO GUIADO</b><span>Sessões organizadas por tempo, nível e foco.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="challenges"><b>🏆 DESAFIOS</b><span>Questões, missões e objetivos.</span><span class="arrow-mini">›</span></button>
   </div>
-  <div class="home-section-title"><span>CRIAR</span><i></i></div>
+
+  <div class="home-section-title"><span>JAM &amp; TOCAR</span><i></i></div>
   <div class="tutorial-grid">
-    <button class="tutorial-card" type="button" data-tutorial="jam"><b>♬ JAM &amp; CRIAÇÃO</b><span>Escolha estilo, tom, BPM e se você toca solo ou base; a app seleciona automaticamente o backtrack mais segura, com mixer e guia harmônico.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="jam"><b>🎵 JAM</b><span>Backtrack, estilo, tom, BPM e seu papel: base ou solo.</span><span class="arrow-mini">›</span></button>
   </div>
+
+  <div class="home-section-title"><span>EXPLORAR</span><i></i></div>
+  <div class="tutorial-grid">
+    <button class="tutorial-card" type="button" data-tutorial="styles"><b>🎸 GUITARRISTAS &amp; ESTILOS</b><span>Como usar a biblioteca de referências musicais.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="gear"><b>🎛 EQUIPAMENTO &amp; TIMBRE</b><span>Cadastre o rig e use o Tone Builder.</span><span class="arrow-mini">›</span></button>
+  </div>
+
   <div class="home-section-title"><span>FERRAMENTAS</span><i></i></div>
   <div class="tutorial-grid">
-    <button class="tutorial-card" type="button" data-tutorial="settings"><b>⚙ CONFIGURAÇÕES</b><span>Escolha o sistema global de cores: famílias intervalares ou pares inversos.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="tuner"><b>◉ AFINADOR</b><span>Afinações alternativas, AUTO/corda fixa, cents, tom de referência e A4.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="metronome"><b>♩ METRÔNOMO</b><span>BPM, compasso, Speed Trainer por compassos completos, silêncio, acentos e exercícios rítmicos.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="tuner"><b>◉ AFINADOR</b><span>Afinações, cents, corda fixa/AUTO e A4.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="metronome"><b>♩ METRÔNOMO</b><span>BPM, subdivisões, Speed Trainer, silêncio e acentos.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="settings"><b>⚙ CONFIGURAÇÕES</b><span>Preferências globais e cores intervalares.</span><span class="arrow-mini">›</span></button>
+  </div>
+
+  <div class="home-section-title"><span>ACOMPANHAR</span><i></i></div>
+  <div class="tutorial-grid">
+    <button class="tutorial-card" type="button" data-tutorial="progress"><b>▤ PROGRESSO</b><span>Veja evolução, pontos fortes e áreas a reforçar.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="achievements"><b>🏆 CONQUISTAS</b><span>Marcos permanentes de prática e consistência.</span><span class="arrow-mini">›</span></button>
   </div>
 </section>
 
@@ -8264,6 +8297,46 @@ v1564TimingAdvice=function(t){
 };
 /* ================= /V15.6.7 ================= */
 
+
+/* ================= V15.6.9 • HOME + TUTORIAL DIDÁTICOS ================= */
+GUIDED_TUTORIAL.overview={title:'NOVA ORGANIZAÇÃO',screen:'home',steps:[
+  {sel:'#homeMapCard',title:'MAPA DO GUITARRISTA',copy:'Use quando você não quiser decidir o que estudar. O Professor cruza seu histórico, objetivo e tempo disponível e aponta o próximo passo.'},
+  {sel:'#homeLearnCard',title:'APRENDER',copy:'Entre aqui quando a pergunta for “quero entender”. Teoria, braço, acordes, escalas, arpejos e leitura teórica ficam juntos.'},
+  {sel:'#homeTrainCard',title:'TREINAR',copy:'Entre aqui quando a pergunta for “quero praticar”. Ouvido, leitura prática, técnica, treinos guiados e desafios ficam nesta área.'},
+  {sel:'#homeJamCard',title:'JAM & TOCAR',copy:'Use para aplicar o que aprendeu tocando com backtracks. A escolha BASE ou SOLO acontece em um único ponto dentro da Jam.'},
+  {sel:'#homeExploreCard',title:'EXPLORAR',copy:'Guitarristas, estilos, equipamentos e timbres são consulta e inspiração; por isso ficam separados do estudo e do treino.'},
+  {sel:'#homeToolsCard',title:'FERRAMENTAS',copy:'Afinador, metrônomo e configurações têm um único lugar oficial. Missões podem abrir essas mesmas ferramentas diretamente.'},
+  {sel:'.v1569-secondary',title:'PROGRESSO E PERFIL',copy:'Progresso, conquistas e perfis são acompanhamento. Eles não aparecem como se fossem mais um tipo de treino.'}
+]};
+GUIDED_TUTORIAL.technique={title:'TÉCNICA & AVALIAÇÃO',screen:'technique',steps:[
+  {sel:'#v15TechniqueList',title:'ESCOLHA A TÉCNICA',copy:'Selecione a técnica que deseja estudar. A explicação e o exercício mudam conforme a escolha.'},
+  {sel:'#v15TechniqueDetail',title:'ENTENDA ANTES DE EXECUTAR',copy:'Leia o objetivo, execução e sonoridade esperada antes de começar a série.'},
+  {sel:'.v15-practice-box',title:'SÉRIE GUIADA',copy:'Defina BPM e duração, grave sua execução e ouça antes de aprovar a série.'},
+  {sel:'#v155TechniqueAssessment',title:'AVALIAÇÃO ADEQUADA',copy:'A app mede automaticamente apenas o que o microfone consegue medir com segurança; o restante usa gravação e critérios de audição.'}
+]};
+GUIDED_TUTORIAL.readinglab={title:'LEITURA PRÁTICA',screen:'reading-lab',steps:[
+  {sel:'#v15ReadingLevels',title:'NÍVEL',copy:'Escolha a faixa de leitura adequada antes de gerar a frase.'},
+  {sel:'.v155-mode-choice',title:'SEM PRESSÃO OU COM PRESSÃO',copy:'Sem pressão mantém a nota até acertar; com pressão registra o erro e segue, simulando leitura contínua.'},
+  {sel:'#v15ReadingStaff',title:'LEIA A FRASE',copy:'A pauta é o exercício principal. Use MOSTRAR NOMES apenas como apoio quando necessário.'},
+  {sel:'#v15ReadingMicResult',title:'RESULTADO',copy:'A app resume o que reconheceu e alimenta o histórico usado pelo Professor.'}
+]};
+GUIDED_TUTORIAL.styles={title:'GUITARRISTAS & ESTILOS',screen:'styles-artists',steps:[
+  {sel:'#v155StyleGroups',title:'ESCOLHA O ESTILO',copy:'Comece pela linguagem musical que quer explorar.'},
+  {sel:'#v15ArtistTabs',title:'ESCOLHA UM GUITARRISTA',copy:'Cada perfil serve como referência de vocabulário, técnica, dinâmica e abordagem.'},
+  {sel:'#v15ArtistDetail',title:'COMO ELE TOCA',copy:'Use o conteúdo para entender características recorrentes, não para copiar uma música específica.'},
+  {sel:'#v15ArtistPlan',title:'TRANSFORME EM ESTUDO',copy:'O plano converte a referência em objetivos práticos que podem levar ao Mapa do Guitarrista.'}
+]};
+GUIDED_TUTORIAL.gear={title:'EQUIPAMENTO & TIMBRE',screen:'gear-tone',steps:[
+  {sel:'#v15GearGuitar',title:'CADASTRE SEU RIG',copy:'Informe guitarra, captadores, amplificador e pedais. Os dados ficam associados ao perfil.'},
+  {sel:'#v15ToneBuild',title:'TONE BUILDER',copy:'Escolha estilo, papel e ganho e peça uma sugestão usando o equipamento que você possui.'},
+  {sel:'#v15ToneResult',title:'REGULAGEM',copy:'A app explica a proposta de timbre e como aproximá-la com seu rig.'},
+  {sel:'#v15SignalChain',title:'CADEIA DE SINAL',copy:'Veja a ordem sugerida dos efeitos sem criar outra área duplicada de equipamento.'}
+]};
+
+document.getElementById('openProfilesSecondary')?.addEventListener('click',()=>gtOpenProfiles(false));
+document.getElementById('openToolsSettings')?.addEventListener('click',()=>window.gtOpenSettings?.());
+/* ================= /V15.6.9 ================= */
+
 /* ================= V15.6.8 • FIX DEFINITIVO DO TIMING ================= */
 /*
   Motivo da correção:
@@ -8365,6 +8438,55 @@ function v1568RepairLastTimingResult(){
 }
 v1568RepairLastTimingResult();
 /* ================= /V15.6.8 ================= */
+
+
+/* ================= V15.6.10 • FLUXO SEM DUPLICAÇÕES ================= */
+const v15610HubFamilies={
+  'learn-hub':new Set(['notes','intervals','scales','scale-detail','scale-root','chords','caged','arpeggios','theory','notation']),
+  'train-hub':new Set(['ear-training','reading-lab','technique','training-mode','challenges','notation']),
+  'explore-hub':new Set(['styles-artists','gear-tone']),
+  'tools-hub':new Set(['tuner','metronome'])
+};
+let v15610ReturnHub=null;
+
+function v15610StopForHubReturn(){
+  try{if(typeof finishTimedTrainingOnExit==='function')finishTimedTrainingOnExit()}catch(e){}
+  try{if(typeof stopNotePlayback==='function')stopNotePlayback(true)}catch(e){}
+  try{if(typeof stopChordAudio==='function')stopChordAudio()}catch(e){}
+  try{if(typeof stopTuner==='function')stopTuner()}catch(e){}
+  try{if(typeof stopMetronome==='function')stopMetronome()}catch(e){}
+  try{if(typeof stopJam==='function')stopJam()}catch(e){}
+  try{if(typeof v155StopReading==='function')v155StopReading()}catch(e){}
+  try{if(typeof v155StopStableCapture==='function')v155StopStableCapture()}catch(e){}
+}
+
+// Ao abrir um módulo a partir de um hub, guarda apenas o hub de origem.
+document.querySelectorAll('#learn-hub [data-open],#train-hub [data-open],#explore-hub [data-open],#tools-hub [data-open]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const hub=btn.closest('.screen')?.id;
+    if(hub&&v15610HubFamilies[hub]?.has(btn.dataset.open))v15610ReturnHub=hub;
+  },true);
+});
+
+// VOLTAR retorna ao hub de origem. Missões do Mapa continuam tendo prioridade,
+// pois os interceptadores V15.6.2/V15.6.3 foram registrados antes deste.
+document.addEventListener('click',e=>{
+  const btn=e.target?.closest?.('[data-home]');
+  if(!btn||!v15610ReturnHub)return;
+  const active=document.querySelector('#app2 .screen.active');
+  const screenId=active?.id||'';
+  if(!v15610HubFamilies[v15610ReturnHub]?.has(screenId))return;
+  e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+  v15610StopForHubReturn();
+  const hub=v15610ReturnHub;v15610ReturnHub=null;show(hub);
+},true);
+
+// Entrar em uma área principal pela Home começa um fluxo novo.
+document.querySelectorAll('#home [data-open]').forEach(btn=>btn.addEventListener('click',()=>{v15610ReturnHub=null},true));
+
+// Reforço visual: títulos antigos continuam existindo dentro dos módulos,
+// mas a Home nunca mais oferece duas portas diferentes para a mesma função.
+/* ================= /V15.6.10 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
