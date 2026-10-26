@@ -349,6 +349,25 @@ button:focus-visible,.flip:focus-visible{outline:3px solid #fff;outline-offset:3
 .v1564-module-advice b{color:#7a5417}
 .v15-card.dark .v1564-module-advice b,.v15-practical .v1564-module-advice b{color:#f0c96e}
 
+
+/* V15.6.5 • REVISÃO COMPLETA DE TÉCNICAS */
+.v1565-assess-note{font-size:.72rem;line-height:1.5;color:#6f5737;margin:7px 0}
+.v15-card.dark .v1565-assess-note,.v15-practical .v1565-assess-note{color:#d8c6a3}
+.v1565-checks{display:grid;gap:7px;margin-top:9px}
+.v1565-checks div{padding:8px 9px;border:1px solid rgba(121,88,43,.22);border-radius:9px;background:rgba(255,255,255,.035);font-size:.71rem;line-height:1.4}
+.v1565-checks b{color:#8b5f1a}
+.v15-card.dark .v1565-checks b,.v15-practical .v1565-checks b{color:#efc66b}
+.v1565-pulse{
+  margin:9px 0;padding:18px 10px;text-align:center;border:2px solid rgba(215,173,85,.35);
+  border-radius:14px;font-weight:1000;letter-spacing:.08em;color:#8b6728;background:rgba(215,173,85,.06);
+  transition:transform .08s ease,background .08s ease,color .08s ease
+}
+.v1565-pulse.hit{transform:scale(1.025);background:#d8b35f;color:#24170c}
+.v1565-timing-mode{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0}
+.v1565-timing-mode button.active{background:#6f4c1b;color:#fff;border-color:#6f4c1b}
+.v1565-tech-badge{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:.6rem;font-weight:950;letter-spacing:.05em;background:#eee1c5;color:#6b4b21;margin-bottom:5px}
+@media(max-width:520px){.v1565-timing-mode{grid-template-columns:1fr}}
+
 </style>
 
 <style id="mobile-fit-v2">
@@ -809,7 +828,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.4 • PROFESSOR EXPLICA ERROS</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.5 • REVISÃO TÉCNICAS</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -7599,6 +7618,451 @@ setTimeout(()=>{
   try{v15RenderPlan()}catch(e){}
 },180);
 /* ================= /V15.6.4 ================= */
+
+
+/* ================= V15.6.5 • REVISÃO COMPLETA DE TÉCNICAS ================= */
+const V1565_TECH_MODE={
+  alternate:'timing',
+  sync:'timing',
+  hammer:'review',
+  pulloff:'review',
+  slide:'review',
+  legato:'review',
+  bend:'bend',
+  vibrato:'review',
+  palm:'review',
+  skip:'review',
+  hybrid:'review',
+  tapping:'review',
+  sweep:'review'
+};
+
+const V1565_REVIEW={
+  hammer:[
+    ['ATAQUE','Palhete apenas a primeira nota do grupo.'],
+    ['VOLUME','A nota produzida pelo hammer deve continuar clara e próxima do volume da primeira.'],
+    ['RUÍDO','Não deixe cordas vizinhas entrarem junto.']
+  ],
+  pulloff:[
+    ['SEGUNDA NOTA','Ela precisa soar sem nova palhetada e sem desaparecer.'],
+    ['MOVIMENTO','Faça a pequena puxada lateral; não apenas levante o dedo.'],
+    ['RUÍDO','Evite puxar tanto que a corda vizinha soe.']
+  ],
+  slide:[
+    ['DESTINO','Pare exatamente atrás do traste de chegada.'],
+    ['SUSTAIN','A ligação deve ser contínua, sem morrer no meio.'],
+    ['AFINAÇÃO','Não ultrapasse a casa-alvo e volte depois.']
+  ],
+  legato:[
+    ['VOLUME','Hammer-ons e pull-offs devem ficar próximos do volume da nota palhetada.'],
+    ['FLUIDEZ','Não deixe pequenos silêncios entre as notas.'],
+    ['PALHETA','Palhete apenas onde o exercício pede.']
+  ],
+  vibrato:[
+    ['CENTRO','A nota principal precisa continuar reconhecível.'],
+    ['REGULARIDADE','Largura e velocidade das oscilações devem ser parecidas.'],
+    ['CONTROLE','Evite transformar cada oscilação num bend diferente.']
+  ],
+  palm:[
+    ['ALTURA','A nota ainda deve ser identificável.'],
+    ['CONSISTÊNCIA','Todos os ataques devem ter grau de abafamento parecido.'],
+    ['POSIÇÃO','Se o som morrer totalmente, aproxime a mão da ponte.']
+  ],
+  skip:[
+    ['CORDAS CERTAS','Somente as cordas planejadas devem soar.'],
+    ['TRAJETO','A palheta deve saltar a corda intermediária sem encostar nela.'],
+    ['RITMO','Mantenha o espaço entre os ataques constante.']
+  ],
+  hybrid:[
+    ['BALANÇO','Palheta e dedo devem produzir volumes próximos.'],
+    ['ORDEM','Não troque acidentalmente qual nota pertence à palheta e ao dedo.'],
+    ['RITMO','Os dois tipos de ataque devem entrar no mesmo pulso.']
+  ],
+  tapping:[
+    ['CLAREZA','Tap, hammer e pull-off precisam soar como notas separadas.'],
+    ['MUTING','Cordas vizinhas devem permanecer mudas.'],
+    ['VOLUME','O tap não deve sumir nem dominar totalmente a mão esquerda.']
+  ],
+  sweep:[
+    ['SEPARAÇÃO','Cada nota termina antes da próxima; não deixe virar um acorde.'],
+    ['MOVIMENTO','A palheta atravessa as cordas de forma contínua, sem várias palhetadas isoladas.'],
+    ['ESPAÇAMENTO','As notas precisam manter distância rítmica regular.']
+  ]
+};
+
+function v1565ApplyTechniqueModes(){
+  Object.entries(V1565_TECH_MODE).forEach(([k,mode])=>{
+    if(V155_TECH?.[k])V155_TECH[k].test=mode==='review'?'series':mode;
+  });
+}
+function v1565ValidBendValue(v){
+  return v!==null && v!==undefined && Number.isFinite(Number(v)) && Math.abs(Number(v))<400;
+}
+function v1565SanitizeHistory(){
+  v1564EnsureState?.();
+  const t=v15State.technique||{};
+  if(Array.isArray(t.bendTests)){
+    t.bendTests=t.bendTests.filter(x=>v1565ValidBendValue(x?.median));
+  }
+  if(t.lastBendResult&&!v1565ValidBendValue(t.lastBendResult.cents)){
+    t.lastBendResult=null;
+  }
+  if(Array.isArray(v15State.teacher?.observations)){
+    v15State.teacher.observations=v15State.teacher.observations.filter(x=>!(x?.kind==='bend'&&!v1565ValidBendValue(x?.cents)));
+  }
+  if(v15State.teacher?.lastInsight?.kind==='bend'){
+    const bad=/999|sem leitura/i.test(String(v15State.teacher.lastInsight.explain||''));
+    if(bad)v15State.teacher.lastInsight=null;
+  }
+  try{localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State))}catch(e){}
+}
+function v1565ReviewCard(key){
+  const rows=V1565_REVIEW[key]||[
+    ['CONTROLE','Ouça se a técnica está limpa e consistente.'],
+    ['RITMO','Compare sua execução com o clique.'],
+    ['RUÍDO','Observe cordas indesejadas e notas abafadas.']
+  ];
+  return `<div class="v15-practical">
+    <span class="v1565-tech-badge">AVALIAÇÃO POR GRAVAÇÃO</span>
+    <h4>${V15_TECHNIQUES[key]?.name||'TÉCNICA'}</h4>
+    <p class="v1565-assess-note">Nesta técnica, o microfone do telemóvel <b>não consegue distinguir com segurança</b> limpeza, articulação e ruídos específicos. A app não inventa uma nota automática: use a Série Guiada, ouça a gravação e confira estes pontos.</p>
+    <div class="v1565-checks">${rows.map(x=>`<div><b>${x[0]}:</b> ${x[1]}</div>`).join('')}</div>
+    <div class="v15-result good" style="margin-top:9px">✓ Avaliação coerente: gravação + critérios objetivos de audição.</div>
+  </div>`;
+}
+function v1565BendLastHtml(){
+  const r=v15State.technique?.lastBendResult;
+  if(!r)return `<div class="v15-result">Ainda não medido • segure o bend até a leitura estabilizar.</div>`;
+  if(r.detected===false||!v1565ValidBendValue(r.cents)){
+    return `<div class="v15-result warn"><b>ALTURA NÃO DETECTADA.</b><br>A app não atribuiu cents falsos. Aproxime a guitarra do microfone, toque a nota inicial e faça o bend segurando o alvo por cerca de 2 segundos.</div>`;
+  }
+  const c=Number(r.cents),stab=Number(r.stability);
+  return `<div class="v15-result ${r.ok?'good':'warn'}"><b>${r.ok?'✓ ALVO ATINGIDO':'AJUSTE E TENTE DE NOVO'}</b><br>
+    Diferença: <b>${c>=0?'+':''}${Math.round(c)} cents</b> • estabilidade ${Number.isFinite(stab)?'±'+Math.round(stab)+' cents':'—'} • tolerância ±${r.tolerance} cents
+    ${r.ok&&r.next?`<br>Próximo alvo: <b>${r.next}</b>`:''}</div>`;
+}
+function v1565TimingCard(){
+  const mode=v15State.technique?.timingMode||'visual';
+  return `<div class="v15-practical">
+    <span class="v1565-tech-badge">MEDIÇÃO AUTOMÁTICA • TIMING</span>
+    <h4>ALTERNATE / SINCRONIZAÇÃO</h4>
+    <p class="v1565-assess-note">Toque <b>uma nota curta por pulso</b>. No telemóvel sem fones, use o pulso visual para o próprio clique não ser confundido com sua guitarra.</p>
+    <div class="v1565-timing-mode">
+      <button type="button" data-v1565-timing-mode="visual" class="${mode==='visual'?'active':''}">📱 SEM FONES • VISUAL</button>
+      <button type="button" data-v1565-timing-mode="audio" class="${mode==='audio'?'active':''}">🎧 COM FONES • CLIQUE</button>
+    </div>
+    <div class="v15-bpm-row">
+      <label>BPM <input id="v1552TimingBpm" type="number" min="40" max="220" value="${Number(v15State.technique?.timingBpm)||70}"></label>
+      <label style="display:flex;align-items:center;gap:5px"><input id="v1552TimingAuto" type="checkbox" ${v15State.technique?.timingAuto?'checked':''}> AUTO +2</label>
+    </div>
+    <div class="v1552-bpm-tools"><button data-timing-d="-5">−5</button><button data-timing-d="-2">−2</button><button data-timing-d="2">+2</button><button data-timing-d="5">+5</button></div>
+    <div id="v1565TimingPulse" class="v1565-pulse">PULSO VISUAL</div>
+    <div id="v1552TimingLive" class="v1552-timing-live">10 PULSOS • aguardando</div>
+    <button id="v1552TimingStart" class="v15-primary" type="button">🎙 INICIAR TESTE</button>
+    <div id="v15TimingResult" class="v15-result">Ainda não medido.</div>
+  </div>`;
+}
+
+v155RenderTechniqueAssessment=function(){
+  const host=document.getElementById('v155TechniqueAssessment');if(!host)return;
+  const key=v15State.technique?.selected||'alternate',mode=V1565_TECH_MODE[key]||'review';
+  let html='<div class="v15-practical-grid">';
+  if(mode==='bend'){
+    const bi=Number(v15State.technique.bendTarget)||0,b=V155_BEND_TARGETS[bi%V155_BEND_TARGETS.length];
+    html+=`<div class="v15-practical">
+      <span class="v1565-tech-badge">MEDIÇÃO AUTOMÁTICA • AFINAÇÃO DO BEND</span>
+      <h4>BEND • ALVO ATUAL</h4>
+      <p><b>${b.text}</b>. Toque a nota inicial, faça o bend e <b>segure a nota de chegada</b>. A app mede apenas a parte estabilizada.</p>
+      <div id="v155BendLive" class="v15-mic-live">—</div>
+      <button id="v155BendTest" class="v15-primary" type="button">🎙 MEDIR BEND</button>
+      ${(v15State.technique.bendFails||0)>=3?'<button id="v155SkipBend" type="button">PULAR ALVO</button>':''}
+      <div id="v155BendResult">${v1565BendLastHtml()}</div>
+    </div>`;
+  }else if(mode==='timing'){
+    html+=v1565TimingCard();
+  }else{
+    html+=v1565ReviewCard(key);
+  }
+  html+='</div>';
+  host.innerHTML=html;
+
+  document.getElementById('v155BendTest')?.addEventListener('click',v155RunBend);
+  document.getElementById('v155SkipBend')?.addEventListener('click',()=>v155SkipTarget('bend'));
+  document.getElementById('v1552TimingStart')?.addEventListener('click',v1552StartTimingMic);
+  document.querySelectorAll('[data-timing-d]').forEach(b=>b.addEventListener('click',()=>{
+    const e=document.getElementById('v1552TimingBpm');if(e)e.value=v15Clamp(Number(e.value)+Number(b.dataset.timingD),40,220);
+  }));
+  document.getElementById('v1552TimingAuto')?.addEventListener('change',e=>{
+    v15State.technique.timingAuto=e.target.checked;v1564SaveQuiet?.();
+  });
+  document.querySelectorAll('[data-v1565-timing-mode]').forEach(b=>b.addEventListener('click',()=>{
+    v15State.technique.timingMode=b.dataset.v1565TimingMode;
+    v1564SaveQuiet?.();
+    v155RenderTechniqueAssessment();
+  }));
+};
+
+/* ---------- Bend robusto: nunca usa sentinela 999 ---------- */
+async function v1565MeasureBend(targetMidi,liveId,resultId,done){
+  v155StopStableCapture();
+  const live=document.getElementById(liveId),res=document.getElementById(resultId);
+  const hz=440*Math.pow(2,(targetMidi-69)/12),samples=[],start=performance.now(),dur=5200,warm=550;
+  const normalizeCents=f=>{
+    let c=1200*Math.log2(Number(f)/hz);
+    c-=1200*Math.round(c/1200);
+    return c;
+  };
+  const push=f=>{
+    f=Number(f);if(!(f>60&&f<1600))return;
+    const c=normalizeCents(f),elapsed=performance.now()-start;
+    if(live)live.textContent=`${f.toFixed(1)} Hz • alvo ${c>=0?'+':''}${Math.round(c)} cents`;
+    if(elapsed>=warm&&Math.abs(c)<=350)samples.push({c,t:elapsed});
+  };
+  const finish=()=>{
+    if(!v155StableCapture)return;
+    const usable=samples.filter(x=>x.t>=1100).slice(-16);
+    v155StopStableCapture();
+    if(usable.length<5){
+      if(res){res.className='v15-result warn';res.innerHTML='<b>ALTURA NÃO DETECTADA.</b><br>Não há pontuação nem cents falsos. Toque a nota inicial, faça o bend e segure o alvo por cerca de 2 segundos.'}
+      done?.({detected:false,ok:false,median:null,stability:null,tolerance:v155TechniqueTolerance('bend'),samples:usable.length});
+      return;
+    }
+    const vals=usable.map(x=>x.c).sort((a,b)=>a-b),med=vals[Math.floor(vals.length/2)];
+    const dev=vals.map(x=>Math.abs(x-med)).sort((a,b)=>a-b),mad=dev[Math.floor(dev.length/2)]||0,stability=mad*1.4826;
+    const tol=v155TechniqueTolerance('bend'),ok=Math.abs(med)<=tol&&stability<=28;
+    if(res){
+      res.className='v15-result '+(ok?'good':'warn');
+      res.innerHTML=`<b>${ok?'✓ ALVO ATINGIDO':Math.abs(med)<=tol?'SEGURE MAIS ESTÁVEL':'AJUSTE E TENTE DE NOVO'}</b><br>
+        ${med>=0?'+':''}${Math.round(med)} cents • estabilidade ±${Math.round(stability)} cents • tolerância ±${tol}`;
+    }
+    done?.({detected:true,ok,median:med,stability,tolerance:tol,samples:usable.length});
+  };
+  if(res){res.className='v15-result';res.textContent='Ouvindo… faça o bend e segure a nota-alvo.'}
+  if(window.NativeTuner&&typeof window.NativeTuner.start==='function'){
+    const c={native:true,oldPitch:window.onNativeTunerPitch,oldNo:window.onNativeTunerNoPitch,oldStatus:window.onNativeTunerStatus,timer:null};
+    v155StableCapture=c;
+    window.onNativeTunerPitch=push;
+    window.onNativeTunerNoPitch=()=>{if(live)live.textContent='OUVINDO… mantenha a guitarra próxima do microfone'};
+    window.onNativeTunerStatus=()=>{};
+    try{window.NativeTuner.start();c.timer=setTimeout(finish,dur);return}catch(e){v155StopStableCapture()}
+  }
+  if(!navigator.mediaDevices?.getUserMedia){
+    if(res)res.textContent='Microfone não disponível.';done?.({detected:false,ok:false,median:null,stability:null,tolerance:v155TechniqueTolerance('bend')});return;
+  }
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    const C=window.AudioContext||window.webkitAudioContext,ctx=new C();await ctx.resume();
+    const src=ctx.createMediaStreamSource(stream),an=ctx.createAnalyser();an.fftSize=4096;an.smoothingTimeConstant=.08;src.connect(an);
+    const buf=new Float32Array(an.fftSize);v155StableCapture={stream,ctx,loop:null,native:false};
+    const loop=()=>{
+      if(!v155StableCapture)return;
+      an.getFloatTimeDomainData(buf);const f=v15AutoCorrelate(buf,ctx.sampleRate);if(f>0)push(f);
+      if(performance.now()-start>=dur)return finish();
+      v155StableCapture.loop=setTimeout(loop,55);
+    };loop();
+  }catch(e){
+    if(res)res.textContent='Não foi possível acessar o microfone.';
+    done?.({detected:false,ok:false,median:null,stability:null,tolerance:v155TechniqueTolerance('bend')});
+  }
+}
+
+v155RunBend=function(){
+  const i=Math.min(V155_BEND_TARGETS.length-1,Number(v15State.technique.bendTarget)||0),t=V155_BEND_TARGETS[i];
+  v1565MeasureBend(t.target,'v155BendLive','v155BendResult',r=>{
+    if(!r.detected){
+      v15State.technique.lastBendResult={detected:false,ok:false,cents:null,stability:null,tolerance:r.tolerance,target:t.text,next:''};
+      v1564SaveQuiet?.();v155RenderTechniqueAssessment();return;
+    }
+    v15State.technique.bendTests=(v15State.technique.bendTests||[]);
+    v15State.technique.bendTests.unshift({...r,target:t.text,date:new Date().toISOString()});
+    v15State.technique.bendTests=v15State.technique.bendTests.slice(0,30);
+    let next='';
+    if(r.ok){
+      v15State.technique.bendFails=0;
+      v15State.technique.bendTarget=(i+1)%V155_BEND_TARGETS.length;
+      next=V155_BEND_TARGETS[v15State.technique.bendTarget].text;
+      v15UpdateExecution('technique',95);v15UpdateExecution('improv',80);
+    }else v15State.technique.bendFails=(v15State.technique.bendFails||0)+1;
+    v15State.technique.lastBendResult={detected:true,ok:r.ok,cents:r.median,stability:r.stability,tolerance:r.tolerance,target:t.text,next};
+    try{
+      const adv=v1564BendAdvice?.(r);
+      if(adv)v1564RecordObservation?.({kind:'bend',skill:'technique',cents:r.median,stability:r.stability,tolerance:r.tolerance,ok:r.ok,label:adv.label,explain:adv.explain,adjust:adv.adjust});
+    }catch(e){}
+    v1564SaveQuiet?.();v155RenderTechniqueAssessment();
+  });
+};
+
+/* ---------- Timing robusto: visual sem fones ou áudio com fones ---------- */
+function v1565FlashPulse(label='PULSO'){
+  const p=document.getElementById('v1565TimingPulse');if(!p)return;
+  p.textContent=label;p.classList.add('hit');setTimeout(()=>p.classList.remove('hit'),110);
+}
+function v1565StopTimingRun(run){
+  (run?.timers||[]).forEach(x=>clearTimeout(x));
+  try{clearTimeout(run?.loop)}catch(e){}
+  try{run?.stream?.getTracks().forEach(t=>t.stop())}catch(e){}
+  try{run?.ctx?.close()}catch(e){}
+  if(v1552TimingRun===run)v1552TimingRun=null;
+}
+async function v1552StartTimingMic(){
+  if(v1552TimingRun)return;
+  const bpm=v15Clamp(Number(document.getElementById('v1552TimingBpm')?.value)||70,40,220);
+  const beat=60000/bpm,mode=v15State.technique?.timingMode||'visual';
+  v15State.technique.timingBpm=bpm;v15State.technique.timingAuto=!!document.getElementById('v1552TimingAuto')?.checked;v15State.technique.timingMode=mode;
+  const res=document.getElementById('v15TimingResult'),live=document.getElementById('v1552TimingLive');
+  const run={bpm,beat,mode,expected:10,errors:[],signed:[],attacks:[],used:new Set(),last:0,start:0,stream:null,ctx:null,loop:null,timers:[],noise:.004,prev:.0};
+  v1552TimingRun=run;if(res){res.className='v15-result';res.textContent='Calibrando o microfone… fique em silêncio por um instante.'}
+  try{
+    const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    run.stream=stream;const C=window.AudioContext||window.webkitAudioContext,ctx=new C();run.ctx=ctx;await ctx.resume();
+    const src=ctx.createMediaStreamSource(stream),hp=ctx.createBiquadFilter(),lp=ctx.createBiquadFilter(),an=ctx.createAnalyser();
+    hp.type='highpass';hp.frequency.value=75;lp.type='lowpass';lp.frequency.value=2600;an.fftSize=1024;an.smoothingTimeConstant=.05;
+    src.connect(hp);hp.connect(lp);lp.connect(an);const buf=new Float32Array(an.fftSize);
+    const analyse=()=>{
+      if(v1552TimingRun!==run)return;
+      an.getFloatTimeDomainData(buf);let sum=0;for(const x of buf)sum+=x*x;
+      const rms=Math.sqrt(sum/buf.length),now=performance.now();
+      if(!run.start){run.noise=run.noise*.92+rms*.08}
+      else{
+        const floor=Math.max(.0045,run.noise*1.55),rise=rms-run.prev,riseNeed=Math.max(.0018,run.noise*.18);
+        if(now>=run.start-run.beat*.42&&rms>floor&&rise>riseNeed&&now-run.last>Math.min(150,run.beat*.42)){
+          const idx=Math.round((now-run.start)/run.beat);
+          if(idx>=0&&idx<run.expected&&!run.used.has(idx)){
+            const due=run.start+idx*run.beat,err=now-due,windowMs=Math.min(360,run.beat*.46);
+            if(Math.abs(err)<=windowMs){
+              run.used.add(idx);run.last=now;run.attacks.push(now);run.signed.push(err);run.errors.push(Math.abs(err));
+              if(live)live.textContent=`Ataques reconhecidos: ${run.attacks.length}/${run.expected} • último ${err>=0?'+':''}${Math.round(err)} ms`;
+            }
+          }
+        }
+      }
+      run.prev=rms;run.loop=setTimeout(analyse,18);
+    };analyse();
+
+    const calTimer=setTimeout(()=>{
+      if(v1552TimingRun!==run)return;
+      run.start=performance.now()+3*beat;
+      if(res)res.textContent=mode==='visual'?'Prepare-se • siga os pulsos visuais.':'Prepare-se • use fones e siga os cliques.';
+      [3,2,1].forEach(n=>{
+        const due=run.start-n*beat;
+        run.timers.push(setTimeout(()=>{
+          if(v1552TimingRun!==run)return;
+          v1565FlashPulse(String(n));if(mode==='audio')v1552PlayClick(true,'timing');
+          if(live)live.textContent='CONTAGEM '+n;
+        },Math.max(0,due-performance.now())));
+      });
+      for(let i=0;i<run.expected;i++){
+        const due=run.start+i*beat;
+        run.timers.push(setTimeout(()=>{
+          if(v1552TimingRun!==run)return;
+          v1565FlashPulse('PULSO '+(i+1));
+          if(mode==='audio')v1552PlayClick(i===0,'timing');
+          if(live)live.textContent=`PULSO ${i+1}/${run.expected} • toque uma nota curta`;
+        },Math.max(0,due-performance.now())));
+      }
+      const endDue=run.start+(run.expected-1)*beat+beat*.72;
+      run.timers.push(setTimeout(()=>v1552FinishTimingMic(run),Math.max(0,endDue-performance.now())));
+    },700);
+    run.timers.push(calTimer);
+  }catch(e){
+    v1565StopTimingRun(run);if(res){res.className='v15-result warn';res.textContent='Não foi possível acessar o microfone.'}
+  }
+}
+function v1552FinishTimingMic(run){
+  if(v1552TimingRun!==run)return;
+  const res=document.getElementById('v15TimingResult'),n=run.errors.length;
+  v1565StopTimingRun(run);
+  if(n<5){
+    if(res){res.className='v15-result warn';res.innerHTML=`<b>O MICROFONE NÃO CONSEGUIU MEDIR O TIMING.</b><br>Reconheceu ${n}/${run.expected} ataques. <b>Nenhuma nota foi atribuída.</b><br>${run.mode==='audio'?'Confirme que está usando fones; caso contrário escolha SEM FONES • VISUAL.':'Aproxime a guitarra do microfone e toque notas curtas, com pequena pausa entre elas.'}`}
+    return;
+  }
+  const mean=run.errors.reduce((a,b)=>a+b,0)/n;
+  const signed=run.signed.reduce((a,b)=>a+b,0)/n;
+  const missing=run.expected-n,countPenalty=Math.min(24,missing*4);
+  const score=Math.round(v15Clamp(100-mean/2-countPenalty,0,100));
+  const label=score>=90?'EXCELENTE':score>=78?'MUITO BOM':score>=65?'BOM':'REPETIR';
+  let tendency='';
+  if(n>=7&&signed<=-30)tendency=` • tendência a antecipar ${Math.abs(Math.round(signed))} ms`;
+  else if(n>=7&&signed>=30)tendency=` • tendência a atrasar ${Math.round(signed)} ms`;
+  if(res){res.className='v15-result '+(score>=65?'good':'warn');res.innerHTML=`<b>${label} • ${score}%</b><br>Erro médio ${Math.round(mean)} ms • ataques ${n}/${run.expected}${tendency}${countPenalty?` • penalização ${countPenalty} pts`:''}.`}
+  const row={date:new Date().toISOString(),bpm:run.bpm,score,error:Math.round(mean),signedError:Math.round(signed),attacks:n,expected:run.expected,mode:run.mode};
+  v15State.technique.timingTests=(v15State.technique.timingTests||[]).concat([row]).slice(-30);
+  if(v15State.technique.timingAuto){
+    const next=v15Clamp(run.bpm+(score>=90?2:score<55?-2:0),40,220);
+    v15State.technique.timingBpm=next;const el=document.getElementById('v1552TimingBpm');if(el)el.value=next;
+    if(res&&next!==run.bpm)res.innerHTML+=`<br>Próximo teste automático: <b>${next} BPM</b>.`;
+  }
+  v15UpdateExecution('technique',score);
+  try{
+    const adv=v1564TimingAdvice?.(row);
+    if(adv){
+      v1564RecordObservation?.({kind:'timing',skill:'technique',score:row.score,error:row.error,signedError:row.signedError,attacks:row.attacks,expected:row.expected,bpm:row.bpm,label:adv.label,explain:adv.explain,adjust:adv.adjust});
+      v1564AppendAdvice?.('v15TimingResult',adv.label,adv.explain,adv.adjust);
+    }
+  }catch(e){}
+  v1564SaveQuiet?.();
+}
+
+/* Professor agora pode distinguir antecipação/atraso porque V15.6.5 guarda erro com sinal. */
+const v1565OldTimingAdvice=v1564TimingAdvice;
+v1564TimingAdvice=function(t){
+  const base=v1565OldTimingAdvice(t),signed=Number(t?.signedError),n=Number(t?.attacks)||0;
+  if(!Number.isFinite(signed)||n<7)return base;
+  if(signed<=-30){
+    base.explain+=` Há também uma tendência média de <b>antecipar</b> o pulso em cerca de ${Math.abs(Math.round(signed))} ms.`;
+    base.adjust='Mantenha o BPM e tente “esperar” o centro do pulso antes de atacar; só aumente quando essa antecipação diminuir.';
+  }else if(signed>=30){
+    base.explain+=` Há também uma tendência média de <b>atrasar</b> o ataque em cerca de ${Math.round(signed)} ms.`;
+    base.adjust='Mantenha o BPM e prepare o movimento um pouco antes para a palheta chegar junto ao pulso.';
+  }
+  return base;
+};
+
+/* ---------- Série guiada: automático só onde a medição faz sentido ---------- */
+const v1565TimedSeries=new Set(['alternate','sync']);
+v1552SeriesResult=function(){
+  const key=v15State.technique?.selected||'alternate',a=v1552SeriesAnalysis||{attacks:[],errors:[]};
+  if(!v1565TimedSeries.has(key)){
+    return{score:0,manual:true,label:'GRAVAÇÃO PRONTA',copy:'Ouça sua execução e use os critérios da Avaliação Prática. A app não atribui uma nota automática a esta técnica.'};
+  }
+  if(a.errors.length<4){
+    return{score:0,manual:true,label:'GRAVAÇÃO PRONTA • TIMING NÃO MEDIDO',copy:'O microfone não reconheceu ataques suficientes para pontuar o timing. A gravação continua válida; use também o teste específico de timing em modo SEM FONES • VISUAL.'};
+  }
+  const mean=a.errors.reduce((x,y)=>x+y,0)/a.errors.length,sd=Math.sqrt(a.errors.reduce((x,y)=>x+(y-mean)**2,0)/a.errors.length);
+  const score=Math.round(v15Clamp(100-mean/2.2,0,100)),label=score>=90?'EXCELENTE':score>=78?'MUITO BOM':score>=65?'BOM':'REPETIR';
+  return{score,label,copy:`Erro médio ${Math.round(mean)} ms • variação ±${Math.round(sd)} ms • ${a.errors.length} ataques analisados.`};
+};
+
+v155EndTechniqueSeries=function(){
+  if(!v155SeriesActive||v155SeriesEnded)return;
+  v155SeriesEnded=true;v155SeriesActive=false;v15StopTechniqueTimer();clearInterval(v1552SeriesClickTimer);v1552SeriesClickTimer=null;
+  try{if(v155Recorder&&v155Recorder.state!=='inactive')v155Recorder.stop()}catch(e){}v155Recorder=null;
+  const result=v1552SeriesResult();v1552SeriesAnalysis={...(v1552SeriesAnalysis||{}),result};
+  const grade=document.getElementById('v1552SeriesGrade');
+  if(grade){grade.className='v1552-series-grade '+(result.score>=65?'good':result.manual?'':'warn');grade.innerHTML=`<b>${result.label}${result.score?' • '+result.score+'%':''}</b><br>${result.copy}`}
+  document.getElementById('v155TechReview').style.display='block';
+  const st=document.getElementById('v15TechSeriesStatus');
+  if(st){
+    if(result.manual)st.innerHTML='<b>✓ Gravação concluída.</b> Ouça sua execução e use os critérios da Avaliação Prática. Repita ou aprove a série conscientemente.';
+    else if(result.score>=65)st.innerHTML='<b>✓ Série analisada.</b> Ouça a gravação e aprove se o resultado também soar controlado.';
+    else st.innerHTML='<b>A app recomenda repetir.</b> Ouça a gravação para identificar onde o timing saiu.';
+  }
+  if(result.score>0){
+    try{
+      const adv=v1564TimingAdvice?.({score:result.score,error:v1564Avg?.(v1552SeriesAnalysis?.errors||[]),attacks:(v1552SeriesAnalysis?.attacks||[]).length,bpm:Number(document.getElementById('v15TechBpm')?.value)||0});
+      if(adv)v1564RecordObservation?.({kind:'technique_series',skill:'technique',technique:v15State.technique?.selected,score:result.score,bpm:Number(document.getElementById('v15TechBpm')?.value)||0,label:adv.label,explain:adv.explain,adjust:adv.adjust});
+    }catch(e){}
+  }
+  setTimeout(v1552StopSeriesAudio,450);
+};
+
+v1565ApplyTechniqueModes();
+v1565SanitizeHistory();
+setTimeout(()=>{
+  try{v155RenderTechniqueAssessment()}catch(e){}
+  try{v156RenderTeacher()}catch(e){}
+},220);
+/* ================= /V15.6.5 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
