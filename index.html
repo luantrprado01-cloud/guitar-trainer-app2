@@ -789,7 +789,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.1 • PROFESSOR OFFLINE</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.2 • NAVEGAÇÃO GUIADA</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -6958,6 +6958,51 @@ setTimeout(()=>{
   v15RenderPlan();
 },150);
 /* ================= /V15.6.1 ================= */
+
+
+/* ================= V15.6.2 • VOLTAR DA MISSÃO AO MAPA ================= */
+function v1562StopGuidedModuleAudio(){
+  try{if(typeof finishTimedTrainingOnExit==='function')finishTimedTrainingOnExit()}catch(e){}
+  try{if(typeof stopNotePlayback==='function')stopNotePlayback(true)}catch(e){}
+  try{if(typeof stopChordAudio==='function')stopChordAudio()}catch(e){}
+  try{if(typeof stopTuner==='function')stopTuner()}catch(e){}
+  try{if(typeof stopMetronome==='function')stopMetronome()}catch(e){}
+  try{if(typeof v1553StopMissionMetronome==='function')v1553StopMissionMetronome()}catch(e){}
+  try{if(typeof jamStop==='function')jamStop()}catch(e){}
+  try{if(typeof stopJam==='function')stopJam()}catch(e){}
+  try{if(typeof v155StopReading==='function')v155StopReading()}catch(e){}
+  try{if(typeof v155EndTechniqueSeries==='function')v155EndTechniqueSeries()}catch(e){}
+  try{if(typeof v155StopStableCapture==='function')v155StopStableCapture()}catch(e){}
+  try{if(typeof v15CancelPitchCapture==='function')v15CancelPitchCapture()}catch(e){}
+  try{if(typeof v1552MissionTimer!=='undefined')clearInterval(v1552MissionTimer)}catch(e){}
+}
+
+function v1562ReturnGuidedMissionToMap(e){
+  const btn=e.target?.closest?.('[data-home]');
+  if(!btn)return;
+
+  const active=document.querySelector('#app2 .screen.active');
+  const activeId=active?.id||'';
+
+  // Só intercepta quando a tela atual foi aberta pela missão guiada.
+  if(!v1552MissionVisible || !v1552MissionLaunchScreen || activeId!==v1552MissionLaunchScreen)return;
+
+  e.preventDefault();
+  e.stopPropagation();
+  e.stopImmediatePropagation();
+
+  v1562StopGuidedModuleAudio();
+  v1552MissionVisible=false;
+
+  // Mantém a sessão e a missão atual intactas; apenas retorna ao caminho.
+  show('guitarist-map');
+  try{v15RenderPlan()}catch(err){}
+  try{if(typeof v156RenderTeacher==='function')v156RenderTeacher()}catch(err){}
+}
+
+// Captura antes do antigo [data-home], que normalmente envia direto ao menu inicial.
+document.addEventListener('click',v1562ReturnGuidedMissionToMap,true);
+/* ================= /V15.6.2 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
