@@ -828,7 +828,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.5 • REVISÃO TÉCNICAS</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.6 • CONTAGEM DE TIMING</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -4933,7 +4933,7 @@ Object.assign(JAM_PACKS,{
 Object.values(JAM_PACKS).forEach(p=>{
   p.assetDir=p.assetDir||`jam-packs/${p.id}/`;
   const roles=p.roles||['solo','base'];
-  p.webAudio=p.hidden?null:{solo:`jam-audio/${p.id}/solo.mp3`,base:roles.includes('base')?`jam-audio/${p.id}/base.mp3`:null};
+  p.webAudio=p.hidden?null:{solo:`https://luantrprado01-cloud.github.io/guitar-trainer-app2/jam-audio/${p.id}/solo.mp3`,base:roles.includes('base')?`https://luantrprado01-cloud.github.io/guitar-trainer-app2/jam-audio/${p.id}/base.mp3`:null};
   if(!p.hidden){p.devStemCopy=p.stemCopy;p.stemCopy=`<b>PACK ONLINE.</b> ${roles.includes('base')?'Escolha EU TOCO SOLO ou EU TOCO BASE;':'Este pack é dedicado a EU TOCO SOLO;'} a faixa correta é carregada automaticamente. Nenhum ficheiro precisa ser importado.`}
 });
 
@@ -8063,6 +8063,127 @@ setTimeout(()=>{
   try{v156RenderTeacher()}catch(e){}
 },220);
 /* ================= /V15.6.5 ================= */
+
+
+/* ================= V15.6.6 • CONTAGEM REAL DO TESTE DE TIMING ================= */
+/*
+  Correção:
+  - O teste V15.6.5 executa 10 pulsos e grava expected:10.
+  - O Professor V15.6.4 ainda comparava todo resultado com 8 pulsos.
+  - Agora a comparação usa t.expected quando existe.
+  - Séries livres, que não têm total fixo, NÃO recebem penalização artificial de contagem.
+*/
+v1564TimingAdvice=function(t){
+  const score=Number(t?.score)||0;
+  const error=Number(t?.error)||0;
+  const attRaw=Number(t?.attacks);
+  const att=Number.isFinite(attRaw)?attRaw:0;
+  const expectedRaw=Number(t?.expected);
+  const expected=(Number.isFinite(expectedRaw)&&expectedRaw>0)?expectedRaw:null;
+  const bpm=Number(t?.bpm)||0;
+  const signed=Number(t?.signedError);
+
+  if(expected!==null && att!==expected){
+    const diff=att-expected;
+    const direction=diff>0
+      ? `${Math.abs(diff)} ataque${Math.abs(diff)===1?'':'s'} a mais`
+      : `${Math.abs(diff)} ataque${Math.abs(diff)===1?'':'s'} em falta`;
+    return{
+      label:'CONTAGEM / REGULARIDADE',
+      explain:`Foram reconhecidos ${att} ataques para ${expected} pulsos (${direction}). A contagem ainda precisa ficar uma nota por pulso.`,
+      adjust:`Mantenha ${bpm||'o mesmo'} BPM e repita tocando exatamente uma nota curta em cada pulso antes de aumentar a velocidade.`,
+      severity:score<65?20:14
+    };
+  }
+
+  let result;
+  if(score<55){
+    result={
+      label:'TIMING AINDA INSTÁVEL',
+      explain:`O erro médio ficou em cerca de ${Math.round(error)} ms. A prioridade agora é aproximar cada ataque do pulso, não tocar mais rápido.`,
+      adjust:`Reduza ${bpm?Math.max(40,bpm-5)+' BPM':'um pouco o BPM'} e repita até ficar acima de 65%.`,
+      severity:22
+    };
+  }else if(score<78){
+    result={
+      label:'TIMING EM CONSOLIDAÇÃO',
+      explain:`A execução já acompanha o pulso, mas ainda há variação suficiente para perder precisão quando a dificuldade subir.`,
+      adjust:`Mantenha ${bpm||'o mesmo'} BPM até repetir um resultado Bom/Muito Bom com consistência.`,
+      severity:14
+    };
+  }else if(score<90){
+    result={
+      label:'TIMING MUITO BOM',
+      explain:`Você está suficientemente perto do pulso para consolidar esse andamento.`,
+      adjust:`Repita mais uma série neste BPM; se mantiver o resultado, aumente +2 BPM.`,
+      severity:5
+    };
+  }else{
+    result={
+      label:'PRONTO PARA SUBIR O BPM',
+      explain:`A precisão de timing está excelente neste teste (${score}%).`,
+      adjust:`Suba +2 BPM; +5 BPM apenas se o próximo resultado continuar Excelente.`,
+      severity:0
+    };
+  }
+
+  // Mantém a leitura de antecipação/atraso introduzida na V15.6.5.
+  if(Number.isFinite(signed) && att>=7){
+    if(signed<=-30){
+      result.explain+=` Há também uma tendência média de antecipar o pulso em cerca de ${Math.abs(Math.round(signed))} ms.`;
+      result.adjust='Mantenha o BPM e tente esperar o centro do pulso antes de atacar; só aumente quando essa antecipação diminuir.';
+    }else if(signed>=30){
+      result.explain+=` Há também uma tendência média de atrasar o ataque em cerca de ${Math.round(signed)} ms.`;
+      result.adjust='Mantenha o BPM e prepare o movimento um pouco antes para a palheta chegar junto ao pulso.';
+    }
+  }
+  return result;
+};
+
+function v1566RepairStoredTimingDiagnosis(){
+  try{
+    v1564EnsureState?.();
+
+    // Recalcula o último insight errado salvo pela regra antiga "8 pulsos".
+    const lastInsight=v15State.teacher?.lastInsight;
+    if(lastInsight?.kind==='timing' && /para\s+8\s+pulsos/i.test(String(lastInsight.explain||''))){
+      const tests=v15State.technique?.timingTests||[];
+      const last=tests[tests.length-1];
+      if(last){
+        const adv=v1564TimingAdvice(last);
+        v15State.teacher.lastInsight={
+          date:new Date().toISOString(),
+          kind:'timing',
+          skill:'technique',
+          label:adv.label,
+          explain:adv.explain,
+          adjust:adv.adjust
+        };
+      }else{
+        v15State.teacher.lastInsight=null;
+      }
+    }
+
+    // Corrige observações recentes que carregavam o mesmo texto antigo.
+    if(Array.isArray(v15State.teacher?.observations)){
+      v15State.teacher.observations=v15State.teacher.observations.map(o=>{
+        if(o?.kind!=='timing' || !/para\s+8\s+pulsos/i.test(String(o.explain||'')))return o;
+        const adv=v1564TimingAdvice(o);
+        return {...o,label:adv.label,explain:adv.explain,adjust:adv.adjust};
+      });
+    }
+
+    localStorage.setItem(gtProfileKey(V15_STATE_KEY),JSON.stringify(v15State));
+  }catch(e){}
+}
+
+v1566RepairStoredTimingDiagnosis();
+
+setTimeout(()=>{
+  try{v156RenderTeacher?.()}catch(e){}
+  try{v15RenderPlan?.()}catch(e){}
+},240);
+/* ================= /V15.6.6 ================= */
 
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
