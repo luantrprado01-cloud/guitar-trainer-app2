@@ -1,4 +1,4 @@
-name: Gerar APK Release Assinado
+name: Gerar APK + AAB Release Assinados
 
 on:
   workflow_dispatch:
@@ -29,12 +29,12 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Instalar Android SDK 35
+      - name: Instalar Android SDK 36
         run: |
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35" "build-tools;35.0.0"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Descompactar o projeto mais recente
+      - name: Descompactar o projeto Android mais recente
         run: |
           rm -rf build-project
           mkdir -p build-project
@@ -45,6 +45,33 @@ jobs:
           fi
           echo "Compilando ZIP: $ZIP_FILE"
           unzip -q "$ZIP_FILE" -d build-project
+
+      - name: Atualizar Android para API 36
+        working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('app/build.gradle')
+          s = p.read_text(encoding='utf-8')
+
+          original = s
+          s, compile_count = re.subn(r'\bcompileSdkVersion\s+\d+', 'compileSdkVersion 36', s)
+          if compile_count == 0:
+              s, compile_count = re.subn(r'\bcompileSdk\s*(?:=\s*)?\d+', 'compileSdk 36', s)
+
+          s, target_count = re.subn(r'\btargetSdkVersion\s+\d+', 'targetSdkVersion 36', s)
+          if target_count == 0:
+              s, target_count = re.subn(r'\btargetSdk\s*(?:=\s*)?\d+', 'targetSdk 36', s)
+
+          if compile_count == 0 or target_count == 0:
+              print(original)
+              raise SystemExit('Não foi possível localizar compileSdk/targetSdk no app/build.gradle.')
+
+          p.write_text(s, encoding='utf-8')
+          print('Android configurado para compileSdk/targetSdk 36.')
+          PY
 
       - name: Atualizar conteúdo web para a versão atual
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
@@ -67,12 +94,13 @@ jobs:
         run: |
           VERSION_CODE=$((1000 + GITHUB_RUN_NUMBER))
           sed -i -E "s/versionCode [0-9]+/versionCode ${VERSION_CODE}/" app/build.gradle
-          sed -i -E "s/versionName '[^']+'/versionName '9.${GITHUB_RUN_NUMBER}'/" app/build.gradle
+          sed -i -E "s/versionName '[^']+'/versionName '10.${GITHUB_RUN_NUMBER}'/" app/build.gradle
           echo "Version code: ${VERSION_CODE}"
+          echo "Version name: 10.${GITHUB_RUN_NUMBER}"
 
-      - name: Compilar APK Release
+      - name: Compilar APK e AAB Release
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
-        run: gradle :app:assembleRelease
+        run: gradle :app:assembleRelease :app:bundleRelease
 
       - name: Restaurar chave de assinatura
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
@@ -84,7 +112,7 @@ jobs:
       - name: Alinhar APK
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
         run: |
-          $ANDROID_HOME/build-tools/35.0.0/zipalign -p -f 4 \
+          $ANDROID_HOME/build-tools/36.0.0/zipalign -p -f 4 \
             app/build/outputs/apk/release/app-release-unsigned.apk \
             app/build/outputs/apk/release/Guitar-Trainer-release-aligned.apk
 
@@ -93,7 +121,7 @@ jobs:
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
-          $ANDROID_HOME/build-tools/35.0.0/apksigner sign \
+          $ANDROID_HOME/build-tools/36.0.0/apksigner sign \
             --ks guitar-trainer-release.jks \
             --ks-key-alias guitartrainer \
             --ks-pass pass:"$KEYSTORE_PASSWORD" \
@@ -101,14 +129,43 @@ jobs:
             --out app/build/outputs/apk/release/Guitar-Trainer-release-signed.apk \
             app/build/outputs/apk/release/Guitar-Trainer-release-aligned.apk
 
-      - name: Verificar assinatura
+      - name: Verificar assinatura do APK
         working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
         run: |
-          $ANDROID_HOME/build-tools/35.0.0/apksigner verify --verbose \
+          $ANDROID_HOME/build-tools/36.0.0/apksigner verify --verbose \
             app/build/outputs/apk/release/Guitar-Trainer-release-signed.apk
+
+      - name: Preparar e assinar AAB para Google Play
+        working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          cp app/build/outputs/bundle/release/app-release.aab \
+             app/build/outputs/bundle/release/Guitar-Trainer-Google-Play.aab
+
+          jarsigner \
+            -keystore guitar-trainer-release.jks \
+            -storepass "$KEYSTORE_PASSWORD" \
+            -keypass "$KEYSTORE_PASSWORD" \
+            -sigalg SHA256withRSA \
+            -digestalg SHA-256 \
+            app/build/outputs/bundle/release/Guitar-Trainer-Google-Play.aab \
+            guitartrainer
+
+      - name: Verificar assinatura do AAB
+        working-directory: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4
+        run: |
+          jarsigner -verify -verbose -certs \
+            app/build/outputs/bundle/release/Guitar-Trainer-Google-Play.aab
 
       - name: Guardar APK assinado
         uses: actions/upload-artifact@v4
         with:
-          name: Guitar-Trainer-Release-Assinado
+          name: Guitar-Trainer-APK-Assinado
           path: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4/app/build/outputs/apk/release/Guitar-Trainer-release-signed.apk
+
+      - name: Guardar AAB para Google Play
+        uses: actions/upload-artifact@v4
+        with:
+          name: Guitar-Trainer-AAB-Google-Play
+          path: build-project/APP2_Guitar_Trainer_ANDROID_NATIVE_v4/app/build/outputs/bundle/release/Guitar-Trainer-Google-Play.aab
