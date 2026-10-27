@@ -890,7 +890,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.11 • JAM + IDIOMAS + MAPA</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.12 • FILTROS JAM</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -2151,7 +2151,7 @@ html,body{min-height:100%;}
       <div id="jamStatus" class="jam-status"><strong>PRONTO PARA PREPARAR.</strong> Escolha a backtrack e como você quer tocar.</div>
       <div id="jamAutoResult" class="jam-quality good" style="margin-top:10px"><b>PRONTO.</b> Escolha uma backtrack; estilo, tom e BPM serão preenchidos automaticamente. Ou deixe em AUTO e use Estilo/Tom/BPM para a app escolher por você.</div>
       <div id="jamCoverage" class="jam-coverage"><b>TONS DISPONÍVEIS:</b> calculando…</div>
-      <div class="jam-auto-summary"><b>QUALIDADE:</b> a app só mostra backtracks compatíveis com o modo SOLO/BASE escolhido e usa combinações seguras de tom e BPM. Faixas incompatíveis ficam fora da lista.</div>
+      <div class="jam-auto-summary"><b>QUALIDADE:</b> a app mostra somente backtracks, estilos e tons compatíveis com o modo escolhido. Opções sem conteúdo disponível não aparecem.</div>
     </div>
 
     <div class="jam-card full jam-dev-hidden" id="jamPackCard">
@@ -5008,6 +5008,21 @@ function jamPackRoles(p){return p.roles||['solo','base']}
 // CC BY-NC fica automaticamente fora da seleção, mesmo que seja encontrado durante a pesquisa.
 function jamPackRedistributable(p){const l=String(p?.license||'').toUpperCase().replace(/\s+/g,' ').trim();return l==='CC0'||l.startsWith('CC0 ')||l.startsWith('CC BY ')&&!l.includes('-NC')&&!l.includes('NONCOMMERCIAL')}
 function jamStylePacks(styleId){if(styleId==='all')return Object.values(JAM_PACKS).filter(p=>p&&!p.hidden);const g=JAM_STYLE_BY_ID[styleId];return g?(g.packs||[]).map(id=>JAM_PACKS[id]).filter(p=>p&&!p.hidden):[]}
+function jamAvailablePacksFor(role,mode,styleId='all'){return jamStylePacks(styleId).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p)&&jamPackFitsRole(p,role)&&jamPackFitsMode(p,mode))}
+function jamAvailableStyleGroups(role,mode){return JAM_STYLE_GROUPS.filter(g=>jamAvailablePacksFor(role,mode,g.id).length>0)}
+function jamPopulateStyles(preserve=true){
+  const sel=document.getElementById('jamStyleSelect');if(!sel)return false;
+  const current=sel.value||'all';
+  const role=document.getElementById('jamAutoRole')?.value||jamRole||'solo';
+  const mode=document.getElementById('jamAutoMode')?.value||'any';
+  const groups=jamAvailableStyleGroups(role,mode);
+  sel.innerHTML='';
+  const all=document.createElement('option');all.value='all';all.textContent='TODOS OS ESTILOS';sel.appendChild(all);
+  groups.forEach(g=>{const o=document.createElement('option');o.value=g.id;o.textContent=g.label;sel.appendChild(o)});
+  const canKeep=preserve&&(current==='all'||groups.some(g=>g.id===current));
+  sel.value=canKeep?current:'all';
+  return sel.value!==current;
+}
 function jamPackFitsMode(p,modePref){return !modePref||modePref==='any'||p.mode===modePref||(modePref==='major'&&p.mode==='blues')}
 function jamPackFitsRole(p,role){return jamPackRoles(p).includes(role)}
 function jamPackAutoEligible(p){return p&&p.autoEligible!==false}
@@ -5142,9 +5157,10 @@ function jamPopulateLibrary(){
   const sel=document.getElementById('jamPackSelect');
   if(sel){const current=sel.value;sel.innerHTML='';Object.values(JAM_PACKS).filter(p=>!p.hidden).forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.label;sel.appendChild(o)});const visible=Object.values(JAM_PACKS).filter(p=>!p.hidden);sel.value=visible.some(p=>p.id===current)?current:(visible[0]?.id||'slow_blues_cm')}
   const style=document.getElementById('jamStyleSelect');
-  if(style){style.innerHTML='';const all=document.createElement('option');all.value='all';all.textContent='TODOS OS ESTILOS';style.appendChild(all);JAM_STYLE_GROUPS.forEach(g=>{const o=document.createElement('option');o.value=g.id;o.textContent=g.label;style.appendChild(o)});style.value='all'}
+  if(style){style.value='all';jamPopulateStyles(false)}
   const badge=document.querySelector('.jam-pack-count');if(badge){const ready=Object.values(JAM_PACKS).filter(p=>!p.hidden&&jamPackAutoEligible(p)&&jamPackRedistributable(p)).length,review=Object.values(JAM_PACKS).filter(p=>!p.hidden&&!jamPackAutoEligible(p)).length;badge.textContent=ready+' PACKS DISPONÍVEIS'+(review?' • '+review+' EM REVISÃO':'')}
   jamRestoreAutoPrefs();
+  jamPopulateStyles(true);
   const saved=jamRestoreBacktrackPref();
   if(saved){
     // Uma backtrack salva pode exibir o estilo dela sem transformar esse estilo em filtro da biblioteca.
@@ -5237,33 +5253,35 @@ function jamSuggestedBaseKeys(missing){
 }
 function jamUpdateKeyAvailability(){
   const sel=document.getElementById('jamAutoKey');if(!sel)return false;
+  const previous=sel.value;
   const i=jamAutoInputs(),manual=jamSelectedBacktrack();
+  sel.innerHTML='';
   if(manual&&manual.knownKey===false){
     sel.disabled=true;
-    [...sel.options].forEach((o,k)=>{o.textContent=k===0?'TOM A CONFIRMAR':JAM_NOTE_NAMES[k];o.disabled=k!==0;o.classList.toggle('jam-empty-key',k!==0)});
+    const o=document.createElement('option');o.value='0';o.textContent='TOM A CONFIRMAR';sel.appendChild(o);
     sel.value='0';
-    return false;
+    return previous!=='0';
   }
   sel.disabled=false;
-  const packs=(manual?[manual]:jamStylePacks(i.style)).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p)&&jamPackFitsRole(p,i.role)&&jamPackFitsMode(p,i.mode));
-  let firstEnabled=null,changed=false;
-  [...sel.options].forEach((o,k)=>{
+  const packs=(manual?[manual]:jamAvailablePacksFor(i.role,i.mode,i.style));
+  const available=[];
+  for(let k=0;k<12;k++){
     const exact=packs.some(p=>p.multiKey||(p.knownKey!==false&&jamSignedDistance(p.rootPc,k)===0));
     const near=!exact&&packs.some(p=>p.knownKey!==false&&jamShiftAllowed(p,jamSignedDistance(p.rootPc,k)));
-    const blocked=!exact&&!near;
-    o.textContent=JAM_NOTE_NAMES[k]+(exact?' • original':near?' • ±1':' • indisponível');
-    o.disabled=blocked;
-    o.classList.toggle('jam-empty-key',blocked);
-    if(!blocked&&firstEnabled===null)firstEnabled=String(k);
-  });
-  const selected=sel.options[sel.selectedIndex];
-  if(selected&&selected.disabled&&firstEnabled!==null){sel.value=firstEnabled;changed=true}
-  return changed;
+    if(exact||near)available.push({k,exact,near});
+  }
+  available.forEach(({k,exact})=>{const o=document.createElement('option');o.value=String(k);o.textContent=JAM_NOTE_NAMES[k]+(exact?' • original':' • compatível');sel.appendChild(o)});
+  if(!available.length){
+    const o=document.createElement('option');o.value='0';o.textContent='SEM TOM DISPONÍVEL';o.disabled=true;sel.appendChild(o);sel.disabled=true;sel.value='0';return true;
+  }
+  const keep=available.some(x=>String(x.k)===previous);
+  sel.value=keep?previous:String(available[0].k);
+  return sel.value!==previous;
 }
 function jamUpdateCoverage(){
   const el=document.getElementById('jamCoverage');if(!el)return;const i=jamAutoInputs(),c=jamCoverageFor(i.style,i.role,i.mode),label=i.style==='all'?'TODOS OS ESTILOS':(JAM_STYLE_BY_ID[i.style]?.label||i.style);
-  const missing=c.missing.length?c.missing.map(k=>JAM_NOTE_NAMES[k]).join(' • '):'nenhum';
-  el.innerHTML=`<b>TONS DISPONÍVEIS • ${label}:</b> ${c.covered.length}/12 no modo ${i.role==='solo'?'EU TOCO SOLO':'EU TOCO BASE'}${i.mode!=='any'?' • '+i.mode.toUpperCase():''}. <b>Indisponíveis:</b> ${missing}.`;
+  const available=c.covered.length?c.covered.map(k=>JAM_NOTE_NAMES[k]).join(' • '):'nenhum';
+  el.innerHTML=`<b>TONS DISPONÍVEIS • ${label}:</b> ${available} • modo ${i.role==='solo'?'EU TOCO SOLO':'EU TOCO BASE'}${i.mode!=='any'?' • '+i.mode.toUpperCase():''}.`;
   jamUpdateKeyAvailability();
 }
 function jamPersistAutoPrefs(){try{const i=jamAutoInputs();localStorage.setItem(gtProfileKey('guitarTrainerJamAutoV1442'),JSON.stringify(i))}catch(e){}}
@@ -5443,7 +5461,8 @@ async function jamChooseRole(role){
     jamClearRoleRestrictions();manual=null;
   }
   jamRole=role;
-  jamPopulateBacktracks(false,document.getElementById('jamStyleSelect')?.value||'all');
+  const styleChanged=jamPopulateStyles(true);
+  jamPopulateBacktracks(styleChanged,document.getElementById('jamStyleSelect')?.value||'all');
   jamRoleUI();jamPersistAutoPrefs();jamRefreshAutoPreview();
 
   const prepared=!!jamWebNode||jamSourceDuration>0||jamAllReady();
@@ -5508,7 +5527,7 @@ document.getElementById('jamStyleSelect').addEventListener('change',()=>{jamStop
 document.getElementById('jamAutoKey').addEventListener('change',()=>{const p=jamSelectedBacktrack(),t=document.getElementById('jamTargetKey');if(p&&t&&p.knownKey!==false){t.value=document.getElementById('jamAutoKey').value;jamUpdateQuality()}jamRefreshAutoPreview()});
 document.getElementById('jamAutoBpm').addEventListener('input',()=>{const p=jamSelectedBacktrack(),t=document.getElementById('jamTargetBpm');if(p&&t&&Number(p.bpm)>0){const v=Number(document.getElementById('jamAutoBpm').value);t.value=String(Math.max(Number(t.min),Math.min(Number(t.max),v)));jamUpdateQuality()}jamRefreshAutoPreview()});
 document.getElementById('jamAutoRole').addEventListener('change',()=>jamChooseRole(document.getElementById('jamAutoRole').value));
-document.getElementById('jamAutoMode').addEventListener('change',jamRefreshAutoPreview);
+document.getElementById('jamAutoMode').addEventListener('change',()=>{const changed=jamPopulateStyles(true);jamPopulateBacktracks(changed,document.getElementById('jamStyleSelect')?.value||'all');jamRefreshAutoPreview()});
 document.getElementById('jamDevToggle').addEventListener('click',jamToggleDevTools);
 ['jamCreditSource','jamCreditLicense'].forEach(id=>{
   const el=document.getElementById(id);
