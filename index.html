@@ -799,6 +799,12 @@ html,body{min-height:100%;}
 @media(max-width:360px){.v1569-main-grid{grid-template-columns:1fr}.v1569-secondary-grid{grid-template-columns:1fr 1fr}.v1569-secondary-grid button:last-child{grid-column:1/-1}}
 </style>
 
+
+<style id="v15611-ui-fixes">
+/* V15.6.11 • Jam, idioma e ordem didática do Mapa */
+#settingsLanguageSection{margin-bottom:10px}.settings-language-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.settings-language-grid button{min-height:58px;padding:8px}.settings-language-grid button b{display:block;font-size:.72rem}.settings-language-grid button small{display:block;margin-top:3px;color:#ccb98e;font-size:.58rem;line-height:1.25}.settings-language-grid button.active{background:#8c1719;border-color:#e0b85e;color:#fff}.settings-language-current{margin-top:8px;padding:7px 9px;border:1px solid #604923;border-radius:9px;background:#0f0b08;color:#e4c56f;font-size:.62rem;font-weight:900;letter-spacing:.05em}.jam-auto-actions{grid-template-columns:1fr!important}.jam-auto-actions #jamStart{width:100%;border-color:#d8ad50;box-shadow:0 0 0 1px rgba(216,173,80,.15)}.jam-auto-actions #jamStart:disabled{opacity:.5;box-shadow:none}.jam-stop-only{grid-template-columns:1fr}.v15611-map-summary-title{margin-top:15px!important;border-top:1px solid rgba(215,173,85,.25);padding-top:14px}.v15611-language-beta{font-size:.6rem;color:#bfae89}
+@media(max-width:560px){.settings-language-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="app" id="app2">
@@ -845,6 +851,17 @@ html,body{min-height:100%;}
       <button id="closeAppSettings" type="button" class="settings-close" aria-label="Fechar configurações">×</button>
     </div>
 
+    <div class="app-settings-section" id="settingsLanguageSection">
+      <div class="settings-kicker" id="settingsLanguageKicker">IDIOMA DA INTERFACE • BETA</div>
+      <p id="settingsLanguageCopy">Escolha o idioma da navegação principal. Nesta fase, <b>Home, hubs, Configurações, Jam e Mapa do Guitarrista</b> mudam de idioma; as aulas e explicações didáticas detalhadas continuam em português enquanto a tradução completa é preparada.</p>
+      <div id="settingsLanguageButtons" class="settings-language-grid">
+        <button type="button" data-app-language="pt"><b>PORTUGUÊS</b><small>Idioma atual completo</small></button>
+        <button type="button" data-app-language="en"><b>ENGLISH</b><small>Main interface</small></button>
+        <button type="button" data-app-language="es"><b>ESPAÑOL</b><small>Interfaz principal</small></button>
+      </div>
+      <div id="settingsLanguageCurrent" class="settings-language-current">IDIOMA ATUAL • PORTUGUÊS</div>
+    </div>
+
     <div class="app-settings-section">
       <div class="settings-kicker">CORES DOS INTERVALOS • PADRÃO GLOBAL</div>
       <p>Esta escolha é aplicada em <b>Escalas, Arpejos, CAGED, Acordes e Teoria &amp; Harmonia</b>. O módulo <b>Intervalos</b> possui um seletor próprio para experimentar os dois sistemas sem alterar o restante da app.</p>
@@ -873,7 +890,7 @@ html,body{min-height:100%;}
   <div class="shell home-shell">
     <div class="home-brand">
       <div class="brand" style="font-size:34px;font-weight:700">GUITAR TRAINER</div>
-      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.10 • ORGANIZAÇÃO SEM DUPLICAÇÕES</div>
+      <div class="gold" style="font-size:13px;margin-top:4px">APP2 • V15.6.11 • JAM + IDIOMAS + MAPA</div>
       <button id="openAppSettings" class="home-settings-btn" type="button" aria-label="Abrir configurações" title="Configurações">⚙</button>
     </div>
     <div class="profile-current">
@@ -1036,7 +1053,7 @@ html,body{min-height:100%;}
   <div class="tutorial-grid">
     <button class="tutorial-card" type="button" data-tutorial="tuner"><b>◉ AFINADOR</b><span>Afinações, cents, corda fixa/AUTO e A4.</span><span class="arrow-mini">›</span></button>
     <button class="tutorial-card" type="button" data-tutorial="metronome"><b>♩ METRÔNOMO</b><span>BPM, subdivisões, Speed Trainer, silêncio e acentos.</span><span class="arrow-mini">›</span></button>
-    <button class="tutorial-card" type="button" data-tutorial="settings"><b>⚙ CONFIGURAÇÕES</b><span>Preferências globais e cores intervalares.</span><span class="arrow-mini">›</span></button>
+    <button class="tutorial-card" type="button" data-tutorial="settings"><b>⚙ CONFIGURAÇÕES</b><span>Idioma da interface, preferências globais e cores intervalares.</span><span class="arrow-mini">›</span></button>
   </div>
 
   <div class="home-section-title"><span>ACOMPANHAR</span><i></i></div>
@@ -2128,11 +2145,13 @@ html,body{min-height:100%;}
       </div>
       <div class="jam-auto-actions">
         <button id="jamAutoPick" class="red" type="button">⚡ PREPARAR MELHOR JAM</button>
+        <button id="jamStart" type="button" class="red" disabled>▶ INICIAR JAM</button>
         <button id="jamDevToggle" class="jam-dev-toggle" type="button" style="display:none" aria-hidden="true" tabindex="-1">DETALHES TÉCNICOS</button>
       </div>
+      <div id="jamStatus" class="jam-status"><strong>PRONTO PARA PREPARAR.</strong> Escolha a backtrack e como você quer tocar.</div>
       <div id="jamAutoResult" class="jam-quality good" style="margin-top:10px"><b>PRONTO.</b> Escolha uma backtrack; estilo, tom e BPM serão preenchidos automaticamente. Ou deixe em AUTO e use Estilo/Tom/BPM para a app escolher por você.</div>
       <div id="jamCoverage" class="jam-coverage"><b>TONS DISPONÍVEIS:</b> calculando…</div>
-      <div class="jam-auto-summary"><b>QUALIDADE:</b> a app só usa combinações seguras de tom, BPM e modo SOLO/BASE. Se um tom não puder ser usado com boa qualidade, ele fica indisponível em vez de forçar a gravação.</div>
+      <div class="jam-auto-summary"><b>QUALIDADE:</b> a app só mostra backtracks compatíveis com o modo SOLO/BASE escolhido e usa combinações seguras de tom e BPM. Faixas incompatíveis ficam fora da lista.</div>
     </div>
 
     <div class="jam-card full jam-dev-hidden" id="jamPackCard">
@@ -2207,8 +2226,7 @@ html,body{min-height:100%;}
       <div class="jam-options"><label><input id="jamLoop" type="checkbox" checked> LOOP DA BACKTRACK</label></div>
       <div class="jam-progress-v15"><div id="jamStemProgress"></div></div>
       <div class="jam-time-v15"><span id="jamCurrentTime">0:00</span><span id="jamDuration">0:00</span></div>
-      <div class="jam-transport"><button id="jamStart" type="button" class="red" disabled>▶ INICIAR JAM</button><button id="jamStop" type="button">■ PARAR / VOLTAR AO INÍCIO</button></div>
-      <div id="jamStatus" class="jam-status"><strong>PRONTO PARA PREPARAR.</strong> Escolha a backtrack e como você quer tocar.</div>
+      <div class="jam-transport jam-stop-only"><button id="jamStop" type="button">■ PARAR / VOLTAR AO INÍCIO</button></div>
     </div>
 
     <div class="jam-card full" id="jamCreditCard">
@@ -2414,9 +2432,6 @@ html,body{min-height:100%;}
 
 <section id="guitarist-map" class="screen">
   <div class="rowgap"><button class="ghost" type="button" data-home>← VOLTAR</button><div class="brand" style="font-size:21px">MAPA DO GUITARRISTA</div><div style="width:82px"></div></div>
-  <div class="v15-hero"><h2>V15.1 • PROFESSOR PESSOAL</h2><p>A app cruza <b>o que você sabe</b>, <b>o que já consegue executar</b> e, se quiser, <b>o que deseja aprender</b>. Depois disso, você informa apenas o tempo disponível e a app escolhe o caminho.</p><div class="v15-chip-row"><span class="v15-chip" id="v15MapOverall">NÍVEL • CALCULANDO</span><span class="v15-chip" id="v15MapGoalChip">MODO • —</span><span class="v15-chip" id="v15MapNextChip">PRÓXIMO • —</span></div></div>
-  <div id="v15SkillMap" class="v15-map"></div>
-
   <div class="v15-section-title">V15.6.4 • LEITURA DO PROFESSOR</div>
   <div id="v156TeacherCard" class="v156-teacher-card">
     <div class="v156-teacher-head">
@@ -2454,6 +2469,9 @@ html,body{min-height:100%;}
   <div class="v15-card"><div class="v155-mode-choice"><button id="v155AutoMode" type="button" class="v15-primary"><b>🎓 TREINO DE HOJE</b><span>A app decide o melhor próximo passo para você.</span></button><button id="v155GoalMode" type="button"><b>🎯 QUERO APRENDER…</b><span>Você escolhe o destino; a app escolhe todo o caminho.</span></button></div><div id="v155GoalArea"><h3 style="margin-top:14px">O que você quer aprender?</h3><div id="v15GoalButtons" class="v15-goals"></div><div id="v15Pathway" class="v15-path"></div></div></div>
   <div class="v15-section-title">3 • QUANTO TEMPO VOCÊ TEM HOJE?</div>
   <div class="v15-card dark"><div class="v155-time-buttons" id="v155TimeButtons"><button data-min="10">10 MIN</button><button data-min="20">20 MIN</button><button data-min="30">30 MIN</button><button data-min="45">45 MIN</button></div><select id="v15AvailableMinutes" class="v15-select" style="display:none"><option value="10">10</option><option value="20">20</option><option value="30">30</option><option value="45">45</option></select><h3 id="v15PlanTitle">PLANO DE HOJE</h3><p id="v15PlanCopy"></p><input id="v15PriorityReadout" class="v15-field" readonly style="display:none"><div id="v155SessionPlan" class="v155-session-plan"></div><div class="v15-actions"><button id="v15StartRecommended" class="v15-primary" type="button">▶ INICIAR MEU TREINO</button></div></div>
+  <div class="v15-section-title v15611-map-summary-title">VISÃO GERAL • SEU MAPA DE HABILIDADES</div>
+  <div class="v15-hero"><h2>V15.1 • PROFESSOR PESSOAL</h2><p>A app cruza <b>o que você sabe</b>, <b>o que já consegue executar</b> e, se quiser, <b>o que deseja aprender</b>. Depois disso, você informa apenas o tempo disponível e a app escolhe o caminho.</p><div class="v15-chip-row"><span class="v15-chip" id="v15MapOverall">NÍVEL • CALCULANDO</span><span class="v15-chip" id="v15MapGoalChip">MODO • —</span><span class="v15-chip" id="v15MapNextChip">PRÓXIMO • —</span></div></div>
+  <div id="v15SkillMap" class="v15-map"></div>
 </section>
 
 <section id="technique" class="screen">
@@ -2715,7 +2733,8 @@ const GUIDED_TUTORIAL={
     {sel:'#challengeHistory',title:'HISTÓRICO',copy:'As rodadas concluídas ficam registradas por perfil e alimentam as missões, a sequência de dias e o PROGRESSO.'}
   ]},
   settings:{title:'CONFIGURAÇÕES',screen:'home',steps:[
-    {settingsStage:'gear',sel:'#openAppSettings',title:'ENGRENAGEM GLOBAL',copy:'A engrenagem da página inicial reúne preferências que afetam a app inteira. As cores intervalares começam em PRÁTICO • FAMÍLIAS como padrão de fábrica.'},
+    {settingsStage:'gear',sel:'#openAppSettings',title:'ENGRENAGEM GLOBAL',copy:'A engrenagem da página inicial reúne preferências que afetam a app inteira: idioma da interface e padrão global de cores intervalares.'},
+    {settingsStage:'panel',sel:'#settingsLanguageButtons',title:'IDIOMA DA INTERFACE',copy:'Escolha Português, English ou Español. Nesta fase a navegação principal, Home, hubs, Jam e Mapa mudam de idioma; o conteúdo didático detalhado continua em português enquanto a tradução completa é preparada.'},
     {settingsStage:'panel',sel:'#settingsColorModeButtons',title:'FAMÍLIAS OU INVERSÕES',copy:'FAMÍLIAS prioriza leitura prática de 2ªs, 3ªs, 4ªs, 6ªs e 7ªs. INVERSÕES mostra pares complementares que completam a oitava. A escolha vale para Escalas, CAGED, Arpejos, Acordes e Harmonia.'},
     {settingsStage:'explain',sel:'#settingsColorExplain',title:'ENTENDA A LÓGICA',copy:'A explicação usa 3M ↔ 6m como exemplo: 4 + 8 = 12 semitons e 3 + 6 = 9. O texto do intervalo permanece sempre visível, então a cor é apoio — não a única pista.'}
   ]},
@@ -2734,7 +2753,7 @@ const GUIDED_TUTORIAL={
     {sel:'#jamAutoRole',title:'VOCÊ TOCA SOLO OU BASE',copy:'Escolha aqui uma única vez. Depois que a Jam estiver preparada, trocar EU TOCO SOLO ↔ EU TOCO BASE carrega imediatamente a faixa correspondente, sem precisar preparar a Jam de novo.'},
     {sel:'#jamScaleCard',title:'ESCALAS TRANPOSTAS',copy:'O guia acompanha o novo tom automaticamente e mostra a pentatônica menor e a escala blues correspondentes.'},
     {sel:'#jamMixerCard',title:'VOLUME DA BANDA',copy:'Ajuste o volume geral da backtrack. O equilíbrio entre os instrumentos já vem preparado.'},
-    {sel:'#jamStart',title:'INICIAR JAM',copy:'Quando a backtrack estiver preparada, toque em INICIAR JAM. LOOP repete a faixa continuamente.'}
+    {sel:'#jamStart',title:'INICIAR LOGO DEPOIS DE PREPARAR',copy:'INICIAR JAM agora fica logo abaixo de PREPARAR MELHOR JAM. Quando a backtrack terminar de carregar, o botão é liberado; LOOP continua repetindo a faixa continuamente.'}
   ]},
   metronome:{title:'METRÔNOMO',screen:'metronome',steps:[
     {sel:'#bpmSlider',title:'BPM',copy:'Ajuste a velocidade. O número de BPM usa a semínima como referência.'},
@@ -4966,7 +4985,7 @@ Object.assign(JAM_PACKS,{
 Object.values(JAM_PACKS).forEach(p=>{
   p.assetDir=p.assetDir||`jam-packs/${p.id}/`;
   const roles=p.roles||['solo','base'];
-  p.webAudio=p.hidden?null:{solo:`https://luantrprado01-cloud.github.io/guitar-trainer-app2/https://luantrprado01-cloud.github.io/guitar-trainer-app2/jam-audio/${p.id}/solo.mp3`,base:roles.includes('base')?`https://luantrprado01-cloud.github.io/guitar-trainer-app2/https://luantrprado01-cloud.github.io/guitar-trainer-app2/jam-audio/${p.id}/base.mp3`:null};
+  p.webAudio=p.hidden?null:{solo:`jam-audio/${p.id}/solo.mp3`,base:roles.includes('base')?`jam-audio/${p.id}/base.mp3`:null};
   if(!p.hidden){p.devStemCopy=p.stemCopy;p.stemCopy=`<b>PACK ONLINE.</b> ${roles.includes('base')?'Escolha EU TOCO SOLO ou EU TOCO BASE;':'Este pack é dedicado a EU TOCO SOLO;'} a faixa correta é carregada automaticamente. Nenhum ficheiro precisa ser importado.`}
 });
 
@@ -5058,10 +5077,13 @@ function jamPopulateBacktracks(reset=false,styleOverride=null){
   const sel=document.getElementById('jamBacktrackSelect');if(!sel)return;
   const current=sel.value;
   const style=styleOverride===null?(document.getElementById('jamStyleSelect')?.value||'all'):styleOverride;
-  const packs=jamStylePacks(style).filter(p=>jamPackRedistributable(p));
+  const role=document.getElementById('jamAutoRole')?.value||jamRole||'solo';
+  // V15.6.11: a lista só mostra faixas realmente utilizáveis no papel escolhido.
+  // Assim o usuário não escolhe uma backtrack para depois receber aviso de indisponibilidade.
+  const packs=jamStylePacks(style).filter(p=>jamPackAutoEligible(p)&&jamPackRedistributable(p)&&jamPackFitsRole(p,role));
   sel.innerHTML='';
   const auto=document.createElement('option');auto.value='auto';auto.textContent='AUTO • ESCOLHER PARA MIM';sel.appendChild(auto);
-  packs.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.label+(jamPackAutoEligible(p)?'':' • EM REVISÃO');sel.appendChild(o)});
+  packs.forEach(p=>{const o=document.createElement('option');o.value=p.id;o.textContent=p.label;sel.appendChild(o)});
   const keep=!reset&&[...sel.options].some(o=>o.value===current);
   sel.value=keep?current:'auto';
 }
@@ -5414,11 +5436,15 @@ function jamRoleUI(){
   jamUpdateCoverage();
 }
 async function jamChooseRole(role){
-  const manual=jamSelectedBacktrack();
+  let manual=jamSelectedBacktrack();
   if(manual&&!jamPackRoles(manual).includes(role)){
-    jamSyncRoleForPack(manual);jamRoleUI();jamRefreshAutoPreview();return;
+    // A faixa atual não existe neste papel: retire-a da seleção em vez de exibir indisponibilidade.
+    const back=document.getElementById('jamBacktrackSelect');if(back)back.value='auto';
+    jamClearRoleRestrictions();manual=null;
   }
-  jamRole=role;jamRoleUI();jamPersistAutoPrefs();jamRefreshAutoPreview();
+  jamRole=role;
+  jamPopulateBacktracks(false,document.getElementById('jamStyleSelect')?.value||'all');
+  jamRoleUI();jamPersistAutoPrefs();jamRefreshAutoPreview();
 
   const prepared=!!jamWebNode||jamSourceDuration>0||jamAllReady();
   if(!prepared)return;
@@ -5468,7 +5494,7 @@ async function jamHandleFiles(files){
     if(changed){const p0=jamPack();const key0=document.getElementById('jamTargetKey');if(key0){key0.value=String(p0.rootPc);key0.disabled=p0.knownKey===false}const bpm0=document.getElementById('jamTargetBpm');if(bpm0){bpm0.min=String(p0.minBpm);bpm0.max=String(p0.maxBpm);bpm0.value=String(p0.bpm)}}
   }
   const found={};selected.forEach(file=>{const k=jamStemKind(file.name);if(k&&!found[k])found[k]=file});const detected=Object.keys(found),p=jamPack(),req=p.required||['drums','bass','keys','rhythm','lead'];if(!detected.length){jamSetPackState('Nenhum stem foi reconhecido. Arquivos selecionados: '+selected.map(f=>f.name).join(' • ')+'.');return}jamSetPackState('Reconhecidos '+detected.length+' stem(s): '+detected.join(', ')+'. Preparando áudio…');if(!window.Tone){jamSetPackState('O motor de áudio não carregou. Verifique sua conexão e reabra a app.');return}await Tone.start();Object.keys(jamNodes).forEach(jamDisposeNode);const tasks=Object.entries(found).map(async([k,file])=>{const url=URL.createObjectURL(file);jamStemUrls[k]=url;const player=new Tone.Player();const pitch=new Tone.PitchShift({pitch:0,windowSize:(k==='rhythm'||k==='lead'||k==='keys')?0.1:(k==='bass'?0.09:0.05),feedback:0,wet:0});const gain=new Tone.Gain(1);player.chain(pitch,gain,Tone.Destination);await player.load(url);jamNodes[k]={player,pitch,gain,file};return k});try{await Promise.all(tasks)}catch(err){jamSetPackState('Falha ao decodificar algum arquivo. Se este pack usa FLAC, confirme que seu navegador consegue reproduzir FLAC.');console.error(err)}const durations=Object.values(jamNodes).filter(Boolean).map(n=>n.player.buffer.duration).filter(Number.isFinite);jamSourceDuration=durations.length?Math.max(...durations):0;jamContentStart=jamDetectContentStart();jamPositionSource=jamContentStart;jamPlaybackRate=jamRate();jamUpdateMixerMode();jamApplyTransform(false);jamUpdateStemBadges();jamApplyMix();const missing=req.filter(k=>!jamNodes[k]);if(missing.length){jamSetPackState('Reconhecidos '+(req.length-missing.length)+'/'+req.length+' stems necessários. Faltam: '+missing.map(k=>p.files[k]||k).join(', ')+'. Arquivos recebidos: '+selected.map(f=>f.name).join(' • ')+'.')}else{jamRoleUI();const trimMsg=jamContentStart>0?' Início ajustado do pack: '+jamFmtTime(jamContentStart)+'.':'';document.getElementById('jamStatus').innerHTML='<strong>PRONTO.</strong> Pack carregado.'+trimMsg+' Ouça no tom original antes de testar transposição.';jamUpdateTransport()}}
-function jamSelectPack(){jamStop();jamMidiHarmony={};jamPackId=document.getElementById('jamPackSelect').value;const p=jamPack(),keyText=p.knownKey===false?'TOM A CONFIRMAR':JAM_NOTE_NAMES[p.rootPc]+' '+p.modeLabel;document.getElementById('jamPackHeading').textContent=p.heading;document.getElementById('jamPackMeta').innerHTML=`<span>🎼 ORIGINAL: ${keyText}</span><span>♩ ORIGINAL: ${Number(p.bpm)>0?p.bpm+' BPM':'BPM A CONFIRMAR'}</span><span>🎸 ${p.style}</span><span>↕ ${p.knownKey===false?'SEM TRANSPOSIÇÃO':jamShiftRangeText(p)}</span><span>${p.license}</span>`;const styleSel=document.getElementById('jamStyleSelect');if(styleSel){const current=JAM_STYLE_BY_ID[styleSel.value];if(!current||!current.packs.includes(p.id)){const g=JAM_STYLE_GROUPS.find(x=>x.packs.includes(p.id));if(g)styleSel.value=g.id}};document.getElementById('jamPackTitle').innerHTML=`<b>${p.title}</b><br><span>${p.artist} • ${p.source}</span>`;document.getElementById('jamPackCopy').innerHTML=p.stemCopy;document.getElementById('jamSourceUrlText').value=p.sourceUrl;document.getElementById('jamCreditCopy').innerHTML=`<b>“${p.title}” — ${p.artist}</b><br>Fonte: ${p.source} • Licença: ${p.license}. A atribuição deve ser mantida.`;document.getElementById('jamCreditSource').href=p.sourceUrl;document.getElementById('jamCreditLicense').href=p.licenseUrl;const key=document.getElementById('jamTargetKey');key.value=String(p.rootPc);key.disabled=p.knownKey===false;const bpmCtl=document.getElementById('jamTargetBpm');bpmCtl.disabled=!(Number(p.bpm)>0);if(Number(p.bpm)>0){bpmCtl.min=String(p.minBpm);bpmCtl.max=String(p.maxBpm);bpmCtl.value=String(p.bpm)};jamDisposeWebNode();Object.keys(jamNodes).forEach(jamDisposeNode);jamSourceDuration=0;jamContentStart=0;jamPositionSource=0;jamUpdateStemBadges();jamUpdateQuality();jamUpdateHarmonyGuide();jamSetPackState('Carregando Jam Pack online…');setTimeout(()=>jamLoadBundledPack(false).then(ok=>{if(!ok)jamSetPackState('Não foi possível carregar o áudio desta backtrack.')}).catch(()=>{}),0)}
+function jamSelectPack(){jamStop();jamMidiHarmony={};jamPackId=document.getElementById('jamPackSelect').value;const p=jamPack(),keyText=p.knownKey===false?'TOM A CONFIRMAR':JAM_NOTE_NAMES[p.rootPc]+' '+p.modeLabel;document.getElementById('jamPackHeading').textContent=p.heading;document.getElementById('jamPackMeta').innerHTML=`<span>🎼 ORIGINAL: ${keyText}</span><span>♩ ORIGINAL: ${Number(p.bpm)>0?p.bpm+' BPM':'BPM A CONFIRMAR'}</span><span>🎸 ${p.style}</span><span>↕ ${p.knownKey===false?'SEM TRANSPOSIÇÃO':jamShiftRangeText(p)}</span><span>${p.license}</span>`;const styleSel=document.getElementById('jamStyleSelect');if(styleSel){const current=JAM_STYLE_BY_ID[styleSel.value];if(!current||!current.packs.includes(p.id)){const g=JAM_STYLE_GROUPS.find(x=>x.packs.includes(p.id));if(g)styleSel.value=g.id}};document.getElementById('jamPackTitle').innerHTML=`<b>${p.title}</b><br><span>${p.artist} • ${p.source}</span>`;document.getElementById('jamPackCopy').innerHTML=p.stemCopy;document.getElementById('jamSourceUrlText').value=p.sourceUrl;document.getElementById('jamCreditCopy').innerHTML=`<b>“${p.title}” — ${p.artist}</b><br>Fonte: ${p.source} • Licença: ${p.license}. A atribuição deve ser mantida.`;document.getElementById('jamCreditSource').href=p.sourceUrl;document.getElementById('jamCreditLicense').href=p.licenseUrl;const key=document.getElementById('jamTargetKey');key.value=String(p.rootPc);key.disabled=p.knownKey===false;const bpmCtl=document.getElementById('jamTargetBpm');bpmCtl.disabled=!(Number(p.bpm)>0);if(Number(p.bpm)>0){bpmCtl.min=String(p.minBpm);bpmCtl.max=String(p.maxBpm);bpmCtl.value=String(p.bpm)};jamDisposeWebNode();Object.keys(jamNodes).forEach(jamDisposeNode);jamSourceDuration=0;jamContentStart=0;jamPositionSource=0;jamUpdateStemBadges();jamUpdateQuality();jamUpdateHarmonyGuide();jamSetPackState('Carregando Jam Pack online…');setTimeout(()=>jamLoadBundledPack(false).then(ok=>{if(!ok){jamSetPackState('Não foi possível carregar o áudio desta backtrack.');const st=document.getElementById('jamStatus');if(st)st.innerHTML='<strong>ÁUDIO NÃO CARREGOU.</strong> Verifique a conexão e tente preparar a Jam novamente.'}}).catch(err=>{const st=document.getElementById('jamStatus');if(st)st.innerHTML='<strong>ERRO AO PREPARAR.</strong> Não foi possível carregar a backtrack.';console.warn('Jam load',err)}),0)}
 document.getElementById('jamLoadInstalled').addEventListener('click',()=>jamLoadBundledPack(true));
 document.getElementById('jamSourceOpen').addEventListener('click',()=>{
   const url=jamPack().sourceUrl;
@@ -8488,11 +8514,74 @@ document.querySelectorAll('#home [data-open]').forEach(btn=>btn.addEventListener
 // mas a Home nunca mais oferece duas portas diferentes para a mesma função.
 /* ================= /V15.6.10 ================= */
 
+
+/* ================= V15.6.11 • IDIOMA DA INTERFACE + JAM FIX ================= */
+const GT_LANGUAGE_KEY='guitarTrainerInterfaceLanguage';
+const GT_LANGUAGE_NAMES={pt:'PORTUGUÊS',en:'ENGLISH',es:'ESPAÑOL'};
+let gtLanguage=(()=>{try{return localStorage.getItem(GT_LANGUAGE_KEY)||'pt'}catch(e){return'pt'}})();
+if(!GT_LANGUAGE_NAMES[gtLanguage])gtLanguage='pt';
+
+const GT_I18N={
+  pt:{
+    settings:'⚙ CONFIGURAÇÕES',languageKicker:'IDIOMA DA INTERFACE • BETA',languageCopy:'Escolha o idioma da navegação principal. Nesta fase, Home, hubs, Configurações, Jam e Mapa do Guitarrista mudam de idioma; as aulas e explicações didáticas detalhadas continuam em português enquanto a tradução completa é preparada.',current:'IDIOMA ATUAL • PORTUGUÊS',
+    homeQ:'O que você quer fazer agora?',homeSub:'Escolha pela intenção. O Mapa decide por você; as outras áreas levam diretamente ao tipo de atividade que procura.',
+    map:'MAPA DO GUITARRISTA',mapCopy:'Não sei o que treinar. Quero que o Professor escolha meu próximo passo.',learn:'APRENDER',learnCopy:'Quero entender teoria, braço, acordes, escalas e leitura musical.',train:'TREINAR',trainCopy:'Quero praticar ouvido, técnica, leitura prática ou fazer um treino guiado.',jam:'JAM & TOCAR',jamCopy:'Quero tocar música, escolher meu papel e praticar com uma banda.',explore:'EXPLORAR',exploreCopy:'Quero conhecer guitarristas, estilos, equipamentos e timbres.',tools:'FERRAMENTAS',toolsCopy:'Preciso de afinador, metrônomo ou configurações da app.',
+    learnHero:'Aprenda antes de praticar',trainHero:'Prática e avaliação',exploreHero:'Estilos, guitarristas e som',toolsHero:'Ferramentas rápidas',
+    back:'← VOLTAR',teacher:'V15.6.4 • LEITURA DO PROFESSOR',step1:'1 • DESCOBRIR SEU PONTO ATUAL',step2:'2 • COMO VOCÊ QUER SER GUIADO?',step3:'3 • QUANTO TEMPO VOCÊ TEM HOJE?',summary:'VISÃO GERAL • SEU MAPA DE HABILIDADES',
+    jamPrepare:'⚡ PREPARAR MELHOR JAM',jamStart:'▶ INICIAR JAM',jamStop:'■ PARAR / VOLTAR AO INÍCIO'
+  },
+  en:{
+    settings:'⚙ SETTINGS',languageKicker:'INTERFACE LANGUAGE • BETA',languageCopy:'Choose the main navigation language. In this phase, Home, hubs, Settings, Jam and Guitarist Map are translated; detailed lessons remain in Portuguese while full translation is prepared.',current:'CURRENT LANGUAGE • ENGLISH',
+    homeQ:'What do you want to do now?',homeSub:'Choose by intention. The Map can decide for you; the other areas take you directly to the kind of activity you want.',
+    map:'GUITARIST MAP',mapCopy:'I am not sure what to practice. I want the Teacher to choose my next step.',learn:'LEARN',learnCopy:'I want to understand theory, fretboard, chords, scales and music reading.',train:'PRACTICE',trainCopy:'I want to practice ear training, technique, reading or a guided session.',jam:'JAM & PLAY',jamCopy:'I want to play music, choose my role and practice with a band.',explore:'EXPLORE',exploreCopy:'I want to discover guitarists, styles, gear and tones.',tools:'TOOLS',toolsCopy:'I need the tuner, metronome or app settings.',
+    learnHero:'Learn before you practice',trainHero:'Practice and assessment',exploreHero:'Styles, guitarists and sound',toolsHero:'Quick tools',
+    back:'← BACK',teacher:'V15.6.4 • TEACHER INSIGHT',step1:'1 • FIND YOUR CURRENT LEVEL',step2:'2 • HOW DO YOU WANT TO BE GUIDED?',step3:'3 • HOW MUCH TIME DO YOU HAVE TODAY?',summary:'OVERVIEW • YOUR SKILL MAP',
+    jamPrepare:'⚡ PREPARE BEST JAM',jamStart:'▶ START JAM',jamStop:'■ STOP / BACK TO START'
+  },
+  es:{
+    settings:'⚙ CONFIGURACIÓN',languageKicker:'IDIOMA DE LA INTERFAZ • BETA',languageCopy:'Elige el idioma de la navegación principal. En esta fase, Inicio, secciones, Configuración, Jam y Mapa del Guitarrista cambian de idioma; las lecciones detalladas siguen en portugués mientras se prepara la traducción completa.',current:'IDIOMA ACTUAL • ESPAÑOL',
+    homeQ:'¿Qué quieres hacer ahora?',homeSub:'Elige por intención. El Mapa puede decidir por ti; las demás áreas te llevan directamente al tipo de actividad que buscas.',
+    map:'MAPA DEL GUITARRISTA',mapCopy:'No sé qué practicar. Quiero que el Profesor elija mi próximo paso.',learn:'APRENDER',learnCopy:'Quiero entender teoría, diapasón, acordes, escalas y lectura musical.',train:'ENTRENAR',trainCopy:'Quiero practicar oído, técnica, lectura o hacer una sesión guiada.',jam:'JAM Y TOCAR',jamCopy:'Quiero tocar música, elegir mi papel y practicar con una banda.',explore:'EXPLORAR',exploreCopy:'Quiero conocer guitarristas, estilos, equipo y sonidos.',tools:'HERRAMIENTAS',toolsCopy:'Necesito afinador, metrónomo o configuración de la app.',
+    learnHero:'Aprende antes de practicar',trainHero:'Práctica y evaluación',exploreHero:'Estilos, guitarristas y sonido',toolsHero:'Herramientas rápidas',
+    back:'← VOLVER',teacher:'V15.6.4 • LECTURA DEL PROFESOR',step1:'1 • DESCUBRE TU PUNTO ACTUAL',step2:'2 • ¿CÓMO QUIERES SER GUIADO?',step3:'3 • ¿CUÁNTO TIEMPO TIENES HOY?',summary:'VISIÓN GENERAL • TU MAPA DE HABILIDADES',
+    jamPrepare:'⚡ PREPARAR MEJOR JAM',jamStart:'▶ INICIAR JAM',jamStop:'■ PARAR / VOLVER AL INICIO'
+  }
+};
+
+function gtSetText(sel,text){const el=document.querySelector(sel);if(el&&text!=null)el.textContent=text}
+function gtSetCard(sel,title,copy){gtSetText(sel+' b',title);gtSetText(sel+' small',copy)}
+function gtApplyLanguage(){
+  const L=GT_I18N[gtLanguage]||GT_I18N.pt;
+  document.documentElement.lang=gtLanguage==='pt'?'pt-BR':gtLanguage;
+  gtSetText('#appSettingsTitle',L.settings);gtSetText('#settingsLanguageKicker',L.languageKicker);gtSetText('#settingsLanguageCopy',L.languageCopy);gtSetText('#settingsLanguageCurrent',L.current);
+  gtSetText('.v1569-home-question',L.homeQ);gtSetText('.v1569-home-sub',L.homeSub);
+  gtSetCard('#homeMapCard',L.map,L.mapCopy);gtSetCard('#homeLearnCard',L.learn,L.learnCopy);gtSetCard('#homeTrainCard',L.train,L.trainCopy);gtSetCard('#homeJamCard',L.jam,L.jamCopy);gtSetCard('#homeExploreCard',L.explore,L.exploreCopy);gtSetCard('#homeToolsCard',L.tools,L.toolsCopy);
+  gtSetText('#learn-hub .v1569-hub-intro h2',L.learnHero);gtSetText('#train-hub .v1569-hub-intro h2',L.trainHero);gtSetText('#explore-hub .v1569-hub-intro h2',L.exploreHero);gtSetText('#tools-hub .v1569-hub-intro h2',L.toolsHero);
+  document.querySelectorAll('[data-home]').forEach(b=>{if(/^←\s*(VOLTAR|BACK|VOLVER)$/i.test(b.textContent.trim()))b.textContent=L.back});
+  const map=document.getElementById('guitarist-map');if(map){const titles=[...map.querySelectorAll('.v15-section-title')];titles.forEach(el=>{const t=el.textContent.trim();if(/LEITURA DO PROFESSOR|TEACHER INSIGHT|LECTURA DEL PROFESOR/i.test(t))el.textContent=L.teacher;else if(/^1\s*•/.test(t))el.textContent=L.step1;else if(/^2\s*•/.test(t))el.textContent=L.step2;else if(/^3\s*•/.test(t))el.textContent=L.step3;else if(/VISÃO GERAL|OVERVIEW|VISIÓN GENERAL/i.test(t))el.textContent=L.summary})}
+  const prep=document.getElementById('jamAutoPick');if(prep)prep.textContent=L.jamPrepare;
+  const start=document.getElementById('jamStart');if(start&&!jamRunning)start.textContent=L.jamStart;
+  const stop=document.getElementById('jamStop');if(stop)stop.textContent=L.jamStop;
+  document.querySelectorAll('[data-app-language]').forEach(b=>b.classList.toggle('active',b.dataset.appLanguage===gtLanguage));
+}
+function gtSetLanguage(lang){if(!GT_LANGUAGE_NAMES[lang])return;gtLanguage=lang;try{localStorage.setItem(GT_LANGUAGE_KEY,lang)}catch(e){}gtApplyLanguage()}
+document.querySelectorAll('[data-app-language]').forEach(b=>b.addEventListener('click',()=>gtSetLanguage(b.dataset.appLanguage)));
+const v15611OpenSettings=window.gtOpenSettings;
+if(typeof v15611OpenSettings==='function')window.gtOpenSettings=()=>{v15611OpenSettings();gtApplyLanguage()};
+gtApplyLanguage();
+
+// Diagnóstico visual da Jam: se o áudio ainda não estiver pronto, o botão Start fica bloqueado e a mensagem explica o motivo.
+const v15611JamRefresh=()=>{const b=document.getElementById('jamStart');if(!b)return;const q=jamTransformInfo?.();b.disabled=!jamAllReady?.()||!!q?.blocked};
+setTimeout(v15611JamRefresh,0);
+/* ================= /V15.6.11 ================= */
+
 v15RenderAll();v15NewReading();v15NewArtistQuiz();v15NewStyleQuiz();
 
 drawNote();
 drawChord();
 })();
+
+/* V15.6.11 • JAM: OCULTAR BACKTRACKS INCOMPATÍVEIS COM SOLO/BASE */
 </script>
 </div>
 </body>
